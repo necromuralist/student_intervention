@@ -1,0 +1,106 @@
+3. Preparing the Data
+---------------------
+<<name='imports', echo=False>>=
+# python standard library
+import pickle
+
+# third party
+import pandas
+from sklearn.cross_validation import train_test_split
+
+# this code
+from common import student_data, feature_map
+@
+In this section, we will prepare the data for modeling, training and testing.
+
+Identify feature and target columns
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The target (as noted previously) is the 'passed' column. Here I'll list the feature columns to get an idea of what's there.
+
+<<name='feature_target_split', echo=False>>=
+# Extract feature (X) and target (y) columns
+feature_columns = list(student_data.columns[:-1])  # all columns but last are features
+target_column = student_data.columns[-1]  # last column is the target/label
+X_all = student_data[feature_columns]  # feature values for all students
+y_all = student_data[target_column]  # corresponding targets/labels
+yes_nos = [column for column in feature_columns if 'yes' in X_all[column].unique()]
+@
+.. csv-table:: Features
+   :header: Variable, Description, Data Values
+   :delim: ;
+<<name='print_features', echo=False, results='sphinx', wrap=False>>=
+for column_name in sorted(feature_columns):
+    column = X_all[column_name] 
+    dtype = column.dtype
+    examples = (', '.join(sorted(column.unique())) if dtype == object else
+                ', '.join([str(item) for item in sorted(column.unique())]) if len(column.unique()) < 10
+                else
+                "{0} ... {1}".format(column.min(), column.max()))
+    print('   {0};{1};{2}'.format(column_name,
+                                      feature_map[column_name],
+                                      examples))
+@
+
+Preprocess feature columns
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Some Machine Learning algorithms (e.g. Logistic Regression) require numeric data so the columns with string-data need to be transformed. The columns in this data-set that had 'yes' or 'no' values had the values converted to 1 and 0 respectively. Those columns that had other kinds of categorical data were transformed into dummy-columns.
+
+<<name='Preprocess feature columns', echo=False, wrapy=False>>=
+def preprocess_features(X):
+    """
+    Converts categorical data to numeric
+    :param:
+     - `X`: dataframe of data
+    :return: data with yes/no changed to 1/0, others changed to dummies
+    """
+    outX = pandas.DataFrame(index=X.index)
+
+    # Check each column
+    for col, col_data in X.iteritems():
+        # If data type is non-numeric, try to replace all yes/no values with 1/0
+        if col_data.dtype == object:
+            col_data = col_data.replace(['yes', 'no'], [1, 0])
+        # Note: This should change the data type for yes/no columns to int
+
+        # If still non-numeric, convert to one or more dummy variables
+        if col_data.dtype == object:
+            col_data = pandas.get_dummies(col_data, prefix=col)  # e.g. 'school' => 'school_GP', 'school_MS'
+
+        outX = outX.join(col_data)  # collect column(s) in output dataframe
+    return outX
+
+X_all = preprocess_features(X_all)
+@
+
+Split data into training and test sets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Next the data was converted into training and testing sets.
+
+<<name='train_test_split', echo=False>>=
+# First, decide how many training vs test samples you want
+num_all = student_data.shape[0]  # same as len(student_data)
+num_train = 300  # about 75% of the data
+num_test = num_all - num_train
+
+X_train, X_test, y_train, y_test = train_test_split(X_all, y_all,
+                                                    test_size=num_test,
+                                                    train_size=num_train)
+@
+<<name='pickle_data', echo=False>>=
+data = {"X_train": X_train,
+        "X_test": X_test,
+        "y_train": y_train,
+        "y_test": y_test}
+with open('pickles/pickles.pkl', 'wb') as pickler:
+    pickle.dump(data, pickler)
+@
+
+.. csv-table:: Training and Testing Data
+   :header: Set, Count
+<<name='data_table', echo=False, wrap=False, results='sphinx'>>=
+print("   Training Features,{0}".format(X_train.shape[0]))
+print("   Test Features,{0}".format(X_test.shape[0]))
+@

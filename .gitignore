@@ -1,0 +1,12 @@
+**/api/
+build/
+*.py[cod]
+*egg-info/
+dist/
+**/cache/
+*~
+*.cover
+*.log
+.venv
+.ipynb_checkpoints
+pickles/
