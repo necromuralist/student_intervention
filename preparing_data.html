@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3. Preparing the Data &mdash; Student Intervention System 2016.03.11 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2016.03.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="Student Intervention System 2016.03.11 documentation" href="index.html" />
+    <link rel="next" title="4. Training and Evaluating Models" href="training_and_evaluating.html" />
+    <link rel="prev" title="1. Classification vs Regression" href="exploring_data.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          Student Intervention System</a>
+        <span class="navbar-text navbar-version pull-left"><b>2016.03.11</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="exploring_data.html">1. Classification vs Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exploring_data.html#exploring-the-data">2. Exploring the Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Preparing the Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="training_and_evaluating.html">Training and Evaluating Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_best_model.html">Choosing the Best Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citations.html">Citations</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">3. Preparing the Data</a><ul>
+<li><a class="reference internal" href="#identify-feature-and-target-columns">Identify feature and target columns</a></li>
+<li><a class="reference internal" href="#preprocess-feature-columns">Preprocess feature columns</a></li>
+<li><a class="reference internal" href="#split-data-into-training-and-test-sets">Split data into training and test sets</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="exploring_data.html" title="Previous Chapter: 1. Classification vs Regression"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 1. Classifica...</span>
+    </a>
+  </li>
+  <li>
+    <a href="training_and_evaluating.html" title="Next Chapter: 4. Training and Evaluating Models"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">4. Training a... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/preparing_data.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="preparing-the-data">
+<h1>3. Preparing the Data<a class="headerlink" href="#preparing-the-data" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we will prepare the data for modeling, training and testing.</p>
+<div class="section" id="identify-feature-and-target-columns">
+<h2>Identify feature and target columns<a class="headerlink" href="#identify-feature-and-target-columns" title="Permalink to this headline">¶</a></h2>
+<p>The target (as noted previously) is the &#8216;passed&#8217; column. Here I&#8217;ll list the feature columns to get an idea of what&#8217;s there.</p>
+<table border="1" class="docutils" id="id1">
+<caption><span class="caption-text">Features</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+<th class="head">Data Values</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Dalc</td>
+<td>workday alcohol consumption</td>
+<td>1, 2, 3, 4, 5</td>
+</tr>
+<tr class="row-odd"><td>Fedu</td>
+<td>father&#8217;s education</td>
+<td>0, 1, 2, 3, 4</td>
+</tr>
+<tr class="row-even"><td>Fjob</td>
+<td>father&#8217;s job</td>
+<td>at_home, health, other, services, teacher</td>
+</tr>
+<tr class="row-odd"><td>Medu</td>
+<td>mother&#8217;s education</td>
+<td>0, 1, 2, 3, 4</td>
+</tr>
+<tr class="row-even"><td>Mjob</td>
+<td>mother&#8217;s job</td>
+<td>at_home, health, other, services, teacher</td>
+</tr>
+<tr class="row-odd"><td>Pstatus</td>
+<td>parent&#8217;s cohabitation status</td>
+<td>A, T</td>
+</tr>
+<tr class="row-even"><td>Walc</td>
+<td>weekend alcohol consumption</td>
+<td>1, 2, 3, 4, 5</td>
+</tr>
+<tr class="row-odd"><td>absences</td>
+<td>number of school absences</td>
+<td>0 ... 75</td>
+</tr>
+<tr class="row-even"><td>activities</td>
+<td>extra-curricular activities</td>
+<td>no, yes</td>
+</tr>
+<tr class="row-odd"><td>address</td>
+<td>student&#8217;s home address type</td>
+<td>R, U</td>
+</tr>
+<tr class="row-even"><td>age</td>
+<td>student&#8217;s age</td>
+<td>15, 16, 17, 18, 19, 20, 21, 22</td>
+</tr>
+<tr class="row-odd"><td>failures</td>
+<td>number of past class failures</td>
+<td>0, 1, 2, 3</td>
+</tr>
+<tr class="row-even"><td>famrel</td>
+<td>quality of family relationships</td>
+<td>1, 2, 3, 4, 5</td>
+</tr>
+<tr class="row-odd"><td>famsize</td>
+<td>family size</td>
+<td>GT3, LE3</td>
+</tr>
+<tr class="row-even"><td>famsup</td>
+<td>family educational support</td>
+<td>no, yes</td>
+</tr>
+<tr class="row-odd"><td>freetime</td>
+<td>free time after school</td>
+<td>1, 2, 3, 4, 5</td>
+</tr>
+<tr class="row-even"><td>goout</td>
+<td>going out with friends</td>
+<td>1, 2, 3, 4, 5</td>
+</tr>
+<tr class="row-odd"><td>guardian</td>
+<td>student&#8217;s guardian</td>
+<td>father, mother, other</td>
+</tr>
+<tr class="row-even"><td>health</td>
+<td>current health status</td>
+<td>1, 2, 3, 4, 5</td>
+</tr>
+<tr class="row-odd"><td>higher</td>
+<td>wants to take higher education</td>
+<td>no, yes</td>
+</tr>
+<tr class="row-even"><td>internet</td>
+<td>Internet access at home</td>
+<td>no, yes</td>
+</tr>
+<tr class="row-odd"><td>nursery</td>
+<td>attended nursery school</td>
+<td>no, yes</td>
+</tr>
+<tr class="row-even"><td>paid</td>
+<td>extra paid classes within the course subject (Math or Portuguese)</td>
+<td>no, yes</td>
+</tr>
+<tr class="row-odd"><td>reason</td>
+<td>reason to choose this school</td>
+<td>course, home, other, reputation</td>
+</tr>
+<tr class="row-even"><td>romantic</td>
+<td>within a romantic relationship</td>
+<td>no, yes</td>
+</tr>
+<tr class="row-odd"><td>school</td>
+<td>student&#8217;s school</td>
+<td>GP, MS</td>
+</tr>
+<tr class="row-even"><td>schoolsup</td>
+<td>extra educational support</td>
+<td>no, yes</td>
+</tr>
+<tr class="row-odd"><td>sex</td>
+<td>student&#8217;s sex</td>
+<td>F, M</td>
+</tr>
+<tr class="row-even"><td>studytime</td>
+<td>weekly study time</td>
+<td>1, 2, 3, 4</td>
+</tr>
+<tr class="row-odd"><td>traveltime</td>
+<td>home to school travel time</td>
+<td>1, 2, 3, 4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="preprocess-feature-columns">
+<h2>Preprocess feature columns<a class="headerlink" href="#preprocess-feature-columns" title="Permalink to this headline">¶</a></h2>
+<p>Some Machine Learning algorithms (e.g. Logistic Regression) require numeric data so the columns with string-data need to be transformed. The columns in this data-set that had &#8216;yes&#8217; or &#8216;no&#8217; values had the values converted to 1 and 0 respectively. Those columns that had other kinds of categorical data were transformed into dummy-columns.</p>
+<p>In addition, the target data was also changed so that instead of &#8216;yes&#8217; and &#8216;no&#8217; values it contained only &#8216;1&#8217; and &#8216;0&#8217; values.</p>
+</div>
+<div class="section" id="split-data-into-training-and-test-sets">
+<h2>Split data into training and test sets<a class="headerlink" href="#split-data-into-training-and-test-sets" title="Permalink to this headline">¶</a></h2>
+<p>Next the data was shuffled and then split into training and testing sets.</p>
+<table border="1" class="docutils" id="id2">
+<caption><span class="caption-text">Training and Testing Data</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Set</th>
+<th class="head">Count</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Training Features</td>
+<td>300</td>
+</tr>
+<tr class="row-odd"><td>Test Features</td>
+<td>95</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Russell Nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

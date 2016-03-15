@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Project 2: Supervised Learning &mdash; Student Intervention System 2016.03.11 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2016.03.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="Student Intervention System 2016.03.11 documentation" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          Student Intervention System</a>
+        <span class="navbar-text navbar-version pull-left"><b>2016.03.11</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="exploring_data.html">1. Classification vs Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exploring_data.html#exploring-the-data">2. Exploring the Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preparing_data.html">Preparing the Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="training_and_evaluating.html">Training and Evaluating Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_best_model.html">Choosing the Best Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citations.html">Citations</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Project 2: Supervised Learning</a><ul>
+<li><a class="reference internal" href="#building-a-student-intervention-system">Building a Student Intervention System</a><ul>
+<li><a class="reference internal" href="#classification-vs-regression">1. Classification vs Regression</a></li>
+<li><a class="reference internal" href="#exploring-the-data">2. Exploring the Data</a></li>
+<li><a class="reference internal" href="#preparing-the-data">3. Preparing the Data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#identify-feature-and-target-columns">Identify feature and target columns</a></li>
+<li><a class="reference internal" href="#preprocess-feature-columns">Preprocess feature columns</a></li>
+<li><a class="reference internal" href="#split-data-into-training-and-test-sets">Split data into training and test sets</a><ul>
+<li><a class="reference internal" href="#training-and-evaluating-models">4. Training and Evaluating Models</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#logisticregression">LogisticRegression</a></li>
+<li><a class="reference internal" href="#random-forests">Random Forests</a></li>
+<li><a class="reference internal" href="#k-nearest-neighbors">K-Nearest Neighbors</a><ul>
+<li><a class="reference internal" href="#choosing-the-best-model">5. Choosing the Best Model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/student_intervention.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="project-2-supervised-learning">
+<h1>Project 2: Supervised Learning<a class="headerlink" href="#project-2-supervised-learning" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="building-a-student-intervention-system">
+<h2>Building a Student Intervention System<a class="headerlink" href="#building-a-student-intervention-system" title="Permalink to this headline">¶</a></h2>
+<p><em>Note to self:</em> this is the source of the data:
+<a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Student+Performance">https://archive.ics.uci.edu/ml/datasets/Student+Performance</a>.</p>
+<div class="section" id="classification-vs-regression">
+<h3>1. Classification vs Regression<a class="headerlink" href="#classification-vs-regression" title="Permalink to this headline">¶</a></h3>
+<p>Your goal is to identify students who might need early intervention -
+which type of supervised machine learning problem is this,
+classification or regression? Why?</p>
+<p>Identifying students who might need early intervention is a
+classification problem as you are sorting students into classes (<em>needs
+intervention</em>, <em>doesn&#8217;t need intervention</em>) rather than trying to
+predict a quantitative value.</p>
+</div>
+<div class="section" id="exploring-the-data">
+<h3>2. Exploring the Data<a class="headerlink" href="#exploring-the-data" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s go ahead and read in the student dataset first.</p>
+<p><em>To execute a code cell, click inside it and press **Shift+Enter*</em>.*</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="c1"># my imports</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plot</span>
+<span class="kn">import</span> <span class="nn">seaborn</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.grid_search</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">make_scorer</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span>%matplotlib inline
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Read student data</span>
+<span class="n">student_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;student-data.csv&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Student data read successfully!&quot;</span><span class="p">)</span>
+<span class="c1"># Note: The last column &#39;passed&#39; is the target/label, all other are feature columns</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Student data read successfully!
+</pre></div>
+</div>
+<p>Now, can you find out the following facts about the dataset? - Total
+number of students - Number of students who passed - Number of students
+who failed - Graduation rate of the class (%) - Number of features</p>
+<p><em>Use the code block below to compute these values. Instructions/steps
+are marked using **TODO*</em>s.*</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="n">n_students</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">n_passed</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">student_data</span><span class="o">.</span><span class="n">passed</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;no&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}))</span>
+<span class="n">n_failed</span> <span class="o">=</span> <span class="n">n_students</span> <span class="o">-</span> <span class="n">n_passed</span>
+<span class="n">grad_rate</span> <span class="o">=</span> <span class="n">n_passed</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">n_students</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Total number of students: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_students</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Number of students who passed: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_passed</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Number of students who failed: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_failed</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Number of features: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_features</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Graduation rate of the class: {:.2f}%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">grad_rate</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Total number of students: 395
+Number of students who passed: 265
+Number of students who failed: 130
+Number of features: 31
+Graduation rate of the class: 0.67%
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="n">types</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">dtypes</span>
+<span class="n">categoricals</span> <span class="o">=</span> <span class="p">[</span><span class="n">column</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">types</span><span class="o">.</span><span class="n">index</span> <span class="k">if</span> <span class="n">types</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">==</span> <span class="nb">object</span><span class="p">]</span>
+<span class="n">numericals</span> <span class="o">=</span> <span class="p">[</span><span class="n">column</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">types</span><span class="o">.</span><span class="n">index</span> <span class="k">if</span> <span class="n">column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">categoricals</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Categorical Variables: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">categoricals</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Numeric Variables: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">numericals</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Categorical Variables: 18
+Numeric Variables: 13
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">categorical</span> <span class="ow">in</span> <span class="n">categoricals</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{0}</span><span class="se">\t</span><span class="s1">{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">categorical</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">student_data</span><span class="p">[</span><span class="n">categorical</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>school      GP,MS
+sex F,M
+address     U,R
+famsize     GT3,LE3
+Pstatus     A,T
+Mjob        at_home,health,other,services,teacher
+Fjob        teacher,other,services,health,at_home
+reason      course,other,home,reputation
+guardian    mother,father,other
+schoolsup   yes,no
+famsup      no,yes
+paid        no,yes
+activities  no,yes
+nursery     yes,no
+higher      yes,no
+internet    no,yes
+romantic    no,yes
+passed      no,yes
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="n">categorical_data</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="n">categoricals</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">categorical</span> <span class="ow">in</span> <span class="n">categoricals</span><span class="p">:</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">seaborn</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">categorical_data</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;passed&#39;</span><span class="p">)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">seaborn</span><span class="o">.</span><span class="n">countplot</span><span class="p">,</span> <span class="n">categorical</span><span class="p">)</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;passed vs {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">categorical</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f462aea50&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f463e80d0&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f46539b90&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f468f7a90&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f46796bd0&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f46a30050&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f46a41190&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f46b5d350&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f46c63450&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f46d9ced0&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f46f23d90&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f470cc350&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f471e0290&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f472daa50&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f4777c150&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f47556390&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f476feb10&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f47a50810&gt;
+</pre></div>
+</div>
+<p>Surprisingly, Females were less likely to pass than males.
+<code class="docutils literal"><span class="pre">family</span> <span class="pre">size</span></code> seems to influence passing, as does parental
+cohabitation, whether parents worked jobs other than services, health,
+teacher, or at home, reason for taking the course, whether they were
+paid, whether they had internet access at home.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="n">figure</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">axe</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">axe</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;numeric variables&#39;</span><span class="p">)</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">seaborn</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">student_data</span><span class="p">[</span><span class="n">numericals</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axe</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f47a50350&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>/home/charon/.virtualenvs/machinelearning/local/lib/python2.7/site-packages/seaborn/categorical.py:2125: UserWarning: The boxplot API has been changed. Attempting to adjust your arguments for the new API (which might not work). Please update your code. See the version 0.6 release notes for more info.
+  warnings.warn(msg, UserWarning)
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="n">numerical_data</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="n">numericals</span><span class="p">]</span>
+<span class="n">figure</span> <span class="o">=</span> <span class="n">plot</span> <span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">axe</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">axe</span> <span class="o">=</span> <span class="n">numerical_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axe</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f45aff3d0&gt;
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pandas.tools.plotting</span> <span class="kn">import</span> <span class="n">parallel_coordinates</span>
+<span class="n">numerical_data</span><span class="p">[</span><span class="s1">&#39;passed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="s1">&#39;passed&#39;</span><span class="p">]</span>
+<span class="n">figure</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">axe</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">subplot</span> <span class="o">=</span> <span class="n">parallel_coordinates</span><span class="p">(</span><span class="n">numerical_data</span><span class="p">,</span> <span class="s1">&#39;passed&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axe</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f45bfd6d0&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>/home/charon/.virtualenvs/machinelearning/lib/python2.7/site-packages/ipykernel/__main__.py:2: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  from ipykernel import kernelapp as app
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="n">passed</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">passed</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">/</span><span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">passed</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>yes    0.670886
+no     0.329114
+Name: passed, dtype: float64
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">seaborn</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">student_data</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;passed&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">map_dataframe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">data</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">seaborn</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f47a9afd0&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>/home/charon/.virtualenvs/machinelearning/local/lib/python2.7/site-packages/matplotlib/collections.py:590: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+  if self._edgecolors == str(&#39;face&#39;):
+</pre></div>
+</div>
+<p>The highest corellations appear to be Dalc (workday alcohol consumption)
+and Walc (weekend alcohol consumption), along with Medu (mother&#8217;s
+education) and Fedu (father&#8217;s education).</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="n">figure</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">axe</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">axe</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;proportion&#39;</span><span class="p">)</span>
+<span class="n">axe</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Count of Passing Students&quot;</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">seaborn</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">student_data</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axe</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;matplotlib.figure.Figure at 0x7f1f477bf350&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="preparing-the-data">
+<h3>3. Preparing the Data<a class="headerlink" href="#preparing-the-data" title="Permalink to this headline">¶</a></h3>
+<p>In this section, we will prepare the data for modeling, training and
+testing.</p>
+</div>
+</div>
+<div class="section" id="identify-feature-and-target-columns">
+<h2>Identify feature and target columns<a class="headerlink" href="#identify-feature-and-target-columns" title="Permalink to this headline">¶</a></h2>
+<p>It is often the case that the data you obtain contains non-numeric
+features. This can be a problem, as most machine learning algorithms
+expect numeric data to perform computations with.</p>
+<p>Let&#8217;s first separate our data into feature and target columns, and see
+if any features are non-numeric. <strong>Note</strong>: For this dataset, the last
+column (<code class="docutils literal"><span class="pre">'passed'</span></code>) is the target or label we are trying to predict.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Extract feature (X) and target (y) columns</span>
+<span class="n">feature_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">student_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># all columns but last are features</span>
+<span class="n">target_col</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># last column is the target/label</span>
+<span class="k">print</span> <span class="s2">&quot;Feature column(s):-</span><span class="se">\n</span><span class="s2">{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_cols</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Target column: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target_col</span><span class="p">)</span>
+
+<span class="n">X_all</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="n">feature_cols</span><span class="p">]</span>  <span class="c1"># feature values for all students</span>
+<span class="n">y_all</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span>  <span class="c1"># corresponding targets/labels</span>
+<span class="k">print</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Feature values:-&quot;</span>
+<span class="k">print</span> <span class="n">X_all</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>  <span class="c1"># print the first 5 rows</span>
+</pre></div>
+</div>
+<pre class="literal-block">
+Feature column(s):-
+['school', 'sex', 'age', 'address', 'famsize', 'Pstatus', 'Medu', 'Fedu', 'Mjob', 'Fjob', 'reason', 'guardian', 'traveltime', 'studytime', 'failures', 'schoolsup', 'famsup', 'paid', 'activities', 'nursery', 'higher', 'internet', 'romantic', 'famrel', 'freetime', 'goout', 'Dalc', 'Walc', 'health', 'absences']
+Target column: passed
+
+Feature values:-
+  school sex  age address famsize Pstatus  Medu  Fedu     Mjob      Fjob  0     GP   F   18       U     GT3       A     4     4  at_home   teacher
+1     GP   F   17       U     GT3       T     1     1  at_home     other
+2     GP   F   15       U     LE3       T     1     1  at_home     other
+3     GP   F   15       U     GT3       T     4     2   health  services
+4     GP   F   16       U     GT3       T     3     3    other     other
+
+    ...    higher internet  romantic  famrel  freetime goout Dalc Walc health  0   ...       yes       no        no       4         3     4    1    1      3
+1   ...       yes      yes        no       5         3     3    1    1      3
+2   ...       yes      yes        no       4         3     2    2    3      3
+3   ...       yes      yes       yes       3         2     2    1    1      5
+4   ...       yes       no        no       4         3     2    1    2      5
+
+  absences
+0        6
+1        4
+2       10
+3        2
+4        4
+
+[5 rows x 30 columns]
+</pre>
+</div>
+<div class="section" id="preprocess-feature-columns">
+<h2>Preprocess feature columns<a class="headerlink" href="#preprocess-feature-columns" title="Permalink to this headline">¶</a></h2>
+<p>As you can see, there are several non-numeric columns that need to be
+converted! Many of them are simply <code class="docutils literal"><span class="pre">yes</span></code>/<code class="docutils literal"><span class="pre">no</span></code>, e.g. <code class="docutils literal"><span class="pre">internet</span></code>.
+These can be reasonably converted into <code class="docutils literal"><span class="pre">1</span></code>/<code class="docutils literal"><span class="pre">0</span></code> (binary) values.</p>
+<p>Other columns, like <code class="docutils literal"><span class="pre">Mjob</span></code> and <code class="docutils literal"><span class="pre">Fjob</span></code>, have more than two values,
+and are known as <em>categorical variables</em>. The recommended way to handle
+such a column is to create as many columns as possible values (e.g.
+<code class="docutils literal"><span class="pre">Fjob_teacher</span></code>, <code class="docutils literal"><span class="pre">Fjob_other</span></code>, <code class="docutils literal"><span class="pre">Fjob_services</span></code>, etc.), and assign a
+<code class="docutils literal"><span class="pre">1</span></code> to one of them and <code class="docutils literal"><span class="pre">0</span></code> to all others.</p>
+<p>These generated columns are sometimes called <em>dummy variables</em>, and we
+will use the
+<code class="docutils literal"><span class="pre">`pandas.get_dummies()</span></code> &lt;<a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.get_dummies.html?highlight=get_dummies#pandas.get_dummies">http://pandas.pydata.org/pandas-docs/stable/generated/pandas.get_dummies.html?highlight=get_dummies#pandas.get_dummies</a>&gt;`__
+function to perform this transformation.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Preprocess feature columns</span>
+<span class="k">def</span> <span class="nf">preprocess_features</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="n">outX</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>  <span class="c1"># output dataframe, initially empty</span>
+
+    <span class="c1"># Check each column</span>
+    <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">col_data</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+        <span class="c1"># If data type is non-numeric, try to replace all yes/no values with 1/0</span>
+        <span class="k">if</span> <span class="n">col_data</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">object</span><span class="p">:</span>
+            <span class="n">col_data</span> <span class="o">=</span> <span class="n">col_data</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="c1"># Note: This should change the data type for yes/no columns to int</span>
+
+        <span class="c1"># If still non-numeric, convert to one or more dummy variables</span>
+        <span class="k">if</span> <span class="n">col_data</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">object</span><span class="p">:</span>
+            <span class="n">col_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">col_data</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>  <span class="c1"># e.g. &#39;school&#39; =&gt; &#39;school_GP&#39;, &#39;school_MS&#39;</span>
+
+        <span class="n">outX</span> <span class="o">=</span> <span class="n">outX</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">col_data</span><span class="p">)</span>  <span class="c1"># collect column(s) in output dataframe</span>
+
+    <span class="k">return</span> <span class="n">outX</span>
+
+<span class="n">X_all</span> <span class="o">=</span> <span class="n">preprocess_features</span><span class="p">(</span><span class="n">X_all</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Processed feature columns ({}):-</span><span class="se">\n</span><span class="s2">{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_all</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">X_all</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Processed feature columns (48):-
+[&#39;school_GP&#39;, &#39;school_MS&#39;, &#39;sex_F&#39;, &#39;sex_M&#39;, &#39;age&#39;, &#39;address_R&#39;, &#39;address_U&#39;, &#39;famsize_GT3&#39;, &#39;famsize_LE3&#39;, &#39;Pstatus_A&#39;, &#39;Pstatus_T&#39;, &#39;Medu&#39;, &#39;Fedu&#39;, &#39;Mjob_at_home&#39;, &#39;Mjob_health&#39;, &#39;Mjob_other&#39;, &#39;Mjob_services&#39;, &#39;Mjob_teacher&#39;, &#39;Fjob_at_home&#39;, &#39;Fjob_health&#39;, &#39;Fjob_other&#39;, &#39;Fjob_services&#39;, &#39;Fjob_teacher&#39;, &#39;reason_course&#39;, &#39;reason_home&#39;, &#39;reason_other&#39;, &#39;reason_reputation&#39;, &#39;guardian_father&#39;, &#39;guardian_mother&#39;, &#39;guardian_other&#39;, &#39;traveltime&#39;, &#39;studytime&#39;, &#39;failures&#39;, &#39;schoolsup&#39;, &#39;famsup&#39;, &#39;paid&#39;, &#39;activities&#39;, &#39;nursery&#39;, &#39;higher&#39;, &#39;internet&#39;, &#39;romantic&#39;, &#39;famrel&#39;, &#39;freetime&#39;, &#39;goout&#39;, &#39;Dalc&#39;, &#39;Walc&#39;, &#39;health&#39;, &#39;absences&#39;]
+</pre></div>
+</div>
+</div>
+<div class="section" id="split-data-into-training-and-test-sets">
+<h2>Split data into training and test sets<a class="headerlink" href="#split-data-into-training-and-test-sets" title="Permalink to this headline">¶</a></h2>
+<p>So far, we have converted all <em>categorical</em> features into numeric
+values. In this next step, we split the data (both features and
+corresponding labels) into training and test sets.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="c1"># First, decide how many training vs test samples you want</span>
+<span class="n">num_all</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># same as len(student_data)</span>
+<span class="n">num_train</span> <span class="o">=</span> <span class="mi">300</span>  <span class="c1"># about 75% of the data</span>
+<span class="n">num_test</span> <span class="o">=</span> <span class="n">num_all</span> <span class="o">-</span> <span class="n">num_train</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_all</span><span class="p">,</span> <span class="n">y_all</span><span class="p">,</span>
+                                                    <span class="n">test_size</span><span class="o">=</span><span class="n">num_test</span><span class="p">,</span>
+                                                    <span class="n">train_size</span><span class="o">=</span><span class="n">num_train</span><span class="p">)</span>
+
+
+<span class="k">print</span> <span class="s2">&quot;Training set: {} samples&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">print</span> <span class="s2">&quot;Test set: {} samples&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1"># Note: If you need a validation set, extract it from within training data</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Training set: 300 samples
+Test set: 95 samples
+</pre></div>
+</div>
+<div class="section" id="training-and-evaluating-models">
+<h3>4. Training and Evaluating Models<a class="headerlink" href="#training-and-evaluating-models" title="Permalink to this headline">¶</a></h3>
+<p>Choose 3 supervised learning models that are available in scikit-learn,
+and appropriate for this problem. For each model:</p>
+<ul class="simple">
+<li>What are the general applications of this model? What are its
+strengths and weaknesses?</li>
+<li>Given what you know about the data so far, why did you choose this
+model to apply?</li>
+<li>Fit this model to the training data, try to predict labels (for both
+training and test sets), and measure the F1 score. Repeat this
+process with different training set sizes (100, 200, 300), keeping
+test set constant.</li>
+</ul>
+<p>Produce a table showing training time, prediction time, F1 score on
+training set and F1 score on test set, for each training set size.</p>
+<p>Note: You need to produce 3 such tables - one for each model.</p>
+</div>
+</div>
+<div class="section" id="logisticregression">
+<h2>LogisticRegression<a class="headerlink" href="#logisticregression" title="Permalink to this headline">¶</a></h2>
+<p>The first supervised learning model that I&#8217;ve chosen is
+<code class="docutils literal"><span class="pre">Logistic</span> <span class="pre">Regression</span> <span class="pre">&lt;http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression&gt;</span></code>_.
+Logistic Regression uses numeric data to predict binary categorical
+values, matching our inputs (after transformation) and outputs here. It
+is a linear classification model and so does best when the data is
+linearly separable, although it can be made to work as long as the
+features are pairwise-separable (Alpaydin, 2010). Logistic Regression
+has the advantage of being computationally cheap, reasonable to
+implement, and is interpretable but has the disadvantage that it is
+prone to underfitting (Harrington, 2012).</p>
+<p>Logistic Regression uses the log-likelihood of the model to decide how
+good it is and tries to improve it by choosing weights that maximize the
+log-likelihood (Witten &amp; Eibe, 2005). Logistic Regression calculates the
+probability that a target-feature is 1 using the
+<code class="docutils literal"><span class="pre">logistic</span> <span class="pre">(sigmoid)</span> <span class="pre">function</span></code> (Alpaydin, 2010).</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span>%%latex
+P(y=1|x) = sigmoid(W^Tx + w_0)
+= \frac{1}{1 + e^{-(W^Tx + w_0)}}
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Latex object&gt;
+</pre></div>
+</div>
+<p>The sklearn implementation also supports regularization and thus can be
+used for feature selection.</p>
+</div>
+<div class="section" id="random-forests">
+<h2>Random Forests<a class="headerlink" href="#random-forests" title="Permalink to this headline">¶</a></h2>
+<p>The second learning model that I will use will be
+<a href="#id1"><span class="problematic" id="id2">`Random Forests&lt;http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier&gt;`_</span></a>.
+This is an ensemble learner that combines predictions from multiple
+decision trees, each trained on a separate data set.</p>
+<p>Decision Trees have several advantages, including the fact that they are
+easily interpretable, can sometimes fit complex data more easily than
+linear models, and don&#8217;t require dummy variable. They are, however,
+generally not as accurate (James G. et al., 2013).</p>
+<p>The idea behind using ensemble learners is that any particular model has
+a bias built into it based on its assumptions - when the assumptions are
+wrong it will perform poorly. You can improve performance by combining
+base-learners each of which has a different bias so that (ideally) no
+instance of the data will cause a majority of the learners to perform
+poorly, even if each performs poorly in some instances. For combining of
+models to work, there has to be enough diversity that they don&#8217;t all
+fail on the same data (Alpaydin 2010).</p>
+<p>The first way to introduce diversity is through <em>bagging (boostrap
+aggregation)</em> where each tree (base-learner) is given a data set that is
+constructed by re-sampling (with replacement) from the training-data.</p>
+<p>The next way that diversity is introduced is by using a random samples
+of features whenever a split is made, rather than choosing the best
+split from all the features (the number of features used is near the
+square-root of the number of total features). By keeping the number of
+features small it reduces the likelihood that more influential features
+will dominate the splitting early on, causing the trees to be too
+similar (Gareth G. et al., 2013). This use of sub-sets of features in
+splitting is what makes it a random-forest (rather than just bagged
+trees).</p>
+<p>Predictions are made by having each tree make a prediction and then the
+average of the predictions is used for the final prediction for the
+entire forest. Using these methods improves the performance over using
+an individual tree, but the ensemble is no longer interpretable the way
+a tree would be.</p>
+</div>
+<div class="section" id="k-nearest-neighbors">
+<h2>K-Nearest Neighbors<a class="headerlink" href="#k-nearest-neighbors" title="Permalink to this headline">¶</a></h2>
+<p>My final predictor will use <em>K-Nearest Neighbors (KNN)</em> classification.
+It is a fairly straight-forward method that doesn&#8217;t build a model in the
+sense that the other two methods do. Instead KNN stores the training
+data and when asked to make a prediction finds the <em>k</em> number of points
+in the training data that are &#8216;closest&#8217; to the input and calculates the
+probability of a classification (say <em>y=1</em>) as the fraction of the
+k-neighbors that are of that class. Thus if k=4 and three of the chosen
+neighbors are classified as <em>1</em> then the predicted class will be <em>1</em>,
+because the majority of the neighbors were 1.</p>
+<p>Unlike Logistic Regression, KNN doesn&#8217;t require linear separability and
+unlike some other methods also makes no assumption about the
+distribution of the data (it is <em>non-parametric</em>). This makes it better
+in some cases, but how accurate it is depends on the choice of <em>k</em>. If
+<em>k</em> is too small it will tend to overfit the training data and if <em>k</em> is
+too large, it will become too rigid. Besides the difficulty in choosing
+<em>k</em>, because it is non-parametric it&#8217;s not possible to inspect the model
+to decide which features are important. Additionally, since it&#8217;s
+non-parametric, KNN needs more data to be accurate.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Train a model</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">train_classifier</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s2">&quot;Training {}...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s2">&quot;Done!</span><span class="se">\n</span><span class="s2">Training time (secs): {:.3f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+
+<span class="c1"># TODO: Choose a model, import it and instantiate an object</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+
+<span class="c1"># Fit model to training data</span>
+<span class="n">train_classifier</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>  <span class="c1"># note: using entire training set here</span>
+<span class="k">print</span> <span class="n">clf</span>  <span class="c1"># you can inspect the learned model by printing it</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Training DecisionTreeClassifier...
+Done!
+Training time (secs): 0.004
+DecisionTreeClassifier(class_weight=None, criterion=&#39;gini&#39;, max_depth=None,
+            max_features=None, max_leaf_nodes=None, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter=&#39;best&#39;)
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Predict on training set and compute F1 score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span>
+
+<span class="k">def</span> <span class="nf">predict_labels</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s2">&quot;Predicting labels using {}...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s2">&quot;Done!</span><span class="se">\n</span><span class="s2">Prediction time (secs): {:.3f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;yes&#39;</span><span class="p">)</span>
+
+<span class="n">train_f1_score</span> <span class="o">=</span> <span class="n">predict_labels</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;F1 score for training set: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">train_f1_score</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Predicting labels using DecisionTreeClassifier...
+Done!
+Prediction time (secs): 0.001
+F1 score for training set: 1.0
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Predict on test data</span>
+<span class="k">print</span> <span class="s2">&quot;F1 score for test set: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">predict_labels</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Predicting labels using DecisionTreeClassifier...
+Done!
+Prediction time (secs): 0.001
+F1 score for test set: 0.588235294118
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Train and predict using different training set sizes</span>
+<span class="k">def</span> <span class="nf">train_predict</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s2">&quot;------------------------------------------&quot;</span>
+    <span class="k">print</span> <span class="s2">&quot;Training set size: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span>
+    <span class="n">train_classifier</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s2">&quot;F1 score for training set: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">predict_labels</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
+    <span class="k">print</span> <span class="s2">&quot;F1 score for test set: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">predict_labels</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Classifier</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Trains, predicts, evaluates classifier using f1 score</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">delim</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param:</span>
+<span class="sd">         - `classifier`: sklearn classifier object</span>
+<span class="sd">         - `x_train`: feature training data</span>
+<span class="sd">         - `y_train`: target training data</span>
+<span class="sd">         - `x_test`: feature test data</span>
+<span class="sd">         - `y_test`: target test data</span>
+<span class="sd">         - `delim`: separator for the table row</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clf</span> <span class="o">=</span> <span class="n">classifier</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_classifier</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_test</span> <span class="o">=</span> <span class="n">x_test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span> <span class="o">=</span> <span class="n">y_test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_f1_train</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_f1_test</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delim</span> <span class="o">=</span> <span class="n">delim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_table_row</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_training_time</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prediction_time</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">f1_train</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: F1 score using training data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f1_train</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">,</span> <span class="n">time_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_train</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_f1_train</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f1_score</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f1_train</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">f1_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: f1 score for test-set predictions</span>
+<span class="sd">        :postcondition: self.prection_time set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f1_test</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prediction_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_test</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_f1_test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f1_score</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f1_test</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">prediction_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: prediction time for test data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prediction_time</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prediction_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_test</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_f1_test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f1_score</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prediction_time</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">training_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: training time in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_training_time</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_classifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_training_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_training_time</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">classifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: trained classifier</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_classifier</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_classifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_training_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_classifier</span>
+
+    <span class="k">def</span> <span class="nf">f1_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param:</span>
+<span class="sd">         - `predictions`: predicted values for model</span>
+<span class="sd">         - `target`: actual outcomes from data</span>
+<span class="sd">        :return: f1 score for predictions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;yes&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param:</span>
+<span class="sd">         - `features`: array of feature data</span>
+<span class="sd">        :return: predicted values, time to execute</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+        <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+        <span class="k">return</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">elapsed</span>
+
+    <span class="k">def</span> <span class="nf">train_and_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: time, f1 score for training and testing data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">train_predictions</span><span class="p">,</span> <span class="n">train_predictions_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_train</span><span class="p">)</span>
+        <span class="n">train_f1_score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f1_score</span><span class="p">(</span><span class="n">train_predictions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
+
+        <span class="n">test_predictions</span><span class="p">,</span> <span class="n">test_predictions_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_test</span><span class="p">)</span>
+        <span class="n">test_f1_score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f1_score</span><span class="p">(</span><span class="n">test_predictions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">train_predictions_time</span><span class="p">,</span> <span class="n">train_f1_score</span><span class="p">,</span>
+                <span class="n">test_predictions_time</span><span class="p">,</span> <span class="n">test_f1_score</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">table_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: string of training size, training time, prediction time, f1 train, f1 test</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_table_row</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_table_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delim</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_train</span><span class="p">))]</span> <span class="o">+</span>
+                                              <span class="p">[</span><span class="s2">&quot;{0:.4f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">training_time</span><span class="p">,</span>
+                                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">prediction_time</span><span class="p">,</span>
+                                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">f1_train</span><span class="p">,</span>
+                                                                                   <span class="bp">self</span><span class="o">.</span><span class="n">f1_test</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_table_row</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train_and_predict</span><span class="p">(</span><span class="n">clf</span><span class="p">):</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+        <span class="n">x_train_subset</span><span class="p">,</span> <span class="n">y_train_subset</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[:</span><span class="n">size</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">size</span><span class="p">]</span>
+        <span class="n">classifier</span> <span class="o">=</span> <span class="n">Classifier</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">x_train_subset</span><span class="p">,</span> <span class="n">y_train_subset</span><span class="p">,</span>
+                                <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">delim</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># train_time, train_score, test_time, test_score = classifier.train_and_predict()</span>
+        <span class="c1"># print(&#39;\t\t\t&#39;.join([str(size)] + [&#39;{0:.2f}&#39;.format(item) for item in (classifier.training_time,</span>
+        <span class="c1">#                                                                        train_score,</span>
+        <span class="c1">#                                                                        test_time,</span>
+        <span class="c1">#                                                                        test_score)]))</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">classifier</span><span class="o">.</span><span class="n">table_row</span><span class="p">)</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">classifier</span><span class="o">.</span><span class="n">f1_test</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span><span class="p">,</span> <span class="n">SGDClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">AdaBoostClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+
+<span class="n">classifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">LogisticRegression</span><span class="p">(),</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(),</span> <span class="n">RandomForestClassifier</span><span class="p">(),</span>
+               <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(),</span> <span class="n">GaussianNB</span><span class="p">(),</span> <span class="n">SGDClassifier</span><span class="p">(),</span> <span class="n">AdaBoostClassifier</span><span class="p">(),</span>
+               <span class="n">GradientBoostingClassifier</span><span class="p">(),</span> <span class="n">KNeighborsClassifier</span><span class="p">()]</span>
+<span class="n">best_scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">line_width</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="k">for</span> <span class="n">classifier</span> <span class="ow">in</span> <span class="n">classifiers</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">classifier</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="n">line_width</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Size</span><span class="se">\t\t</span><span class="s2">Time(t)</span><span class="se">\t\t</span><span class="s2">Time(p)</span><span class="se">\t\t</span><span class="s2">Train F1</span><span class="se">\t</span><span class="s2">Test F1&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="n">line_width</span><span class="p">)</span>
+    <span class="n">best_score</span><span class="p">,</span> <span class="n">best_size</span> <span class="o">=</span> <span class="n">train_and_predict</span><span class="p">(</span><span class="n">classifier</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="n">line_width</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;best score: {0:.2f}, best_size: {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">best_score</span><span class="p">,</span> <span class="n">best_size</span><span class="p">))</span>
+    <span class="n">best_scores</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">best_score</span><span class="p">,</span><span class="n">classifier</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">best_size</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="n">line_width</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Ranked by Score&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;~&#39;</span> <span class="o">*</span> <span class="n">line_width</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+<span class="n">table</span> <span class="o">=</span> <span class="p">[[</span><span class="n">score</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">score</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span><span class="n">score</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">best_scores</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">))]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="s1">&#39;Classifier score training-size&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>--------------------------------------------------------------------------------
+best score: 0.80, best_size: 200
+
+KNeighborsClassifier
+================================================================================
+Size                Time(t)         Time(p)         Train F1        Test F1
+--------------------------------------------------------------------------------
+100         0.0008          0.0016          0.8176          0.8054
+200         0.0009          0.0022          0.8664          0.8082
+300         0.0009          0.0028          0.8604          0.8243
+--------------------------------------------------------------------------------
+best score: 0.82, best_size: 300
+================================================================================
+
+Ranked by Score
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Classifier                     score    training-size
+--------------------------  --------  ---------------
+KNeighborsClassifier        0.824324              300
+LogisticRegression          0.814286              200
+SVC                         0.805195              300
+SGDClassifier               0.805031              300
+GradientBoostingClassifier  0.8                   200
+RandomForestClassifier      0.787879              300
+AdaBoostClassifier          0.787879              100
+GaussianNB                  0.779412              200
+DecisionTreeClassifier      0.761905              100
+
+300         0.1404          0.0006          0.9663          0.7538
+200         0.1142          0.0006          0.9858          0.8000
+--------------------------------------------------------------------------------
+best score: 0.79, best_size: 100
+
+GradientBoostingClassifier
+================================================================================
+Size                Time(t)         Time(p)         Train F1        Test F1
+--------------------------------------------------------------------------------
+100         0.0823          0.0006          1.0000          0.7704
+300         0.1106          0.0060          0.8505          0.7852
+200         0.1708          0.0077          0.9034          0.7801
+200         0.0009          0.0002          0.4286          0.4138
+300         0.0010          0.0002          0.8024          0.8050
+--------------------------------------------------------------------------------
+best score: 0.81, best_size: 300
+
+AdaBoostClassifier
+================================================================================
+Size                Time(t)         Time(p)         Train F1        Test F1
+--------------------------------------------------------------------------------
+100         0.0952          0.0061          0.9859          0.7879
+--------------------------------------------------------------------------------
+best score: 0.79, best_size: 300
+
+SVC
+================================================================================
+Size                Time(t)         Time(p)         Train F1        Test F1
+--------------------------------------------------------------------------------
+100         0.0019          0.0011          0.8485          0.7975
+200         0.0046          0.0017          0.8598          0.8052
+300         0.0092          0.0023          0.8529          0.8052
+--------------------------------------------------------------------------------
+best score: 0.81, best_size: 300
+
+GaussianNB
+================================================================================
+Size                Time(t)         Time(p)         Train F1        Test F1
+--------------------------------------------------------------------------------
+100         0.0008          0.0004          0.5053          0.3373
+200         0.0009          0.0004          0.8333          0.7794
+300         0.0009          0.0003          0.8009          0.7786
+--------------------------------------------------------------------------------
+best score: 0.78, best_size: 200
+
+SGDClassifier
+================================================================================
+Size                Time(t)         Time(p)         Train F1        Test F1
+--------------------------------------------------------------------------------
+100         0.0006          0.0002          0.7287          0.7414
+200         0.0250          0.0014          0.9929          0.7681
+300         0.0233          0.0013          0.9975          0.7879
+LogisticRegression
+================================================================================
+Size                Time(t)         Time(p)         Train F1        Test F1
+--------------------------------------------------------------------------------
+100         0.0023          0.0003          0.8725          0.8000
+200         0.0039          0.0004          0.8366          0.8143
+300         0.0046          0.0003          0.8273          0.7971
+--------------------------------------------------------------------------------
+best score: 0.81, best_size: 200
+
+DecisionTreeClassifier
+================================================================================
+Size                Time(t)         Time(p)         Train F1        Test F1
+--------------------------------------------------------------------------------
+100         0.0013          0.0003          1.0000          0.7619
+200         0.0022          0.0003          1.0000          0.6504
+300         0.0029          0.0003          1.0000          0.6218
+--------------------------------------------------------------------------------
+best score: 0.76, best_size: 100
+
+RandomForestClassifier
+================================================================================
+Size                Time(t)         Time(p)         Train F1        Test F1
+--------------------------------------------------------------------------------
+100         0.0227          0.0013          1.0000          0.7737
+</pre></div>
+</div>
+<div class="section" id="choosing-the-best-model">
+<h3>5. Choosing the Best Model<a class="headerlink" href="#choosing-the-best-model" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Based on the experiments you performed earlier, in 1-2 paragraphs
+explain to the board of supervisors what single model you chose as
+the best model. Which model is generally the most appropriate based
+on the available data, limited resources, cost, and performance?</li>
+<li>In 1-2 paragraphs explain to the board of supervisors in layman&#8217;s
+terms how the final model chosen is supposed to work (for example if
+you chose a Decision Tree or Support Vector Machine, how does it make
+a prediction).</li>
+<li>Fine-tune the model. Use Gridsearch with at least one important
+parameter tuned and with at least 3 settings. Use the entire training
+set for this.</li>
+<li>What is the model&#8217;s final F1 score?</li>
+</ul>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="n">y_train_numeric</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;yes no&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">y_test_numeric</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;yes no&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LRClassifier</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    holds the LogisticRegression classifier</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c_range</span><span class="p">,</span> <span class="n">score_function</span><span class="o">=</span><span class="n">f1_score</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">folds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                 <span class="n">training_features</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">training_targets</span><span class="o">=</span><span class="n">y_train_numeric</span><span class="p">,</span>
+                 <span class="n">test_features</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> <span class="n">test_targets</span><span class="o">=</span><span class="n">y_test_numeric</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param:</span>
+<span class="sd">         - `c_range`: range of &#39;C&#39; values for grid search</span>
+<span class="sd">         - `score_function`: function to maximize</span>
+<span class="sd">         - `n_jobs`: number of parallel jobs for the grid search</span>
+<span class="sd">         - `folds`: number of cross validation folds to use</span>
+<span class="sd">         - `training_features`: array of training feature-data</span>
+<span class="sd">         - `training_targets`: array of training target-values</span>
+<span class="sd">         - `test_features`: array of testing feature-data</span>
+<span class="sd">         - `test_targets`: array of testing target-data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c_range</span> <span class="o">=</span> <span class="n">c_range</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folds</span> <span class="o">=</span> <span class="n">folds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">score_function</span> <span class="o">=</span> <span class="n">score_function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">training_features</span> <span class="o">=</span> <span class="n">training_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">training_targets</span> <span class="o">=</span> <span class="n">training_targets</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_features</span> <span class="o">=</span> <span class="n">test_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_targets</span> <span class="o">=</span> <span class="n">test_targets</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scorer</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_grid</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: dict of grid search parameters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;penalty&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="s1">&#39;l2&#39;</span><span class="p">),</span>
+                                <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">c_range</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scorer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: scorer for the grid search</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scorer</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scorer</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">score_function</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scorer</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: LogisticRegression object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: GridSearchCV object with best model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_grid</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+                                      <span class="n">param_grid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
+                                      <span class="n">scoring</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scorer</span><span class="p">,</span>
+                                      <span class="n">cv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">folds</span><span class="p">,</span>
+                                      <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">training_features</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">training_targets</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_grid</span>
+
+    <span class="k">def</span> <span class="nf">print_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        prints non-zero coefficients in descending order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coefficients</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sorted_coefficients</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">((</span><span class="n">column</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">coefficients</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">coefficient</span> <span class="ow">in</span> <span class="n">sorted_coefficients</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">coefficient</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">coefficients</span> <span class="o">==</span> <span class="n">coefficient</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">coefficient</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">print_best</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Parameters&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">F1 Score&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_features</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_targets</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">coefficients&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">print_columns</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="n">grid_01</span> <span class="o">=</span> <span class="n">LRClassifier</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">.</span><span class="mo">01</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="o">.</span><span class="mo">01</span><span class="p">))</span>
+<span class="n">grid_01</span><span class="o">.</span><span class="n">print_best</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>{&#39;penalty&#39;: &#39;l1&#39;, &#39;C&#39;: 0.080000000000000002}
+
+F1 Score
+0.797297297297
+
+coefficients
+(&#39;age&#39;, 0.04631275424685484)
+(&#39;Medu&#39;, 0.04122577352087383)
+(&#39;famrel&#39;, 0.02989095441447533)
+(&#39;absences&#39;, -0.020337195557860503)
+(&#39;failures&#39;, -0.6111689390192977)
+Parameters
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Russell Nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

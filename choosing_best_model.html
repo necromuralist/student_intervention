@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5. Choosing the Best Model &mdash; Student Intervention System 2016.03.11 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.4/spacelab/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2016.03.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="Student Intervention System 2016.03.11 documentation" href="index.html" />
+    <link rel="next" title="References" href="citations.html" />
+    <link rel="prev" title="4. Training and Evaluating Models" href="training_and_evaluating.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          Student Intervention System</a>
+        <span class="navbar-text navbar-version pull-left"><b>2016.03.11</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="exploring_data.html">1. Classification vs Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exploring_data.html#exploring-the-data">2. Exploring the Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preparing_data.html">Preparing the Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="training_and_evaluating.html">Training and Evaluating Models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Choosing the Best Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citations.html">Citations</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">5. Choosing the Best Model</a><ul>
+<li><a class="reference internal" href="#fitting-the-model">Fitting The Model</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#coefficients">Coefficients</a><ul>
+<li><a class="reference internal" href="#positive-contributions">Positive Contributions</a><ul>
+<li><a class="reference internal" href="#medu">Medu</a></li>
+<li><a class="reference internal" href="#age">age</a></li>
+<li><a class="reference internal" href="#famrel">famrel</a></li>
+<li><a class="reference internal" href="#fedu">Fedu</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#negative-contributions">Negative Contributions</a><ul>
+<li><a class="reference internal" href="#absences">absences</a></li>
+<li><a class="reference internal" href="#goout">goout</a></li>
+<li><a class="reference internal" href="#failures">failures</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#f1-score">F1 score</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="training_and_evaluating.html" title="Previous Chapter: 4. Training and Evaluating Models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 4. Training a...</span>
+    </a>
+  </li>
+  <li>
+    <a href="citations.html" title="Next Chapter: References"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">References &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/choosing_best_model.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="choosing-the-best-model">
+<h1>5. Choosing the Best Model<a class="headerlink" href="#choosing-the-best-model" title="Permalink to this headline">¶</a></h1>
+<p>Based on the previous experiments I chose <em>Logistic Regression</em> as the classifier to use. Given the data available, all three models have approximately the same F1 score (on the test data) but the Logistic Regression classifier is the fastest for both training and prediction when compared to <em>K-Nearest Neighbor</em> and <em>Random Forests</em>. In addition, the Logistic Regression classifier offers readily interpretable coefficients and L1 regression to sparsify the data, allowing us to see the most important of the variables when deciding who will pass their final exam.</p>
+<p>Logistic Regression works by estimating the probability that the target feature is 1 given the input features. It does this using the &#8216;sigmoid&#8217; function which creates an S-shaped curve which goes to 0 at negative infinity and 1 at positive infinity:</p>
+<div class="math">
+<p><img src="_images/math/daf3b98095fb0cdd46706c802e85e519c235318b.png" alt="P(y=1|x) = \frac{1}{1+e^{-w^Tx}}\\"/></p>
+</div><p>Here <em>x</em> is a vector of feature data and <em>w</em> is the vector of weights that the Logistic Regression algorithm finds. The output of this function when there is one feature with a weight of 1 looks like this.</p>
+<a class="reference internal image-reference" href="_images/sigmoid_function.svg"><div align="center" class="align-center"><img src="_images/sigmoid_function.svg" /></div>
+</a>
+<p>When <em>x</em> is greater than 0 the probability is greater than 0.5 the output is classified as a 1, otherwise it is classified as 0.</p>
+<div class="section" id="fitting-the-model">
+<h2>Fitting The Model<a class="headerlink" href="#fitting-the-model" title="Permalink to this headline">¶</a></h2>
+<p>The Logistic Regression model was fit using sklearn&#8217;s <cite>GridSearchCV</cite> with 10 folds for the cross-validation. The parameters tested were the penalty-type (&#8216;l1&#8217; or &#8216;l2&#8217;) and &#8216;C&#8217; the inverse of the regularization strength (the smaller the number the larger the penalty).</p>
+<p>The <em>penalties</em> refer to regularization penalties that shrink or eliminate variable-coefficients in the model. The &#8216;l1&#8217; penalty refers to <em>lasso regularization</em> which causes some of the feature-variable coefficients to go to 0 if they don&#8217;t contribute as much to the model as the other, more significant variables. The &#8216;l2&#8217; penalty refers to <em>ridge regression</em> which shrinks the coefficients but never pushes them all the way to 0. Since <em>lasso regularization</em>  simplifies the model it might seem that it would be preferable, but it will only outperform <em>ridge regression</em> if there are differences in how much the variables contribute. If all the variables contribute equally to the model, then <em>ridge regression</em> will outperform the <em>lasso</em> (James G. et al., 2013).</p>
+<p>&#8216;C&#8217; is the inverse of the regularization strength. The stronger the regularization, the smaller the coefficients and for <em>lasso</em> the fewer the coefficients. Shrinking the coefficients too much or eliminating too many variables can weaken the model so how much regularization is determined here using cross-validation.</p>
+<p>This is the outcome of fitting the Logistic Regression classifier using Grid Search with the parameters given.</p>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="61%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>penalty</td>
+<td>l1</td>
+</tr>
+<tr class="row-odd"><td>C</td>
+<td>0.09</td>
+</tr>
+</tbody>
+</table>
+<p>These are the parameters for the model that had the highest F1 score. The best scorer used &#8216;l1&#8217;, or lasso regularization so the model should be sparse. The amount of regularization used was fairly high (since &#8216;C&#8217; is the inverse of the amount of regularization, the smaller it is the more regularization there is).</p>
+</div>
+<div class="section" id="coefficients">
+<h3>Coefficients<a class="headerlink" href="#coefficients" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="52%" />
+<col width="22%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+<th class="head">Coefficient</th>
+<th class="head">Odds</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Medu</td>
+<td>mother&#8217;s education</td>
+<td>0.14</td>
+<td>1.16</td>
+</tr>
+<tr class="row-odd"><td>age</td>
+<td>student&#8217;s age</td>
+<td>0.03</td>
+<td>1.03</td>
+</tr>
+<tr class="row-even"><td>famrel</td>
+<td>quality of family relationships</td>
+<td>0.03</td>
+<td>1.03</td>
+</tr>
+<tr class="row-odd"><td>Fedu</td>
+<td>father&#8217;s education</td>
+<td>0.01</td>
+<td>1.01</td>
+</tr>
+<tr class="row-even"><td>absences</td>
+<td>number of school absences</td>
+<td>-0.02</td>
+<td>0.98</td>
+</tr>
+<tr class="row-odd"><td>goout</td>
+<td>going out with friends</td>
+<td>-0.07</td>
+<td>0.93</td>
+</tr>
+<tr class="row-even"><td>failures</td>
+<td>number of past class failures</td>
+<td>-0.46</td>
+<td>0.63</td>
+</tr>
+</tbody>
+</table>
+<p>These are the variables that remained in the best model after the regularization was applied, sorted by their coefficient-values. The coefficients are log-odds so calculating <img class="math" src="_images/math/2f7fc2d8310a27a9b113fcbfe3129e7cdd596a3d.png" alt="e^{coefficient}"/> gives you the increase in odds that the student will graduate for every unit-increase for that variable.</p>
+<div class="section" id="positive-contributions">
+<h4>Positive Contributions<a class="headerlink" href="#positive-contributions" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="medu">
+<h5>Medu<a class="headerlink" href="#medu" title="Permalink to this headline">¶</a></h5>
+<p>The predictor with the greatest positive effect in the model was the amount of education the student&#8217;s mother received. According to the read-me file there are 5 levels.</p>
+<table border="1" class="docutils" id="id1">
+<caption><span class="caption-text">Mother&#8217;s Education</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Level</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>None</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>4th Grade</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>5th to 9th Grade</td>
+</tr>
+<tr class="row-odd"><td>3</td>
+<td>Secondary Education</td>
+</tr>
+<tr class="row-even"><td>4</td>
+<td>Higher Education</td>
+</tr>
+</tbody>
+</table>
+<a class="reference internal image-reference" href="_images/mothers_education.svg"><div align="center" class="align-center"><img src="_images/mothers_education.svg" /></div>
+</a>
+<p>Looking at a plot of all the data, as the mother&#8217;s education-level goes up the proportion of those that pass goes up relative to those that don&#8217;t pass.</p>
+</div>
+<div class="section" id="age">
+<h5>age<a class="headerlink" href="#age" title="Permalink to this headline">¶</a></h5>
+<p>This is the age of the student. It wasn&#8217;t immediately obvious why this would be a factor, assuming that the students are all in the same grade, but a plot of the data showed that the ages range from 15 to 22, with the oldest students not passing the final exam.</p>
+<a class="reference internal image-reference" href="_images/student_age.svg"><div align="center" class="align-center"><img src="_images/student_age.svg" /></div>
+</a>
+</div>
+<div class="section" id="famrel">
+<h5>famrel<a class="headerlink" href="#famrel" title="Permalink to this headline">¶</a></h5>
+<p>According to the readme file <code class="docutils literal"><span class="pre">famrel</span></code> is a rating of the quality of family relations ranging form 1 (very bad) to 5 (excellent).</p>
+<a class="reference internal image-reference" href="_images/family_relations.svg"><div align="center" class="align-center"><img src="_images/family_relations.svg" /></div>
+</a>
+<p>The plot seems to show that relations of 4 and 5 improve the likelihood of passing.</p>
+</div>
+<div class="section" id="fedu">
+<h5>Fedu<a class="headerlink" href="#fedu" title="Permalink to this headline">¶</a></h5>
+<p>This is the student&#8217;s father&#8217;s education level. The levels are the same as <cite>Medu</cite>.</p>
+<a class="reference internal image-reference" href="_images/fathers_education.svg"><div align="center" class="align-center"><img src="_images/fathers_education.svg" /></div>
+</a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Weekend alcohol consumption is included but has a coefficient of 0 so it is neither a negative nor positive contributor to passing.</p>
+</div>
+</div>
+</div>
+<div class="section" id="negative-contributions">
+<h4>Negative Contributions<a class="headerlink" href="#negative-contributions" title="Permalink to this headline">¶</a></h4>
+<p>These are variables that decrease the odds of a student passing as their values increase.</p>
+<div class="section" id="absences">
+<h5>absences<a class="headerlink" href="#absences" title="Permalink to this headline">¶</a></h5>
+<p>This is a straightforward count of the number of absences there were.</p>
+<a class="reference internal image-reference" href="_images/absences.svg"><div align="center" class="align-center"><img src="_images/absences.svg" /></div>
+</a>
+<p>The differences are not large, but at around 10 absences the distributions seem to cross over with the non-passing line raised above the passing line.</p>
+</div>
+<div class="section" id="goout">
+<h5>goout<a class="headerlink" href="#goout" title="Permalink to this headline">¶</a></h5>
+<p>This is how often the student goes out with friends. There are 5 levels from 1 (very low) to 5 (very high).</p>
+<a class="reference internal image-reference" href="_images/going_out.svg"><div align="center" class="align-center"><img src="_images/going_out.svg" /></div>
+</a>
+<p>It looks like a level greater than 3 has a negative effect on passing.</p>
+</div>
+<div class="section" id="failures">
+<h5>failures<a class="headerlink" href="#failures" title="Permalink to this headline">¶</a></h5>
+<p>This is the most negative variable and represents the number of past class failures for a student. It ranges from 0 to 4 with 4 meaning 4 or more failures.</p>
+<a class="reference internal image-reference" href="_images/past_failures.svg"><div align="center" class="align-center"><img src="_images/past_failures.svg" /></div>
+</a>
+<p>It looks like no student failed 4 or more classes before taking the final exam and 1 or more failures had a negative impact on whether a student passed.</p>
+</div>
+</div>
+</div>
+<div class="section" id="f1-score">
+<h3>F1 score<a class="headerlink" href="#f1-score" title="Permalink to this headline">¶</a></h3>
+<p>0.86</p>
+<p>The best F1 score for the Logistic Regression classifier was 0.83, which is a slight improvement over the default Logistic Regression classifier used earlier which had an f1 of approximately 0.79 for the test set when trained with 300 training instances.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Russell Nakamura.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
