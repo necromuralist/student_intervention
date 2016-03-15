@@ -1,5 +1,3 @@
-Project 2: Building a Student Intervention System
-=================================================
 
 
 1. Classification vs Regression
@@ -27,7 +25,7 @@ Now, can you find out the following facts about the dataset? - Total number of s
    Number of students who passed, 265
    Number of students who failed, 130
    Number of features, 31
-   Graduation rate of the class, 0.67%
+   Graduation rate of the class, 67.09%
 
 
 
@@ -42,3 +40,5 @@ The target variable is 'passed'.
    :scale: 95%
 
 
+
+As noted above, 67% of the students passed.

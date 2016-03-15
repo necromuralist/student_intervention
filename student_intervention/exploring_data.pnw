@@ -4,9 +4,6 @@ import matplotlib.pyplot as plot
 import numpy
 import pandas as pd
 import seaborn
-from sklearn.cross_validation import train_test_split
-from sklearn.grid_search import GridSearchCV
-from sklearn.metrics import f1_score, make_scorer
 
 # this code
 from common import print_image_directive
@@ -42,7 +39,7 @@ print("   Total number of students, {}".format(n_students))
 print("   Number of students who passed, {}".format(n_passed))
 print("   Number of students who failed, {}".format(n_failed))
 print("   Number of features, {}".format(n_features))
-print("   Graduation rate of the class, {:.2f}%".format(grad_rate))
+print("   Graduation rate of the class, {:.2f}%".format(100 * grad_rate))
 @
 
 Passed

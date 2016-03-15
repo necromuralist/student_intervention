@@ -1,0 +1,16 @@
+* Three Models
+** Logistic Regression
+*** What are the general applications of this model? 
+*** What are its strengths?
+*** What are its weaknesses?
+*** Given what you know about the data so far, why did you choose this model to apply?
+** K Nearest Neighbors
+*** What are the general applications of this model? 
+*** What are its strengths?
+*** What are its weaknesses?
+*** Given what you know about the data so far, why did you choose this model to apply?
+** Random Forests
+*** What are the general applications of this model? 
+*** What are its strengths?
+*** What are its weaknesses?
+*** Given what you know about the data so far, why did you choose this model to apply?

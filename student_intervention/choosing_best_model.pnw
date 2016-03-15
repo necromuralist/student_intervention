@@ -1,0 +1,261 @@
+5. Choosing the Best Model
+--------------------------
+<<name='imports', echo=False>>=
+# python standard library
+import pickle
+import warnings
+
+# third party
+import matplotlib.pyplot as plot
+import numpy
+import seaborn
+from sklearn.grid_search import GridSearchCV
+from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
+from sklearn.metrics import f1_score, make_scorer
+from tabulate import tabulate
+
+# this code
+from common import (TrainTestData, train_test_path, feature_map,
+                    student_data, print_image_directive)
+@
+<<name='load_data', echo=False>>=
+with open(train_test_path, 'rb') as unpickler:
+    train_test_data = pickle.load(unpickler)
+
+assert len(train_test_data.y_train) == 300
+assert len(train_test_data.y_test) == 95
+assert len(train_test_data.X_train.columns) == 48
+@
+
+Based on the previous experiments I chose *Logistic Regression* as the classifier to use. Given the data available, all three models have approximately the same F1 score (on the test data) but the Logistic Regression classifier is the fastest for both training and prediction when compared to *K-Nearest Neighbor* and *Random Forests*. In addition, the Logistic Regression classifier offers readily interpretable coefficients and L1 regression to sparsify the data, allowing us to see the most important of the variables when deciding who will pass their final exam.
+
+Logistic Regression works by estimating the probability that the target feature is 1 given the input features. It does this using the 'sigmoid' function which creates an S-shaped curve which goes to 0 at negative infinity and 1 at positive infinity:
+
+.. math::
+
+   P(y=1|x) = \frac{1}{1+e^{-w^Tx}}\\
+
+Here *x* is a vector of feature data and *w* is the vector of weights that the Logistic Regression algorithm finds. The output of this function when there is one feature with a weight of 1 looks like this.
+
+<<name='plot_sigmoid', echo=False, results='sphinx', include=False>>=
+x = numpy.linspace(-6, 6, 100)
+y = 1/(1 + numpy.exp(-x))
+figure = plot.figure()
+axe = figure.gca()
+axe.plot(x, y)
+title = axe.set_title("Sigmoid Function")
+axe.set_ylabel(r"P(y=1|x)")
+axe.set_xlabel("x")
+print_image_directive(figure=figure, filename="sigmoid_function")
+@
+
+When *x* is greater than 0 the probability is greater than 0.5 the output is classified as a 1, otherwise it is classified as 0.
+
+<<name='setup', echo=False>>=
+scorer = make_scorer(f1_score)
+passing_ratio = (sum(train_test_data.y_test) +
+                 sum(train_test_data.y_train))/float(len(train_test_data.y_test) +
+                                                     len(train_test_data.y_train))
+assert abs(passing_ratio - .67) < .01
+model = LogisticRegression()
+@
+
+<<name='fit_grid', echo=False>>=
+def fit_grid(c_range, penalty=('l1', 'l2')):
+    """
+    :param:
+     - `model`: LogisticRegression object
+     - `c_range`: list of values for the 'C' parameter
+     - `penalty`: names of the regularization penalties to use
+    :return: GridSearchCV object fit to model
+    """
+    parameters = {'penalty': penalty,
+                  'C': c_range}
+    grid = GridSearchCV(model, param_grid=parameters, scoring=scorer, cv=10, n_jobs=-1)
+    with warnings.catch_warnings():
+        warnings.simplefilter('ignore')
+        return grid.fit(train_test_data.X_train, train_test_data.y_train)
+@
+<<name='print_columns', echo=False>>=
+def print_columns(grid):
+    """
+    :param:
+     - `grid`: GridSearchCV object fitted to data
+    """
+    coefficients = grid.best_estimator_.coef_[0]
+    odds = numpy.exp(coefficients)
+    sorted_coefficients = sorted((column for column in coefficients), reverse=True)
+    rows = []
+    for coefficient in sorted_coefficients:
+        if abs(coefficient) > 0:
+            index = numpy.where(coefficients == coefficient)[0][0]
+            column_name = train_test_data.X_train.columns[index]
+            description = feature_map[column_name] if column_name in feature_map else ' = '.join(column_name.split('_'))
+            rows.append([column_name, description, "{0:.2f}".format(coefficient), '{0:.2f}'.format(odds[index])])
+    print(tabulate(rows, headers='Variable Description Coefficient Odds'.split(), tablefmt='rst'))
+
+@
+<<name='print_best', echo=False, results='sphinx'>>=
+def print_best(grid):
+    print("parameters")
+    print("``````````\n")
+    print(tabulate(grid.best_params_.items(), headers='Parameter Value'.split(), tablefmt='rst'))
+    print('\nCoefficients')
+    print('````````````\n')
+    print_columns(grid)
+    print('\nF1 score')
+    print('````````\n')
+    print("{0:.2f}".format(grid.score(train_test_data.X_test, train_test_data.y_test)))
+    print('')
+@
+
+Fitting The Model
+~~~~~~~~~~~~~~~~~
+
+The Logistic Regression model was fit using sklearn's `GridSearchCV` with 10 folds for the cross-validation. The parameters tested were the penalty-type ('l1' or 'l2') and 'C' the inverse of the regularization strength (the smaller the number the larger the penalty).
+
+The *penalties* refer to regularization penalties that shrink or eliminate variable-coefficients in the model. The 'l1' penalty refers to *lasso regularization* which causes some of the feature-variable coefficients to go to 0 if they don't contribute as much to the model as the other, more significant variables. The 'l2' penalty refers to *ridge regression* which shrinks the coefficients but never pushes them all the way to 0. Since *lasso regularization*  simplifies the model it might seem that it would be preferable, but it will only outperform *ridge regression* if there are differences in how much the variables contribute. If all the variables contribute equally to the model, then *ridge regression* will outperform the *lasso* (James G. et al., 2013).
+
+'C' is the inverse of the regularization strength. The stronger the regularization, the smaller the coefficients and for *lasso* the fewer the coefficients. Shrinking the coefficients too much or eliminating too many variables can weaken the model so how much regularization is determined here using cross-validation.
+
+This is the outcome of fitting the Logistic Regression classifier using Grid Search with the parameters given.
+
+<<name='first_fit', echo=False, results='sphinx'>>=
+grid_01 = fit_grid(numpy.arange(.01, 1., .01))
+@
+
+<<name='parameters', echo=False, results='sphinx'>>=
+print("Parameters")
+print("``````````\n")
+print(tabulate(grid_01.best_params_.items(), headers='Parameter Value'.split(), tablefmt='rst'))
+@
+
+These are the parameters for the model that had the highest F1 score. The best scorer used 'l1', or lasso regularization so the model should be sparse. The amount of regularization used was fairly high (since 'C' is the inverse of the amount of regularization, the smaller it is the more regularization there is). 
+
+<<name='coefficients', echo=False, results='sphinx'>>=
+print('\nCoefficients')
+print('````````````\n')
+print_columns(grid_01)
+@
+
+These are the variables that remained in the best model after the regularization was applied, sorted by their coefficient-values. The coefficients are log-odds so calculating :math:`e^{coefficient}` gives you the increase in odds that the student will graduate for every unit-increase for that variable.
+
+Positive Contributions
+++++++++++++++++++++++
+
+Medu
+####
+
+The predictor with the greatest positive effect in the model was the amount of education the student's mother received. According to the read-me file there are 5 levels.
+
+.. '
+
+.. csv-table:: Mother's Education
+   :header: Level, Meaning
+
+   0,None
+   1,4th Grade
+   2,5th to 9th Grade
+   3,Secondary Education
+   4,Higher Education
+
+.. '
+
+<<name='countplots', echo=False,results='sphinx', include=False>>=
+def make_countplots(title, x_name, filename, hue='passed'):
+    figure = plot.figure()
+    axe = figure.gca()
+    axe.set_title(title)
+    lines = seaborn.countplot(x=x_name, hue=hue, data=student_data)
+    print_image_directive(filename=filename, figure=figure)
+@
+<<name='plot_medu', echo=False, results='sphinx', include=False>>=
+make_countplots("Mother's Education vs Passing", 'Medu', 'mothers_education')
+@
+
+Looking at a plot of all the data, as the mother's education-level goes up the proportion of those that pass goes up relative to those that don't pass.
+
+age
+###
+
+This is the age of the student. It wasn't immediately obvious why this would be a factor, assuming that the students are all in the same grade, but a plot of the data showed that the ages range from 15 to 22, with the oldest students not passing the final exam.
+
+.. '
+<<name='plot_age', echo=False, results='sphinx', include=False>>=
+make_countplots(title="age vs Passing", x_name='passed', filename='student_age', hue='age')
+@
+
+famrel
+######
+
+According to the readme file ``famrel`` is a rating of the quality of family relations ranging form 1 (very bad) to 5 (excellent).
+
+<<name='plot_famrel', echo=False, results='sphinx', include=False>>=
+make_countplots("Family Relations vs Passing", 'famrel', 'family_relations')
+@
+
+The plot seems to show that relations of 4 and 5 improve the likelihood of passing.
+
+Fedu
+####
+
+This is the student's father's education level. The levels are the same as `Medu`.
+
+<<name='plot_fedu', echo=False, results='sphinx', include=False>>=
+make_countplots("Father's Education vs Passing", 'Fedu', 'fathers_education')
+@
+
+.. note:: Weekend alcohol consumption is included but has a coefficient of 0 so it is neither a negative nor positive contributor to passing.
+
+Negative Contributions
+++++++++++++++++++++++
+
+These are variables that decrease the odds of a student passing as their values increase.
+
+absences
+########
+
+This is a straightforward count of the number of absences there were.
+
+<<name='absences', echo=False, results='sphinx', include=False>>=
+figure = plot.figure()
+axe = figure.gca()
+axe.set_title('Distribution of Absences')
+axe = seaborn.kdeplot(student_data[student_data.passed=='yes'].absences, label='passed')
+axe.set_xlim([0, 80])
+axe = seaborn.kdeplot(student_data[student_data.passed=='no'].absences, ax=axe, label="didn't pass")
+print_image_directive(figure=figure, filename='absences')
+@
+
+The differences are not large, but at around 10 absences the distributions seem to cross over with the non-passing line raised above the passing line.
+
+goout
+#####
+
+This is how often the student goes out with friends. There are 5 levels from 1 (very low) to 5 (very high).
+
+<<name='plot_goout', echo=False, results='sphinx', include=False>>=
+make_countplots("Going Out vs Passing", 'goout', 'going_out')
+@
+
+It looks like a level greater than 3 has a negative effect on passing.
+
+failures
+########
+
+This is the most negative variable and represents the number of past class failures for a student. It ranges from 0 to 4 with 4 meaning 4 or more failures.
+
+<<name='plot_failures', echo=False, results='sphinx', include=False>>=
+make_countplots("Past Failures vs Passing", 'failures', 'past_failures')
+@
+
+It looks like no student failed 4 or more classes before taking the final exam and 1 or more failures had a negative impact on whether a student passed.
+
+
+F1 score
+````````
+<<name='f1_score', echo=False, results='sphinx', wrap=False>>=
+print("{0:.2f}".format(grid_01.score(train_test_data.X_test, train_test_data.y_test)))
+@
+
+The best F1 score for the Logistic Regression classifier was 0.83, which is a slight improvement over the default Logistic Regression classifier used earlier which had an f1 of approximately 0.79 for the test set when trained with 300 training instances.

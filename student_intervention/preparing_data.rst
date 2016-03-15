@@ -55,10 +55,12 @@ Some Machine Learning algorithms (e.g. Logistic Regression) require numeric data
 
 
 
+In addition, the target data was also changed so that instead of 'yes' and 'no' values it contained only '1' and '0' values.
+
 Split data into training and test sets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Next the data was converted into training and testing sets.
+Next the data was shuffled and then split into training and testing sets.
 
 
 

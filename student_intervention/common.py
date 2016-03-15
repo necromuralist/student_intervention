@@ -1,10 +1,12 @@
 # python standard library
+from collections import namedtuple
 import os
 
 # third party
 import pandas
 
 student_data = pandas.read_csv("student-data.csv")
+RANDOM_STATE = 100
 
 def print_image_directive(filename, figure, scale='95%', print_only=False):
     """
@@ -58,3 +60,6 @@ feature_map = {"school": "student's school",
                "absences": "number of school absences",
                "passed": "did the student pass the final exam"}
     
+TrainTestData = namedtuple('TrainTestData', 'X_train X_test y_train y_test'.split())
+TrainTestDataOne = namedtuple('TrainTestDataOne', 'X_train X_test y_train y_test'.split())
+train_test_path = 'pickles/train_test_data.pkl'

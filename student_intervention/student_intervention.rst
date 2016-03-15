@@ -571,7 +571,7 @@ Random Forests
 ~~~~~~~~~~~~~~
 
 The second learning model that I will use will be
-``Random Forests<http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier>``\ \_.
+`Random Forests<http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier>`_.
 This is an ensemble learner that combines predictions from multiple
 decision trees, each trained on a separate data set.
 

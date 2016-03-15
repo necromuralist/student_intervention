@@ -9,7 +9,8 @@ import pandas
 from sklearn.cross_validation import train_test_split
 
 # this code
-from common import student_data, feature_map
+from common import (student_data, feature_map, TrainTestData,
+                    train_test_path, RANDOM_STATE)
 @
 In this section, we will prepare the data for modeling, training and testing.
 
@@ -24,7 +25,8 @@ feature_columns = list(student_data.columns[:-1])  # all columns but last are fe
 target_column = student_data.columns[-1]  # last column is the target/label
 X_all = student_data[feature_columns]  # feature values for all students
 y_all = student_data[target_column]  # corresponding targets/labels
-yes_nos = [column for column in feature_columns if 'yes' in X_all[column].unique()]
+
+assert len(y_all) == 395, "Expected: 395 Actual: {1}".format(len(y_all))
 @
 .. csv-table:: Features
    :header: Variable, Description, Data Values
@@ -72,29 +74,37 @@ def preprocess_features(X):
     return outX
 
 X_all = preprocess_features(X_all)
+y_all = y_all.replace(['yes', 'no'], [1, 0])
+assert len(y_all) == 395, "Expected: 395 Actual: {0}".format(len(y_all))
 @
+
+In addition, the target data was also changed so that instead of 'yes' and 'no' values it contained only '1' and '0' values.
 
 Split data into training and test sets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Next the data was converted into training and testing sets.
+Next the data was shuffled and then split into training and testing sets.
 
 <<name='train_test_split', echo=False>>=
 # First, decide how many training vs test samples you want
 num_all = student_data.shape[0]  # same as len(student_data)
+assert num_all == 395, "Expected: 395 Actual: {0}".format(num_all)
 num_train = 300  # about 75% of the data
 num_test = num_all - num_train
 
 X_train, X_test, y_train, y_test = train_test_split(X_all, y_all,
                                                     test_size=num_test,
-                                                    train_size=num_train)
+                                                    train_size=num_train,
+                                                    random_state=RANDOM_STATE)
+assert len(y_train) == 300
+assert len(y_test) == 95
 @
 <<name='pickle_data', echo=False>>=
-data = {"X_train": X_train,
-        "X_test": X_test,
-        "y_train": y_train,
-        "y_test": y_test}
-with open('pickles/pickles.pkl', 'wb') as pickler:
+data = TrainTestData(X_train = X_train,
+                     X_test = X_test,
+                     y_train = y_train,
+                     y_test = y_test)
+with open(train_test_path, 'wb') as pickler:
     pickle.dump(data, pickler)
 @
 

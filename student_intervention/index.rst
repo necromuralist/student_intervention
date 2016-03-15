@@ -17,22 +17,13 @@ This is Project Two from Udacity's Machine Learning Nanodegree program. It uses 
  
    Exploring the Data <exploring_data>
    Preparing the Data <preparing_data>
-..     Analyzing Model Performance <analyzing_model_performance>
-..     Model Prediction <model_prediction>
-..     Citations <citations>
+   Training and Evaluating Models <training_and_evaluating>
+   Choosing the Best Model <choosing_best_model>
+   Citations <citations>
 ..     Software References <software>
     
-
-
-.. toctree::
-   :maxdepth: 1
-
-   Project 2: Building a Student Intervention System <exploring_data.rst>
-   3. Preparing the Data <preparing_data.rst>
-   Project 2: Supervised Learning <student_intervention.rst>
-
-.. toctree::
-   :maxdepth: 1
-
-
-
+.. <<name='html_only', echo=False, results='sphinx', wrap=False>>=
+.. HTML_ONLY = strtobool(os.environ.get("HTML_ONLY", 'on'))
+.. if HTML_ONLY:
+..    create_toctree()
+.. @

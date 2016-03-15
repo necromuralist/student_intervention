@@ -9,4 +9,3 @@ dist/
 *.log
 .venv
 .ipynb_checkpoints
-pickles/
