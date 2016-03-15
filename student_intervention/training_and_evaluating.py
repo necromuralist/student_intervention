@@ -11,14 +11,13 @@ import seaborn
 from sklearn.metrics import f1_score
 
 # this code
-from common import TrainTestData, print_image_directive
+from common import TrainTestData, print_image_directive, RANDOM_STATE
 
 with open('pickles/train_test_data.pkl', 'rb') as unpickler:
     data = pickle.load(unpickler)
 X_train, X_test, y_train, y_test = data
 
-RANDOM_STATE = 0
-REPETITIONS = 100
+REPETITIONS = 10
 INTERESTING_SIZES = (100, 200, 300)
 STEP_SIZE = 10
 MAX_SIZE = 300 + STEP_SIZE
@@ -180,7 +179,7 @@ def train_and_predict(model, delimiter=','):
                                 repetitions=REPETITIONS)
         if size in INTERESTING_SIZES:
             print("   {0}".format(classifier.table_row))
-        scores.append((classifier.f1_test, size, classifier))
+            scores.append((classifier.f1_test, size, classifier))
         all_tests[size] = classifier
     return max(scores) , all_tests
 
@@ -190,8 +189,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
-classifiers = [LogisticRegression(random_state=RANDOM_STATE),
-               RandomForestClassifier(random_state=RANDOM_STATE),
+classifiers = [LogisticRegression(),
+               RandomForestClassifier(),
                KNeighborsClassifier()]
 best_scores = []
 line_width = 80
@@ -264,12 +263,14 @@ def plot_scores(which_f1='test'):
     axe.set_title("{0} Set F1 Scores by Training-Set Size".format(which_f1.capitalize()))
     axe.set_xlabel('Training Set Size')
     axe.set_ylabel('F1 Score')
+    axe.set_ylim([0, 1.0])
     filename = 'f1_scores_{0}'.format(which_f1)
     print_image_directive(filename, figure)
     return
 
 plot_scores('training')
 
+import pudb; pudb.set_trace()
 plot_scores()
 
 def plot_test_train(model):
@@ -287,6 +288,7 @@ def plot_test_train(model):
     axe.set_title("{0} F1 Scores by Training-Set Size".format(model))
     axe.set_xlabel('Training Set Size')
     axe.set_ylabel('F1 Score')
+    axe.set_ylim([0, 1.0])
     filename = 'f1_scores_{0}'.format(model)
     print_image_directive(filename, figure)
     return

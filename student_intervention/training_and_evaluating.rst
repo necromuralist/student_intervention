@@ -41,7 +41,7 @@ They are, however, generally not as accurate (James G. et al., 2013). Random For
 
 The predicted output for the features is created by taking an average of the predictions given by the trees.
 
-Random forests, like decision trees, can be used for either classification or regression, but the trade-off for their improved accuracy is that the ensemble is not as directly interpretable as the individual decision trees are. Decision Trees, and thus Random Forests, don't assume linear separability and can perform better than linear models when the data isn't linearly separable, but may not do as well in the cases where the linear model is appropriate (James G. et al., 2013).
+Random forests, like decision trees, can be used for either classification or regression, but the trade-off for their improved accuracy is that the ensemble is not as directly interpretable as the individual decision trees are. Decision Trees, and thus Random Forests, don't assume linear separability and can perform better than linear models when the data isn't linearly separable, but may not do as well in the cases where the linear model is appropriate (James G. et al., 2013), thus, given the number of variables I thought that it might be more effective on this data set in the event that Logistic Regression cannot model the data well.
 
 K-Nearest Neighbors
 ~~~~~~~~~~~~~~~~~~~
@@ -51,7 +51,9 @@ probability of a classification (say *y=1*) as the fraction of the k-neighbors t
 
 Because *KNN* doesn't build a model the way the other two classifiers do, it has the quickest training time but trades this for the longest prediction times.
 
-Unlike Logistic Regression, KNN doesn't require linear separability and unlike some other methods also makes no assumption about the distribution of the data (it is *non-parametric*). This makes it better in some cases, but how accurate it is depends on the choice of *k*. If *k* is too small it will tend to overfit the training data and if *k* is too large, it will become too rigid. Besides the difficulty in choosing *k*, because it is non-parametric it's not possible to inspect the model to decide which features are important and it needs more data to be accurate (James G., et al., 2013).
+Unlike Logistic Regression, KNN doesn't require linear separability and unlike some other methods also makes no assumption about the distribution of the data (it is *non-parametric*). This makes KNN more flexible, but how accurate it is depends on the choice of *k*. If *k* is too small it will tend to overfit the training data and if *k* is too large, it will become too rigid. Besides the difficulty in choosing *k*, because it is non-parametric it's not possible to inspect the model to decide which features are important and it needs more data to be accurate (James G., et al., 2013).
+
+I thought that KNN might be a good non-parametric alternative to Logistic Regression since the data comes from students attending two schools in Portugal which might make the instances more similar than dissimilar, the 'nearest neighbor' method was conceptually appropriate and it is different enough in approach that it might improve on the other two methods should the separation of the classes be unusually difficult.
 
 .. '
 
@@ -75,31 +77,31 @@ Since the running times are based on my machine's performance as much as that of
    :header: Size,Time (train),Time (predict),Train F1,Test F1
 
    100,0.0011,0.0001,0.8702,0.6720
-   200,0.0024,0.0001,0.8333,0.7910
-   300,0.0027,0.0001,0.8075,0.8120
+   200,0.0025,0.0001,0.8333,0.7910
+   300,0.0029,0.0001,0.8075,0.8120
 Best score and size of data-set that gave the best test score:
- * best score: 0.84
- * best size: 290
+ * best score: 0.81
+ * best size: 300
 
 .. csv-table:: RandomForestClassifier
    :header: Size,Time (train),Time (predict),Train F1,Test F1
 
-   100,0.0199,0.0011,0.9841,0.6393
-   200,0.0209,0.0012,0.9962,0.7717
-   300,0.0219,0.0012,0.9873,0.7481
+   100,0.0202,0.0011,1.0000,0.7943
+   200,0.0210,0.0012,0.9924,0.7704
+   300,0.0221,0.0012,0.9898,0.7692
 Best score and size of data-set that gave the best test score:
- * best score: 0.80
- * best size: 210
+ * best score: 0.79
+ * best size: 100
 
 .. csv-table:: KNeighborsClassifier
    :header: Size,Time (train),Time (predict),Train F1,Test F1
 
    100,0.0004,0.0013,0.8244,0.7519
-   200,0.0006,0.0021,0.8099,0.7536
-   300,0.0007,0.0027,0.8491,0.7945
+   200,0.0005,0.0019,0.8099,0.7536
+   300,0.0006,0.0027,0.8491,0.7945
 Best score and size of data-set that gave the best test score:
- * best score: 0.84
- * best size: 10
+ * best score: 0.79
+ * best size: 300
 
 
 
@@ -110,9 +112,9 @@ Summation
 ======================  =======  ===============  ===============  =================
 Classifier                Score    Training-Size    Training-Time    Prediction-Time
 ======================  =======  ===============  ===============  =================
-KNeighborsClassifier       0.84               10           0.0003             0.0006
-LogisticRegression         0.84              290           0.003              0.0001
-RandomForestClassifier     0.8               210           0.021              0.0012
+LogisticRegression         0.81              300           0.0029             0.0001
+KNeighborsClassifier       0.79              300           0.0006             0.0027
+RandomForestClassifier     0.79              100           0.0202             0.0011
 ======================  =======  ===============  ===============  =================
 
 
@@ -130,9 +132,9 @@ Training Times
 ===========================================  =======
 Classifiers                                    Ratio
 ===========================================  =======
-LogisticRegression/KNeighborsClassifier         4.2
-RandomForestClassifier/KNeighborsClassifier    33.56
-RandomForestClassifier/LogisticRegression       7.99
+LogisticRegression/KNeighborsClassifier         4.39
+RandomForestClassifier/KNeighborsClassifier    33.96
+RandomForestClassifier/LogisticRegression       7.74
 ===========================================  =======
 
 
@@ -144,23 +146,23 @@ Prediction Times
 ===========================================  =======
 Classifiers                                    Ratio
 ===========================================  =======
-KNeighborsClassifier/LogisticRegression        19.68
-KNeighborsClassifier/RandomForestClassifier     2.27
-RandomForestClassifier/LogisticRegression       8.69
+KNeighborsClassifier/LogisticRegression        19.93
+KNeighborsClassifier/RandomForestClassifier     2.25
+RandomForestClassifier/LogisticRegression       8.87
 ===========================================  =======
 
 
 It looks like the Logistic Regression classifier was significantly faster than either the Random Forest classifier or the K-Nearest Neighbors classifier - about 20 times faster than KNN and 5-10 times faster than the Random Forest classifier.
 
-F1 Prediction Scores
-````````````````````
+F1 Prediction Scores (Test Set)
+```````````````````````````````
 
 ===========================================  =======
 Classifiers                                    Ratio
 ===========================================  =======
 LogisticRegression/KNeighborsClassifier         1.02
-KNeighborsClassifier/RandomForestClassifier     1.06
-LogisticRegression/RandomForestClassifier       1.09
+KNeighborsClassifier/RandomForestClassifier     1.03
+LogisticRegression/RandomForestClassifier       1.06
 ===========================================  =======
 
 
@@ -208,7 +210,7 @@ Comparing Test vs Train Scores by Model
    :scale: 95%
 
 
-The training and testing sets for the Logistic Regression seem to be converging toward 0.8, suggesting the model is underfitting the data and may not be complex enough for the data.
+The training and testing sets for the Logistic Regression seem to be converging around 0.8, suggesting the model is underfitting and may not be complex enough for the data. Oddly, the test score is better than  the training score after about 250 training instances. Looking at the table above, the differences are fractional and might just be that the larger training set has proportionally more difficult instances than the test-set.
 
 
 .. image:: figures/f1_scores_KNeighborsClassifier.*

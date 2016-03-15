@@ -50,12 +50,21 @@ The target (as noted previously) is the 'passed' column. Here I'll list the feat
 Preprocess feature columns
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Some Machine Learning algorithms (e.g. Logistic Regression) require numeric data so the columns with string-data need to be transformed. The columns in this data-set that had 'yes' or 'no' values had the values converted to 1 and 0 respectively. Those columns that had other kinds of categorical data were transformed into dummy-columns.
+Some Machine Learning algorithms (e.g. Logistic Regression) require numeric data so the columns with string-data need to be transformed. The columns in this data-set that had 'yes' or 'no' values had the values converted to 1 and 0 respectively. Those columns that had other kinds of categorical data were transformed into dummy-variable columns.
 
 
 
 
 In addition, the target data was also changed so that instead of 'yes' and 'no' values it contained only '1' and '0' values.
+
+
+   * Original Columns: 30
+   * With Dummies: 48
+
+With dummy variables there are now 18 more columns in the feature
+data.
+
+
 
 Split data into training and test sets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,6 +79,6 @@ Next the data was shuffled and then split into training and testing sets.
 .. csv-table:: Training and Testing Data
    :header: Set, Count
 
-   Training Features,300
-   Test Features,95
+   Training Instances,300
+   Test Instances,95
 

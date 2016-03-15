@@ -1,3 +1,5 @@
+2. Exploring the Data
+---------------------
 <<name='imports', echo=False>>=
 # third party
 import matplotlib.pyplot as plot
@@ -8,18 +10,6 @@ import seaborn
 # this code
 from common import print_image_directive
 @
-1. Classification vs Regression
--------------------------------
-
-Your goal is to identify students who might need early intervention - which type of supervised machine learning problem is this,
-classification or regression? Why?
-
-Identifying students who might need early intervention is a *classification* problem as you are sorting students into classes (*needs intervention*, *doesn't need intervention*) rather than trying to predict a quantitative value.
-
-.. '
-                                                                                                                               
-2. Exploring the Data
----------------------
 
 <<name='load_data', echo=False>>=
 from common import student_data

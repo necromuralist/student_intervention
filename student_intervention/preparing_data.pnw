@@ -47,7 +47,7 @@ for column_name in sorted(feature_columns):
 Preprocess feature columns
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Some Machine Learning algorithms (e.g. Logistic Regression) require numeric data so the columns with string-data need to be transformed. The columns in this data-set that had 'yes' or 'no' values had the values converted to 1 and 0 respectively. Those columns that had other kinds of categorical data were transformed into dummy-columns.
+Some Machine Learning algorithms (e.g. Logistic Regression) require numeric data so the columns with string-data need to be transformed. The columns in this data-set that had 'yes' or 'no' values had the values converted to 1 and 0 respectively. Those columns that had other kinds of categorical data were transformed into dummy-variable columns.
 
 <<name='Preprocess feature columns', echo=False, wrapy=False>>=
 def preprocess_features(X):
@@ -80,6 +80,14 @@ assert len(y_all) == 395, "Expected: 395 Actual: {0}".format(len(y_all))
 
 In addition, the target data was also changed so that instead of 'yes' and 'no' values it contained only '1' and '0' values.
 
+<<name='post_dummies', results='sphinx', echo=False>>=
+original_columns = len(feature_columns)
+with_dummies = len(X_all.columns)
+print("   * Original Columns: {0}".format(original_columns))
+print("   * With Dummies: {0}".format(with_dummies))
+print("\nWith dummy variables there are now {0} more columns in the feature data.".format(with_dummies - original_columns))
+@
+
 Split data into training and test sets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -111,6 +119,6 @@ with open(train_test_path, 'wb') as pickler:
 .. csv-table:: Training and Testing Data
    :header: Set, Count
 <<name='data_table', echo=False, wrap=False, results='sphinx'>>=
-print("   Training Features,{0}".format(X_train.shape[0]))
-print("   Test Features,{0}".format(X_test.shape[0]))
+print("   Training Instances,{0}".format(X_train.shape[0]))
+print("   Test Instances,{0}".format(X_test.shape[0]))
 @
