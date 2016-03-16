@@ -1,15 +1,13 @@
-2. Exploring the Data
----------------------
+Exploring the Data
+------------------
 
 
 
 
 
-
-Now, can you find out the following facts about the dataset? - Total number of students - Number of students who passed - Number of students who failed - Graduation rate of the class (%) - Number of features.
 
 .. csv-table:: Summary Statistics
-   :header: Static, Value
+   :header: Statistic, Value
 
    Total number of students, 395
    Number of students who passed, 265

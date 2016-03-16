@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>5. Choosing the Best Model &mdash; Student Intervention System 2016.03.11 documentation</title>
+    <title>Choosing the Best Model &mdash; Student Intervention System 2016.03.11 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -30,7 +30,7 @@
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="Student Intervention System 2016.03.11 documentation" href="index.html" />
     <link rel="next" title="References" href="citations.html" />
-    <link rel="prev" title="4. Training and Evaluating Models" href="training_and_evaluating.html" />
+    <link rel="prev" title="Training and Evaluating Models" href="training_and_evaluating.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -66,8 +66,8 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="exploring_data.html">1. Classification vs Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exploring_data.html#exploring-the-data">2. Exploring the Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification_vs_regression.html">Classification vs Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exploring_data.html">Exploring the Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="preparing_data.html">Preparing the Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="training_and_evaluating.html">Training and Evaluating Models</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Choosing the Best Model</a></li>
@@ -85,7 +85,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">5. Choosing the Best Model</a><ul>
+<li><a class="reference internal" href="#">Choosing the Best Model</a><ul>
 <li><a class="reference internal" href="#fitting-the-model">Fitting The Model</a><ul>
 <li><a class="reference internal" href="#parameters">Parameters</a></li>
 <li><a class="reference internal" href="#coefficients">Coefficients</a><ul>
@@ -104,9 +104,9 @@
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#f1-score">F1 score</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#f1-score-test-set">F1 score (Test Set)</a></li>
 </ul>
 </li>
 </ul>
@@ -118,7 +118,7 @@
               
                 
   <li>
-    <a href="training_and_evaluating.html" title="Previous Chapter: 4. Training and Evaluating Models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 4. Training a...</span>
+    <a href="training_and_evaluating.html" title="Previous Chapter: Training and Evaluating Models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Training and ...</span>
     </a>
   </li>
   <li>
@@ -157,27 +157,28 @@
     <div class="col-md-12 content">
       
   <div class="section" id="choosing-the-best-model">
-<h1>5. Choosing the Best Model<a class="headerlink" href="#choosing-the-best-model" title="Permalink to this headline">¶</a></h1>
-<p>Based on the previous experiments I chose <em>Logistic Regression</em> as the classifier to use. Given the data available, all three models have approximately the same F1 score (on the test data) but the Logistic Regression classifier is the fastest for both training and prediction when compared to <em>K-Nearest Neighbor</em> and <em>Random Forests</em>. In addition, the Logistic Regression classifier offers readily interpretable coefficients and L1 regression to sparsify the data, allowing us to see the most important of the variables when deciding who will pass their final exam.</p>
+<h1>Choosing the Best Model<a class="headerlink" href="#choosing-the-best-model" title="Permalink to this headline">¶</a></h1>
+<p>Based on the previous experiments I chose <em>Logistic Regression</em> as the classifier to use. Given the data available, all three models have comparable F1 scores (on the test data) but the Logistic Regression classifier is the fastest for both training and prediction when compared to <em>K-Nearest Neighbor</em> and <em>Random Forests</em>. In addition, the Logistic Regression classifier offers readily interpretable coefficients and L1 regression to sparsify the data, allowing us to see the most important of the variables when deciding who will pass their final exam.</p>
 <p>Logistic Regression works by estimating the probability that the target feature is 1 given the input features. It does this using the &#8216;sigmoid&#8217; function which creates an S-shaped curve which goes to 0 at negative infinity and 1 at positive infinity:</p>
 <div class="math">
 <p><img src="_images/math/daf3b98095fb0cdd46706c802e85e519c235318b.png" alt="P(y=1|x) = \frac{1}{1+e^{-w^Tx}}\\"/></p>
 </div><p>Here <em>x</em> is a vector of feature data and <em>w</em> is the vector of weights that the Logistic Regression algorithm finds. The output of this function when there is one feature with a weight of 1 looks like this.</p>
 <a class="reference internal image-reference" href="_images/sigmoid_function.svg"><div align="center" class="align-center"><img src="_images/sigmoid_function.svg" /></div>
 </a>
-<p>When <em>x</em> is greater than 0 the probability is greater than 0.5 the output is classified as a 1, otherwise it is classified as 0.</p>
+<p>When <img class="math" src="_images/math/4e25442822a74ec56ee150f34bfb74222139feb3.png" alt="P(y=1|x)"/> is greater than 0.5, then the probability is greater than 0.5 that the output should be 1 so the output is classified as a 1, otherwise it is classified as 0.</p>
 <div class="section" id="fitting-the-model">
 <h2>Fitting The Model<a class="headerlink" href="#fitting-the-model" title="Permalink to this headline">¶</a></h2>
-<p>The Logistic Regression model was fit using sklearn&#8217;s <cite>GridSearchCV</cite> with 10 folds for the cross-validation. The parameters tested were the penalty-type (&#8216;l1&#8217; or &#8216;l2&#8217;) and &#8216;C&#8217; the inverse of the regularization strength (the smaller the number the larger the penalty).</p>
-<p>The <em>penalties</em> refer to regularization penalties that shrink or eliminate variable-coefficients in the model. The &#8216;l1&#8217; penalty refers to <em>lasso regularization</em> which causes some of the feature-variable coefficients to go to 0 if they don&#8217;t contribute as much to the model as the other, more significant variables. The &#8216;l2&#8217; penalty refers to <em>ridge regression</em> which shrinks the coefficients but never pushes them all the way to 0. Since <em>lasso regularization</em>  simplifies the model it might seem that it would be preferable, but it will only outperform <em>ridge regression</em> if there are differences in how much the variables contribute. If all the variables contribute equally to the model, then <em>ridge regression</em> will outperform the <em>lasso</em> (James G. et al., 2013).</p>
-<p>&#8216;C&#8217; is the inverse of the regularization strength. The stronger the regularization, the smaller the coefficients and for <em>lasso</em> the fewer the coefficients. Shrinking the coefficients too much or eliminating too many variables can weaken the model so how much regularization is determined here using cross-validation.</p>
-<p>This is the outcome of fitting the Logistic Regression classifier using Grid Search with the parameters given.</p>
+<p>The Logistic Regression model was fit using sklearn&#8217;s <cite>GridSearchCV</cite> with 10 folds for the cross-validation. The parameters tested were the penalty-type (<cite>l1</cite> or <cite>l2</cite>), <cite>C</cite> - the inverse of the regularization strength (the smaller the number the larger the penalty), and weights associated with each class.</p>
+<p>The <em>penalties</em> refer to regularization penalties that shrink or eliminate variable-coefficients in the model. The <cite>l1</cite> penalty refers to <em>lasso regularization</em> which causes some of the feature-variable coefficients to go to 0 if they don&#8217;t contribute as much to the model as the other, more significant variables. The <cite>l2</cite> penalty refers to <em>ridge regression</em> which shrinks the coefficients but never pushes them all the way to 0. Since <em>lasso regularization</em>  simplifies the model it might seem that it would be preferable, but it will only outperform <em>ridge regression</em> if there are differences in how much the variables contribute. If all the variables contribute equally to the model, then <em>ridge regression</em> will outperform the <em>lasso</em> (James G. et al., 2013).</p>
+<p><cite>C</cite> is the inverse of the regularization strength. The stronger the regularization (and thus the smaller <cite>C</cite> is), the smaller the coefficients in the model will be and for <em>lasso</em> the fewer the coefficients it will have. Shrinking the coefficients too much or eliminating too many variables can weaken the model so how much regularization is needed is determined here using cross-validation.</p>
+<p>The weights used for the classes were either 1, &#8216;balanced&#8217; <img class="math" src="_images/math/28d16dd131760ab45a8d9f783bca44b43010a30d.png" alt="\left(\frac{\textit{number of samples}}{\textit{number of classes} \times \textit{&lt;number of 0's in y, number of 1's in y&gt;}}\right)"/>, or 0.67 for passed and 0.33 for didn&#8217;t pass.</p>
+<p>The following is the outcome of fitting the Logistic Regression classifier using Grid Search with the parameters given.</p>
 <div class="section" id="parameters">
 <h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <colgroup>
-<col width="61%" />
-<col width="39%" />
+<col width="63%" />
+<col width="37%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Parameter</th>
@@ -191,9 +192,12 @@
 <tr class="row-odd"><td>C</td>
 <td>0.09</td>
 </tr>
+<tr class="row-even"><td>class_weight</td>
+<td>&nbsp;</td>
+</tr>
 </tbody>
 </table>
-<p>These are the parameters for the model that had the highest F1 score. The best scorer used &#8216;l1&#8217;, or lasso regularization so the model should be sparse. The amount of regularization used was fairly high (since &#8216;C&#8217; is the inverse of the amount of regularization, the smaller it is the more regularization there is).</p>
+<p>These are the parameters for the model that had the highest F1 score. The best scorer used <cite>l1</cite> (lasso regularization) suggesting that the features contribute unequally to the outcome. The amount of regularization used was fairly high (<cite>C</cite> is the inverse of the amount of regularization, the smaller it is the more regularization there is) so the model should be fairly sparse compared relative to the number of variables in the data set. Although it looks like there was no <code class="docutils literal"><span class="pre">class_weight</span></code> set, this is because <code class="docutils literal"><span class="pre">None</span></code> was chosen, so the class weights were assumed to be 1.</p>
 </div>
 <div class="section" id="coefficients">
 <h3>Coefficients<a class="headerlink" href="#coefficients" title="Permalink to this headline">¶</a></h3>
@@ -249,7 +253,7 @@
 </tr>
 </tbody>
 </table>
-<p>These are the variables that remained in the best model after the regularization was applied, sorted by their coefficient-values. The coefficients are log-odds so calculating <img class="math" src="_images/math/2f7fc2d8310a27a9b113fcbfe3129e7cdd596a3d.png" alt="e^{coefficient}"/> gives you the increase in odds that the student will graduate for every unit-increase for that variable.</p>
+<p>These are the variables that remained in the best model after the regularization was applied, sorted by their coefficient-values. The coefficients are log-odds so calculating <img class="math" src="_images/math/2f7fc2d8310a27a9b113fcbfe3129e7cdd596a3d.png" alt="e^{coefficient}"/> gives you the increase in odds that the student will graduate for every unit-increase for that variable (Peng C. et al., 2002).</p>
 <div class="section" id="positive-contributions">
 <h4>Positive Contributions<a class="headerlink" href="#positive-contributions" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="medu">
@@ -286,11 +290,11 @@
 </table>
 <a class="reference internal image-reference" href="_images/mothers_education.svg"><div align="center" class="align-center"><img src="_images/mothers_education.svg" /></div>
 </a>
-<p>Looking at a plot of all the data, as the mother&#8217;s education-level goes up the proportion of those that pass goes up relative to those that don&#8217;t pass.</p>
+<p>Looking at a plot of all the data, as the mother&#8217;s education-level goes up the proportion of those that pass goes up relative to those that don&#8217;t pass, with a large jump from Kindergarten - 4th grade to 5th - 9th grade levels .</p>
 </div>
 <div class="section" id="age">
 <h5>age<a class="headerlink" href="#age" title="Permalink to this headline">¶</a></h5>
-<p>This is the age of the student. It wasn&#8217;t immediately obvious why this would be a factor, assuming that the students are all in the same grade, but a plot of the data showed that the ages range from 15 to 22, with the oldest students not passing the final exam.</p>
+<p>This is the age of the student. It wasn&#8217;t immediately obvious why this would be a factor, assuming that the students are all in the same grade, but a plot of the data showed that the ages range from 15 to 22, with the oldest students not passing the final exam, and the 15-17 year olds being more proportionally represented among those who passed than those who didin&#8217;t, possibly because the older students were held back and thus were lower-performers to begin with.</p>
 <a class="reference internal image-reference" href="_images/student_age.svg"><div align="center" class="align-center"><img src="_images/student_age.svg" /></div>
 </a>
 </div>
@@ -299,17 +303,13 @@
 <p>According to the readme file <code class="docutils literal"><span class="pre">famrel</span></code> is a rating of the quality of family relations ranging form 1 (very bad) to 5 (excellent).</p>
 <a class="reference internal image-reference" href="_images/family_relations.svg"><div align="center" class="align-center"><img src="_images/family_relations.svg" /></div>
 </a>
-<p>The plot seems to show that relations of 4 and 5 improve the likelihood of passing.</p>
+<p>The plot seems to show that relations of above average (4 and 5) family-relations improved the likelihood of passing.</p>
 </div>
 <div class="section" id="fedu">
 <h5>Fedu<a class="headerlink" href="#fedu" title="Permalink to this headline">¶</a></h5>
 <p>This is the student&#8217;s father&#8217;s education level. The levels are the same as <cite>Medu</cite>.</p>
 <a class="reference internal image-reference" href="_images/fathers_education.svg"><div align="center" class="align-center"><img src="_images/fathers_education.svg" /></div>
 </a>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Weekend alcohol consumption is included but has a coefficient of 0 so it is neither a negative nor positive contributor to passing.</p>
-</div>
 </div>
 </div>
 <div class="section" id="negative-contributions">
@@ -320,29 +320,28 @@
 <p>This is a straightforward count of the number of absences there were.</p>
 <a class="reference internal image-reference" href="_images/absences.svg"><div align="center" class="align-center"><img src="_images/absences.svg" /></div>
 </a>
-<p>The differences are not large, but at around 10 absences the distributions seem to cross over with the non-passing line raised above the passing line.</p>
+<p>The differences are not large, but the distribution for those that didin&#8217;t pass has a greater spread and at around 10 absences the distributions seem to cross over with the non-passing line raised above the passing line (indicating a greater proportion of non-passing students).</p>
 </div>
 <div class="section" id="goout">
 <h5>goout<a class="headerlink" href="#goout" title="Permalink to this headline">¶</a></h5>
 <p>This is how often the student goes out with friends. There are 5 levels from 1 (very low) to 5 (very high).</p>
 <a class="reference internal image-reference" href="_images/going_out.svg"><div align="center" class="align-center"><img src="_images/going_out.svg" /></div>
 </a>
-<p>It looks like a level greater than 3 has a negative effect on passing.</p>
+<p>It looks like going out more than the average has a negative effect on passing.</p>
 </div>
 <div class="section" id="failures">
 <h5>failures<a class="headerlink" href="#failures" title="Permalink to this headline">¶</a></h5>
 <p>This is the most negative variable and represents the number of past class failures for a student. It ranges from 0 to 4 with 4 meaning 4 or more failures.</p>
 <a class="reference internal image-reference" href="_images/past_failures.svg"><div align="center" class="align-center"><img src="_images/past_failures.svg" /></div>
 </a>
-<p>It looks like no student failed 4 or more classes before taking the final exam and 1 or more failures had a negative impact on whether a student passed.</p>
+<p>It looks like no student failed 4 or more classes before taking the final exam and there were more failing students than passing students once there were any failures.</p>
 </div>
 </div>
 </div>
-<div class="section" id="f1-score">
-<h3>F1 score<a class="headerlink" href="#f1-score" title="Permalink to this headline">¶</a></h3>
-<p>0.86</p>
-<p>The best F1 score for the Logistic Regression classifier was 0.83, which is a slight improvement over the default Logistic Regression classifier used earlier which had an f1 of approximately 0.79 for the test set when trained with 300 training instances.</p>
 </div>
+<div class="section" id="f1-score-test-set">
+<h2>F1 score (Test Set)<a class="headerlink" href="#f1-score-test-set" title="Permalink to this headline">¶</a></h2>
+<p>The best F1 score for the Logistic Regression classifier was 0.86, which is a slight improvement over the default Logistic Regression classifier used earlier which had an f1 of approximately 0.81 for the test set when trained with 300 training instances.</p>
 </div>
 </div>
 

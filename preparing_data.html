@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>3. Preparing the Data &mdash; Student Intervention System 2016.03.11 documentation</title>
+    <title>Preparing the Data &mdash; Student Intervention System 2016.03.11 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -29,8 +29,8 @@
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="Student Intervention System 2016.03.11 documentation" href="index.html" />
-    <link rel="next" title="4. Training and Evaluating Models" href="training_and_evaluating.html" />
-    <link rel="prev" title="1. Classification vs Regression" href="exploring_data.html" />
+    <link rel="next" title="Training and Evaluating Models" href="training_and_evaluating.html" />
+    <link rel="prev" title="Exploring the Data" href="exploring_data.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -66,8 +66,8 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="exploring_data.html">1. Classification vs Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exploring_data.html#exploring-the-data">2. Exploring the Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification_vs_regression.html">Classification vs Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exploring_data.html">Exploring the Data</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Preparing the Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="training_and_evaluating.html">Training and Evaluating Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="choosing_best_model.html">Choosing the Best Model</a></li>
@@ -85,7 +85,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">3. Preparing the Data</a><ul>
+<li><a class="reference internal" href="#">Preparing the Data</a><ul>
 <li><a class="reference internal" href="#identify-feature-and-target-columns">Identify feature and target columns</a></li>
 <li><a class="reference internal" href="#preprocess-feature-columns">Preprocess feature columns</a></li>
 <li><a class="reference internal" href="#split-data-into-training-and-test-sets">Split data into training and test sets</a></li>
@@ -100,11 +100,11 @@
               
                 
   <li>
-    <a href="exploring_data.html" title="Previous Chapter: 1. Classification vs Regression"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 1. Classifica...</span>
+    <a href="exploring_data.html" title="Previous Chapter: Exploring the Data"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Exploring the...</span>
     </a>
   </li>
   <li>
-    <a href="training_and_evaluating.html" title="Next Chapter: 4. Training and Evaluating Models"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">4. Training a... &raquo;</span>
+    <a href="training_and_evaluating.html" title="Next Chapter: Training and Evaluating Models"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Training and ... &raquo;</span>
     </a>
   </li>
               
@@ -139,7 +139,7 @@
     <div class="col-md-12 content">
       
   <div class="section" id="preparing-the-data">
-<h1>3. Preparing the Data<a class="headerlink" href="#preparing-the-data" title="Permalink to this headline">¶</a></h1>
+<h1>Preparing the Data<a class="headerlink" href="#preparing-the-data" title="Permalink to this headline">¶</a></h1>
 <p>In this section, we will prepare the data for modeling, training and testing.</p>
 <div class="section" id="identify-feature-and-target-columns">
 <h2>Identify feature and target columns<a class="headerlink" href="#identify-feature-and-target-columns" title="Permalink to this headline">¶</a></h2>
@@ -283,8 +283,16 @@
 </div>
 <div class="section" id="preprocess-feature-columns">
 <h2>Preprocess feature columns<a class="headerlink" href="#preprocess-feature-columns" title="Permalink to this headline">¶</a></h2>
-<p>Some Machine Learning algorithms (e.g. Logistic Regression) require numeric data so the columns with string-data need to be transformed. The columns in this data-set that had &#8216;yes&#8217; or &#8216;no&#8217; values had the values converted to 1 and 0 respectively. Those columns that had other kinds of categorical data were transformed into dummy-columns.</p>
+<p>Some Machine Learning algorithms (e.g. Logistic Regression) require numeric data so the columns with string-data need to be transformed. The columns in this data-set that had &#8216;yes&#8217; or &#8216;no&#8217; values had the values converted to 1 and 0 respectively. Those columns that had other kinds of categorical data were transformed into dummy-variable columns.</p>
 <p>In addition, the target data was also changed so that instead of &#8216;yes&#8217; and &#8216;no&#8217; values it contained only &#8216;1&#8217; and &#8216;0&#8217; values.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Original Feature Columns: 30</li>
+<li>With Dummies: 48</li>
+</ul>
+</div></blockquote>
+<p>With dummy variables there are now 18 more columns in the feature
+data.</p>
 </div>
 <div class="section" id="split-data-into-training-and-test-sets">
 <h2>Split data into training and test sets<a class="headerlink" href="#split-data-into-training-and-test-sets" title="Permalink to this headline">¶</a></h2>
@@ -301,10 +309,10 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>Training Features</td>
+<tr class="row-even"><td>Training Instances</td>
 <td>300</td>
 </tr>
-<tr class="row-odd"><td>Test Features</td>
+<tr class="row-odd"><td>Test Instances</td>
 <td>95</td>
 </tr>
 </tbody>
