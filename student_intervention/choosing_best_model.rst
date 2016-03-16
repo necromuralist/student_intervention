@@ -1,5 +1,5 @@
-5. Choosing the Best Model
---------------------------
+Choosing the Best Model
+-----------------------
 
 
 
@@ -18,11 +18,11 @@ Here *x* is a vector of feature data and *w* is the vector of weights that the L
 
 .. image:: figures/sigmoid_function.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 
-When *x* is greater than 0 the probability is greater than 0.5 the output is classified as a 1, otherwise it is classified as 0.
+When :math:`P(y=1|x)` is greater than 0.5, then the probability is greater than 0.5 that the output should be 1 so the output is classified as a 1, otherwise it is classified as 0.
 
 
 
@@ -40,7 +40,7 @@ Fitting The Model
 
 The Logistic Regression model was fit using sklearn's `GridSearchCV` with 10 folds for the cross-validation. The parameters tested were the penalty-type (`l1` or `l2`), `C` - the inverse of the regularization strength (the smaller the number the larger the penalty), and weights associated with each class.
 
-The *penalties* refer to regularization penalties that shrink or eliminate variable-coefficients in the model. The 'l1' penalty refers to *lasso regularization* which causes some of the feature-variable coefficients to go to 0 if they don't contribute as much to the model as the other, more significant variables. The 'l2' penalty refers to *ridge regression* which shrinks the coefficients but never pushes them all the way to 0. Since *lasso regularization*  simplifies the model it might seem that it would be preferable, but it will only outperform *ridge regression* if there are differences in how much the variables contribute. If all the variables contribute equally to the model, then *ridge regression* will outperform the *lasso* (James G. et al., 2013).
+The *penalties* refer to regularization penalties that shrink or eliminate variable-coefficients in the model. The `l1` penalty refers to *lasso regularization* which causes some of the feature-variable coefficients to go to 0 if they don't contribute as much to the model as the other, more significant variables. The `l2` penalty refers to *ridge regression* which shrinks the coefficients but never pushes them all the way to 0. Since *lasso regularization*  simplifies the model it might seem that it would be preferable, but it will only outperform *ridge regression* if there are differences in how much the variables contribute. If all the variables contribute equally to the model, then *ridge regression* will outperform the *lasso* (James G. et al., 2013).
 
 `C` is the inverse of the regularization strength. The stronger the regularization (and thus the smaller `C` is), the smaller the coefficients in the model will be and for *lasso* the fewer the coefficients it will have. Shrinking the coefficients too much or eliminating too many variables can weaken the model so how much regularization is needed is determined here using cross-validation.
 
@@ -118,7 +118,7 @@ The predictor with the greatest positive effect in the model was the amount of e
 
 .. image:: figures/mothers_education.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 
@@ -132,7 +132,7 @@ This is the age of the student. It wasn't immediately obvious why this would be 
 
 .. image:: figures/student_age.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 
@@ -144,7 +144,7 @@ According to the readme file ``famrel`` is a rating of the quality of family rel
 
 .. image:: figures/family_relations.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 
@@ -158,7 +158,7 @@ This is the student's father's education level. The levels are the same as `Medu
 
 .. image:: figures/fathers_education.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 
@@ -175,7 +175,7 @@ This is a straightforward count of the number of absences there were.
 
 .. image:: figures/absences.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 
@@ -191,7 +191,7 @@ This is how often the student goes out with friends. There are 5 levels from 1 (
 
 .. image:: figures/going_out.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 
@@ -205,7 +205,7 @@ This is the most negative variable and represents the number of past class failu
 
 .. image:: figures/past_failures.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 
@@ -215,7 +215,6 @@ It looks like no student failed 4 or more classes before taking the final exam a
 F1 score (Test Set)
 ~~~~~~~~~~~~~~~~~~~
 
-0.86
-
-
 The best F1 score for the Logistic Regression classifier was 0.86, which is a slight improvement over the default Logistic Regression classifier used earlier which had an f1 of approximately 0.81 for the test set when trained with 300 training instances.
+
+

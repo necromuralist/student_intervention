@@ -1,5 +1,5 @@
-3. Preparing the Data
----------------------
+Preparing the Data
+------------------
 <<name='imports', echo=False>>=
 # python standard library
 import pickle
@@ -83,7 +83,7 @@ In addition, the target data was also changed so that instead of 'yes' and 'no' 
 <<name='post_dummies', results='sphinx', echo=False>>=
 original_columns = len(feature_columns)
 with_dummies = len(X_all.columns)
-print("   * Original Columns: {0}".format(original_columns))
+print("   * Original Feature Columns: {0}".format(original_columns))
 print("   * With Dummies: {0}".format(with_dummies))
 print("\nWith dummy variables there are now {0} more columns in the feature data.".format(with_dummies - original_columns))
 @

@@ -1,5 +1,5 @@
-5. Choosing the Best Model
---------------------------
+Choosing the Best Model
+-----------------------
 <<name='imports', echo=False>>=
 # python standard library
 import pickle
@@ -16,7 +16,7 @@ from tabulate import tabulate
 
 # this code
 from common import (TrainTestData, train_test_path, feature_map,
-                    student_data, print_image_directive)
+                    student_data, print_image_directive, SCALE)
 @
 <<name='load_data', echo=False>>=
 with open(train_test_path, 'rb') as unpickler:
@@ -46,10 +46,10 @@ axe.plot(x, y)
 title = axe.set_title("Sigmoid Function")
 axe.set_ylabel(r"P(y=1|x)")
 axe.set_xlabel("x")
-print_image_directive(figure=figure, filename="sigmoid_function")
+print_image_directive(figure=figure, filename="sigmoid_function", scale=SCALE)
 @
 
-When *x* is greater than 0 the probability is greater than 0.5 the output is classified as a 1, otherwise it is classified as 0.
+When :math:`P(y=1|x)` is greater than 0.5, then the probability is greater than 0.5 that the output should be 1 so the output is classified as a 1, otherwise it is classified as 0.
 
 <<name='setup', echo=False>>=
 scorer = make_scorer(f1_score)
@@ -116,7 +116,7 @@ Fitting The Model
 
 The Logistic Regression model was fit using sklearn's `GridSearchCV` with 10 folds for the cross-validation. The parameters tested were the penalty-type (`l1` or `l2`), `C` - the inverse of the regularization strength (the smaller the number the larger the penalty), and weights associated with each class.
 
-The *penalties* refer to regularization penalties that shrink or eliminate variable-coefficients in the model. The 'l1' penalty refers to *lasso regularization* which causes some of the feature-variable coefficients to go to 0 if they don't contribute as much to the model as the other, more significant variables. The 'l2' penalty refers to *ridge regression* which shrinks the coefficients but never pushes them all the way to 0. Since *lasso regularization*  simplifies the model it might seem that it would be preferable, but it will only outperform *ridge regression* if there are differences in how much the variables contribute. If all the variables contribute equally to the model, then *ridge regression* will outperform the *lasso* (James G. et al., 2013).
+The *penalties* refer to regularization penalties that shrink or eliminate variable-coefficients in the model. The `l1` penalty refers to *lasso regularization* which causes some of the feature-variable coefficients to go to 0 if they don't contribute as much to the model as the other, more significant variables. The `l2` penalty refers to *ridge regression* which shrinks the coefficients but never pushes them all the way to 0. Since *lasso regularization*  simplifies the model it might seem that it would be preferable, but it will only outperform *ridge regression* if there are differences in how much the variables contribute. If all the variables contribute equally to the model, then *ridge regression* will outperform the *lasso* (James G. et al., 2013).
 
 `C` is the inverse of the regularization strength. The stronger the regularization (and thus the smaller `C` is), the smaller the coefficients in the model will be and for *lasso* the fewer the coefficients it will have. Shrinking the coefficients too much or eliminating too many variables can weaken the model so how much regularization is needed is determined here using cross-validation.
 
@@ -173,7 +173,7 @@ def make_countplots(title, x_name, filename, hue='passed'):
     axe = figure.gca()
     axe.set_title(title)
     lines = seaborn.countplot(x=x_name, hue=hue, data=student_data)
-    print_image_directive(filename=filename, figure=figure)
+    print_image_directive(filename=filename, figure=figure, scale=SCALE)
 @
 <<name='plot_medu', echo=False, results='sphinx', include=False>>=
 make_countplots("Mother's Education vs Passing", 'Medu', 'mothers_education')
@@ -227,7 +227,7 @@ axe.set_title('Distribution of Absences')
 axe = seaborn.kdeplot(student_data[student_data.passed=='yes'].absences, label='passed')
 axe.set_xlim([0, 80])
 axe = seaborn.kdeplot(student_data[student_data.passed=='no'].absences, ax=axe, label="didn't pass")
-print_image_directive(figure=figure, filename='absences')
+print_image_directive(figure=figure, filename='absences', scale=SCALE)
 @
 
 The differences are not large, but the distribution for those that didin't pass has a greater spread and at around 10 absences the distributions seem to cross over with the non-passing line raised above the passing line (indicating a greater proportion of non-passing students).
@@ -260,7 +260,6 @@ It looks like no student failed 4 or more classes before taking the final exam a
 F1 score (Test Set)
 ~~~~~~~~~~~~~~~~~~~
 <<name='f1_score', echo=False, results='sphinx', wrap=False>>=
-print("{0:.2f}".format(grid_01.score(train_test_data.X_test, train_test_data.y_test)))
+print("The best F1 score for the Logistic Regression classifier was {0:.2f}, which is a slight improvement over the default Logistic Regression classifier used earlier which had an f1 of approximately 0.81 for the test set when trained with 300 training instances.".format(grid_01.score(train_test_data.X_test, train_test_data.y_test)))
 @
 
-The best F1 score for the Logistic Regression classifier was 0.86, which is a slight improvement over the default Logistic Regression classifier used earlier which had an f1 of approximately 0.81 for the test set when trained with 300 training instances.

@@ -1,5 +1,5 @@
-2. Exploring the Data
----------------------
+Exploring the Data
+------------------
 <<name='imports', echo=False>>=
 # third party
 import matplotlib.pyplot as plot
@@ -15,10 +15,8 @@ from common import print_image_directive
 from common import student_data
 @
 
-Now, can you find out the following facts about the dataset? - Total number of students - Number of students who passed - Number of students who failed - Graduation rate of the class (%) - Number of features.
-
 .. csv-table:: Summary Statistics
-   :header: Static, Value
+   :header: Statistic, Value
 <<name='statistics', echo=False, results='sphinx'>>=
 n_students = student_data.shape[0]
 n_features = student_data.shape[1]

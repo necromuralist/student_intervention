@@ -1,5 +1,5 @@
-3. Preparing the Data
----------------------
+Preparing the Data
+------------------
 
 
 In this section, we will prepare the data for modeling, training and testing.
@@ -58,7 +58,7 @@ Some Machine Learning algorithms (e.g. Logistic Regression) require numeric data
 In addition, the target data was also changed so that instead of 'yes' and 'no' values it contained only '1' and '0' values.
 
 
-   * Original Columns: 30
+   * Original Feature Columns: 30
    * With Dummies: 48
 
 With dummy variables there are now 18 more columns in the feature

@@ -179,7 +179,7 @@ html_show_sphinx = True
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-basename = "Boston Housing Modeling"
+basename = "Student Intervention"
 htmlhelp_basename = basename + 'doc'
 
 

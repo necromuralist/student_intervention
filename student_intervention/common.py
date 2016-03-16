@@ -1,12 +1,14 @@
 # python standard library
 from collections import namedtuple
 import os
+from distutils.util import strtobool
 
 # third party
 import pandas
 
 student_data = pandas.read_csv("student-data.csv")
 RANDOM_STATE = 100
+SCALE = os.environ.get("SCALE", '85%')
 
 def print_image_directive(filename, figure, scale='95%', print_only=False):
     """

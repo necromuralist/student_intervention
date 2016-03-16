@@ -1,5 +1,5 @@
-4. Training and Evaluating Models
----------------------------------
+Training and Evaluating Models
+------------------------------
 
 
 
@@ -86,12 +86,12 @@ Best score and size of data-set that gave the best test score:
 .. csv-table:: RandomForestClassifier
    :header: Size,Time (train),Time (predict),Train F1,Test F1
 
-   100,0.0202,0.0011,1.0000,0.7943
-   200,0.0210,0.0012,0.9924,0.7704
-   300,0.0221,0.0012,0.9898,0.7692
+   100,0.0198,0.0011,0.9841,0.6557
+   200,0.0208,0.0011,0.9887,0.7087
+   300,0.0218,0.0012,0.9949,0.7714
 Best score and size of data-set that gave the best test score:
- * best score: 0.79
- * best size: 100
+ * best score: 0.77
+ * best size: 300
 
 .. csv-table:: KNeighborsClassifier
    :header: Size,Time (train),Time (predict),Train F1,Test F1
@@ -114,13 +114,13 @@ Classifier                Score    Training-Size    Training-Time    Prediction-
 ======================  =======  ===============  ===============  =================
 LogisticRegression         0.81              300           0.0029             0.0001
 KNeighborsClassifier       0.79              300           0.0006             0.0027
-RandomForestClassifier     0.79              100           0.0202             0.0011
+RandomForestClassifier     0.77              300           0.0218             0.0012
 ======================  =======  ===============  ===============  =================
 
 
 It looks like all three did about equally well on the test-sets.
 
-As expected, KNN had the shortest training time and the longest prediction time. The training-times are misleading since there are two test-sizes so the following tables use the values for the 300 training-set-sizes to make the comparisons fairer. Since the values are so small, I'll look at the ratios of the times instead of the absolute times.
+As expected, KNN had the shortest training time and the longest prediction time. Since the values are so small, I'll look at the ratios of the times next instead of the absolute times.
 
 .. '
 
@@ -132,9 +132,9 @@ Training Times
 ===========================================  =======
 Classifiers                                    Ratio
 ===========================================  =======
-LogisticRegression/KNeighborsClassifier         4.39
-RandomForestClassifier/KNeighborsClassifier    33.96
-RandomForestClassifier/LogisticRegression       7.74
+LogisticRegression/KNeighborsClassifier         4.45
+RandomForestClassifier/KNeighborsClassifier    33.75
+RandomForestClassifier/LogisticRegression       7.59
 ===========================================  =======
 
 
@@ -146,9 +146,9 @@ Prediction Times
 ===========================================  =======
 Classifiers                                    Ratio
 ===========================================  =======
-KNeighborsClassifier/LogisticRegression        19.93
-KNeighborsClassifier/RandomForestClassifier     2.25
-RandomForestClassifier/LogisticRegression       8.87
+KNeighborsClassifier/LogisticRegression        20.23
+KNeighborsClassifier/RandomForestClassifier     2.29
+RandomForestClassifier/LogisticRegression       8.84
 ===========================================  =======
 
 
@@ -162,7 +162,7 @@ Classifiers                                    Ratio
 ===========================================  =======
 LogisticRegression/KNeighborsClassifier         1.02
 KNeighborsClassifier/RandomForestClassifier     1.03
-LogisticRegression/RandomForestClassifier       1.06
+LogisticRegression/RandomForestClassifier       1.05
 ===========================================  =======
 
 
@@ -182,7 +182,7 @@ Training Set
 
 .. image:: figures/f1_scores_training.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 The Random Forest did well on the training set from the start, while the K-nearest Neighbor classifier  and the Logistic Regression classifier were erratic until just over 100 training instances. Neither K-Nearest Neighbors nor Logistic Regression was able to do as well on the training set as Random Forests did, suggesting that they are underfitting the data.
@@ -193,7 +193,7 @@ Test Set
 
 .. image:: figures/f1_scores_test.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 All three classifiers did comparably once the training set was increased to 300 instances, but the Random Forest Classifier shows larger fluctuations in the F1 score than the other classifiers, while the Logistic Regression classifier seemed to be the most stable, and performed the best for most of the instance-counts.
@@ -207,7 +207,7 @@ Comparing Test vs Train Scores by Model
 
 .. image:: figures/f1_scores_LogisticRegression.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 The training and testing sets for the Logistic Regression seem to be converging around 0.8, suggesting the model is underfitting and may not be complex enough for the data. Oddly, the test score is better than  the training score after about 250 training instances. Looking at the table above, the differences are fractional and might just be that the larger training set has proportionally more difficult instances than the test-set.
@@ -215,7 +215,7 @@ The training and testing sets for the Logistic Regression seem to be converging 
 
 .. image:: figures/f1_scores_KNeighborsClassifier.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 The K-Nearest Neighbors classifier seems to perform comparably to the Logistic Regression classifier, although the two curves haven't converged yet, suggesting that it might be improved with more data, although it will still underfit the data.
@@ -223,7 +223,7 @@ The K-Nearest Neighbors classifier seems to perform comparably to the Logistic R
 
 .. image:: figures/f1_scores_RandomForestClassifier.*
    :align: center
-   :scale: 95%
+   :scale: 85%
 
 
 The Random Forest classifier doesn't do better with the test data than the other two classifiers but is much better with the training data, suggesting that it is currently overfitting, and might be improved with more data.

@@ -1,5 +1,5 @@
-4. Training and Evaluating Models
----------------------------------
+Training and Evaluating Models
+------------------------------
 <<name='imports', echo=False>>=
 #python standard library
 import pickle
@@ -11,9 +11,12 @@ import matplotlib.pyplot as plot
 import numpy
 import seaborn
 from sklearn.metrics import f1_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 
 # this code
-from common import TrainTestData, print_image_directive, RANDOM_STATE
+from common import TrainTestData, print_image_directive, RANDOM_STATE, SCALE
 @
 <<name='unpickle', echo=False>>=
 with open('pickles/train_test_data.pkl', 'rb') as unpickler:
@@ -256,10 +259,6 @@ def train_and_predict(model, delimiter=','):
 ClassifierData = namedtuple('ClassifierData', 'score size name container'.split())
 @
 <<name='classify', echo=False, wrap=False, results='sphinx'>>=
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
-
 classifiers = [LogisticRegression(),
                RandomForestClassifier(),
                KNeighborsClassifier()]
@@ -297,7 +296,7 @@ print(tabulate(table, headers='Classifier Score Training-Size Training-Time Pred
 
 It looks like all three did about equally well on the test-sets.
 
-As expected, KNN had the shortest training time and the longest prediction time. The training-times are misleading since there are two test-sizes so the following tables use the values for the 300 training-set-sizes to make the comparisons fairer. Since the values are so small, I'll look at the ratios of the times instead of the absolute times.
+As expected, KNN had the shortest training time and the longest prediction time. Since the values are so small, I'll look at the ratios of the times next instead of the absolute times.
 
 .. '
 
@@ -373,7 +372,7 @@ def plot_scores(which_f1='test'):
     axe.set_ylabel('F1 Score')
     axe.set_ylim([0, 1.0])
     filename = 'f1_scores_{0}'.format(which_f1)
-    print_image_directive(filename, figure)
+    print_image_directive(filename, figure, scale=SCALE)
     return
 @
 
@@ -413,7 +412,7 @@ def plot_test_train(model):
     axe.set_ylabel('F1 Score')
     axe.set_ylim([0, 1.0])
     filename = 'f1_scores_{0}'.format(model)
-    print_image_directive(filename, figure)
+    print_image_directive(filename, figure, scale=SCALE)
     return
 @
 
