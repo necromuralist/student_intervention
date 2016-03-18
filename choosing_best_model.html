@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Choosing the Best Model &mdash; Student Intervention System 2016.03.11 documentation</title>
+    <title>Choosing the Best Model &mdash; Student Intervention System 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2016.03.11',
+        VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Student Intervention System 2016.03.11 documentation" href="index.html" />
+    <link rel="top" title="Student Intervention System 0.2 documentation" href="index.html" />
     <link rel="next" title="References" href="citations.html" />
     <link rel="prev" title="Training and Evaluating Models" href="training_and_evaluating.html" />
 <meta charset='utf-8'>
@@ -50,7 +50,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Student Intervention System</a>
-        <span class="navbar-text navbar-version pull-left"><b>2016.03.11</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -159,13 +159,16 @@
   <div class="section" id="choosing-the-best-model">
 <h1>Choosing the Best Model<a class="headerlink" href="#choosing-the-best-model" title="Permalink to this headline">¶</a></h1>
 <p>Based on the previous experiments I chose <em>Logistic Regression</em> as the classifier to use. Given the data available, all three models have comparable F1 scores (on the test data) but the Logistic Regression classifier is the fastest for both training and prediction when compared to <em>K-Nearest Neighbor</em> and <em>Random Forests</em>. In addition, the Logistic Regression classifier offers readily interpretable coefficients and L1 regression to sparsify the data, allowing us to see the most important of the variables when deciding who will pass their final exam.</p>
-<p>Logistic Regression works by estimating the probability that the target feature is 1 given the input features. It does this using the &#8216;sigmoid&#8217; function which creates an S-shaped curve which goes to 0 at negative infinity and 1 at positive infinity:</p>
+<p>Logistic Regression works by estimating the probability that a student&#8217;s attributes - such as their age, how often they go out, etc. -  predicts that they will pass. It does this using the <em>logistic function</em> which creates an S-shaped curve which goes to 0 at negative infinity and 1 at positive infinity:</p>
 <div class="math">
-<p><img src="_images/math/daf3b98095fb0cdd46706c802e85e519c235318b.png" alt="P(y=1|x) = \frac{1}{1+e^{-w^Tx}}\\"/></p>
-</div><p>Here <em>x</em> is a vector of feature data and <em>w</em> is the vector of weights that the Logistic Regression algorithm finds. The output of this function when there is one feature with a weight of 1 looks like this.</p>
+<p><img src="_images/math/e02424a78802ac92b40a134cc7c86c2c164f822c.png" alt="P(passed=yes|attributes) = \frac{1}{1+e^{-weights^T \times attributes}}\\"/></p>
+</div><p>Here <em>attributes</em> is a vector of student attributes and <em>weights</em> is the vector of weights that the Logistic Regression algorithm finds. To see what this function looks like I&#8217;ll plot its output when there is a weight of one and a single attribute whose values are centered around 0, since this is a fictional attribute that I&#8217;m creating for plotting I&#8217;ll call it <em>x</em>.</p>
 <a class="reference internal image-reference" href="_images/sigmoid_function.svg"><div align="center" class="align-center"><img src="_images/sigmoid_function.svg" /></div>
 </a>
-<p>When <img class="math" src="_images/math/4e25442822a74ec56ee150f34bfb74222139feb3.png" alt="P(y=1|x)"/> is greater than 0.5, then the probability is greater than 0.5 that the output should be 1 so the output is classified as a 1, otherwise it is classified as 0.</p>
+<p>To clarify the previous equation, if we only had two attributes, <em>age</em> and <em>school</em> to predict if a student passed, then it could be written as:</p>
+<div class="math">
+<p><img src="_images/math/7e92c895ad3de0d4c94c43482024b4e7ba802e7c.png" alt="\textit{probability student passed given age and school} = \frac{1}{1+e^{-(intercept + w_1 \times age + w_2 \times school)}}\\"/></p>
+</div><p>The goal of the Logistic Regression algorithm is to find the weights that most accurately predict whether a given student passes or not. In other words, it seeks to find the values for the weights so that the logistic function most accurately produces a probability greater than <img class="math" src="_images/math/e94733fb87ba6088b50412e880d64acc560f9e4e.png" alt="\frac{1}{2}"/> if the student passed and a probablity less than <img class="math" src="_images/math/e94733fb87ba6088b50412e880d64acc560f9e4e.png" alt="\frac{1}{2}"/> if the student did not pass.</p>
 <div class="section" id="fitting-the-model">
 <h2>Fitting The Model<a class="headerlink" href="#fitting-the-model" title="Permalink to this headline">¶</a></h2>
 <p>The Logistic Regression model was fit using sklearn&#8217;s <cite>GridSearchCV</cite> with 10 folds for the cross-validation. The parameters tested were the penalty-type (<cite>l1</cite> or <cite>l2</cite>), <cite>C</cite> - the inverse of the regularization strength (the smaller the number the larger the penalty), and weights associated with each class.</p>
@@ -253,7 +256,7 @@
 </tr>
 </tbody>
 </table>
-<p>These are the variables that remained in the best model after the regularization was applied, sorted by their coefficient-values. The coefficients are log-odds so calculating <img class="math" src="_images/math/2f7fc2d8310a27a9b113fcbfe3129e7cdd596a3d.png" alt="e^{coefficient}"/> gives you the increase in odds that the student will graduate for every unit-increase for that variable (Peng C. et al., 2002).</p>
+<p>These are the variables that remained in the best model after the regularization was applied, sorted by their coefficient-values. The coefficients are log-odds so calculating <img class="math" src="_images/math/2f7fc2d8310a27a9b113fcbfe3129e7cdd596a3d.png" alt="e^{coefficient}"/> gives you the increase in odds that the student will graduate (Peng C. et al., 2002). If the odds are greater than one, then increasing the attribute associated with the coefficient will increase the probability that the student passed and if the odds are less than one, then increasing the attribute associated with the coefficient will reduce the probability that the student passed.</p>
 <div class="section" id="positive-contributions">
 <h4>Positive Contributions<a class="headerlink" href="#positive-contributions" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="medu">

@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Training and Evaluating Models &mdash; Student Intervention System 2016.03.11 documentation</title>
+    <title>Training and Evaluating Models &mdash; Student Intervention System 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2016.03.11',
+        VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Student Intervention System 2016.03.11 documentation" href="index.html" />
+    <link rel="top" title="Student Intervention System 0.2 documentation" href="index.html" />
     <link rel="next" title="Choosing the Best Model" href="choosing_best_model.html" />
     <link rel="prev" title="Preparing the Data" href="preparing_data.html" />
 <meta charset='utf-8'>
@@ -50,7 +50,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Student Intervention System</a>
-        <span class="navbar-text navbar-version pull-left"><b>2016.03.11</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -157,7 +157,7 @@
 <h1>Training and Evaluating Models<a class="headerlink" href="#training-and-evaluating-models" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="logistic-regression">
 <h2>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h2>
-<p>The first model I chose was <a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression">Logistic Regression</a>. Logistic regression is a linear classification model that is useful when the target variable is categorical and the feature variables are either numeric or categorical (Peng C., et al, 2002), although the categorical variables have to be converted to numeric values prior to use. Logistic Regression has the advantage of being computationally cheap, reasonable to implement, and is interpretable but has the disadvantage that it is prone to underfitting (Harrington, 2012).</p>
+<p>The first model I chose was <a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression">Logistic Regression</a>. Logistic regression is a linear classification model that is useful when the target variable is categorical and the feature variables are numeric (Peng C., et al, 2002). If the features are categorical then they have to be converted to discrete numeric values prior to use. Logistic Regression has the advantage of being computationally cheap, reasonable to implement, and is interpretable but has the disadvantage that it is prone to underfitting (Harrington, 2012).</p>
 <p>I chose this model for thre primary reasons:</p>
 <blockquote>
 <div><ul class="simple">
@@ -266,29 +266,29 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>100</td>
-<td>0.0198</td>
+<td>0.0203</td>
 <td>0.0011</td>
-<td>0.9841</td>
-<td>0.6557</td>
+<td>0.9921</td>
+<td>0.7049</td>
 </tr>
 <tr class="row-odd"><td>200</td>
-<td>0.0208</td>
-<td>0.0011</td>
-<td>0.9887</td>
-<td>0.7087</td>
+<td>0.0217</td>
+<td>0.0012</td>
+<td>0.9923</td>
+<td>0.7302</td>
 </tr>
 <tr class="row-even"><td>300</td>
-<td>0.0218</td>
+<td>0.0224</td>
 <td>0.0012</td>
 <td>0.9949</td>
-<td>0.7714</td>
+<td>0.7937</td>
 </tr>
 </tbody>
 </table>
 <dl class="docutils">
 <dt>Best score and size of data-set that gave the best test score:</dt>
 <dd><ul class="first last simple">
-<li>best score: 0.77</li>
+<li>best score: 0.79</li>
 <li>best size: 300</li>
 </ul>
 </dd>
@@ -324,7 +324,7 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 <td>0.7536</td>
 </tr>
 <tr class="row-even"><td>300</td>
-<td>0.0006</td>
+<td>0.0007</td>
 <td>0.0027</td>
 <td>0.8491</td>
 <td>0.7945</td>
@@ -367,13 +367,13 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 <tr class="row-odd"><td>KNeighborsClassifier</td>
 <td>0.79</td>
 <td>300</td>
-<td>0.0006</td>
+<td>0.0007</td>
 <td>0.0027</td>
 </tr>
 <tr class="row-even"><td>RandomForestClassifier</td>
-<td>0.77</td>
+<td>0.79</td>
 <td>300</td>
-<td>0.0218</td>
+<td>0.0224</td>
 <td>0.0012</td>
 </tr>
 </tbody>
@@ -394,13 +394,13 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>LogisticRegression/KNeighborsClassifier</td>
-<td>4.45</td>
+<td>4.44</td>
 </tr>
 <tr class="row-odd"><td>RandomForestClassifier/KNeighborsClassifier</td>
-<td>33.75</td>
+<td>34.35</td>
 </tr>
 <tr class="row-even"><td>RandomForestClassifier/LogisticRegression</td>
-<td>7.59</td>
+<td>7.74</td>
 </tr>
 </tbody>
 </table>
@@ -420,13 +420,13 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>KNeighborsClassifier/LogisticRegression</td>
-<td>20.23</td>
+<td>19.74</td>
 </tr>
 <tr class="row-odd"><td>KNeighborsClassifier/RandomForestClassifier</td>
-<td>2.29</td>
+<td>2.21</td>
 </tr>
 <tr class="row-even"><td>RandomForestClassifier/LogisticRegression</td>
-<td>8.84</td>
+<td>8.92</td>
 </tr>
 </tbody>
 </table>
@@ -449,10 +449,10 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 <td>1.02</td>
 </tr>
 <tr class="row-odd"><td>KNeighborsClassifier/RandomForestClassifier</td>
-<td>1.03</td>
+<td>1</td>
 </tr>
 <tr class="row-even"><td>LogisticRegression/RandomForestClassifier</td>
-<td>1.05</td>
+<td>1.02</td>
 </tr>
 </tbody>
 </table>

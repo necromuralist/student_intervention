@@ -8,10 +8,11 @@ Training and Evaluating Models
 
 
 
+
 Logistic Regression
 ~~~~~~~~~~~~~~~~~~~
 
-The first model I chose was `Logistic Regression <http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression>`_. Logistic regression is a linear classification model that is useful when the target variable is categorical and the feature variables are either numeric or categorical (Peng C., et al, 2002), although the categorical variables have to be converted to numeric values prior to use. Logistic Regression has the advantage of being computationally cheap, reasonable to implement, and is interpretable but has the disadvantage that it is prone to underfitting (Harrington, 2012).
+The first model I chose was `Logistic Regression <http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression>`_. Logistic regression is a linear classification model that is useful when the target variable is categorical and the feature variables are numeric (Peng C., et al, 2002). If the features are categorical then they have to be converted to discrete numeric values prior to use. Logistic Regression has the advantage of being computationally cheap, reasonable to implement, and is interpretable but has the disadvantage that it is prone to underfitting (Harrington, 2012).
 
 I chose this model for thre primary reasons:
 
@@ -86,11 +87,11 @@ Best score and size of data-set that gave the best test score:
 .. csv-table:: RandomForestClassifier
    :header: Size,Time (train),Time (predict),Train F1,Test F1
 
-   100,0.0198,0.0011,0.9841,0.6557
-   200,0.0208,0.0011,0.9887,0.7087
-   300,0.0218,0.0012,0.9949,0.7714
+   100,0.0203,0.0011,0.9921,0.7049
+   200,0.0217,0.0012,0.9923,0.7302
+   300,0.0224,0.0012,0.9949,0.7937
 Best score and size of data-set that gave the best test score:
- * best score: 0.77
+ * best score: 0.79
  * best size: 300
 
 .. csv-table:: KNeighborsClassifier
@@ -98,7 +99,7 @@ Best score and size of data-set that gave the best test score:
 
    100,0.0004,0.0013,0.8244,0.7519
    200,0.0005,0.0019,0.8099,0.7536
-   300,0.0006,0.0027,0.8491,0.7945
+   300,0.0007,0.0027,0.8491,0.7945
 Best score and size of data-set that gave the best test score:
  * best score: 0.79
  * best size: 300
@@ -113,8 +114,8 @@ Summation
 Classifier                Score    Training-Size    Training-Time    Prediction-Time
 ======================  =======  ===============  ===============  =================
 LogisticRegression         0.81              300           0.0029             0.0001
-KNeighborsClassifier       0.79              300           0.0006             0.0027
-RandomForestClassifier     0.77              300           0.0218             0.0012
+KNeighborsClassifier       0.79              300           0.0007             0.0027
+RandomForestClassifier     0.79              300           0.0224             0.0012
 ======================  =======  ===============  ===============  =================
 
 
@@ -132,9 +133,9 @@ Training Times
 ===========================================  =======
 Classifiers                                    Ratio
 ===========================================  =======
-LogisticRegression/KNeighborsClassifier         4.45
-RandomForestClassifier/KNeighborsClassifier    33.75
-RandomForestClassifier/LogisticRegression       7.59
+LogisticRegression/KNeighborsClassifier         4.44
+RandomForestClassifier/KNeighborsClassifier    34.35
+RandomForestClassifier/LogisticRegression       7.74
 ===========================================  =======
 
 
@@ -146,9 +147,9 @@ Prediction Times
 ===========================================  =======
 Classifiers                                    Ratio
 ===========================================  =======
-KNeighborsClassifier/LogisticRegression        20.23
-KNeighborsClassifier/RandomForestClassifier     2.29
-RandomForestClassifier/LogisticRegression       8.84
+KNeighborsClassifier/LogisticRegression        19.74
+KNeighborsClassifier/RandomForestClassifier     2.21
+RandomForestClassifier/LogisticRegression       8.92
 ===========================================  =======
 
 
@@ -161,8 +162,8 @@ F1 Prediction Scores (Test Set)
 Classifiers                                    Ratio
 ===========================================  =======
 LogisticRegression/KNeighborsClassifier         1.02
-KNeighborsClassifier/RandomForestClassifier     1.03
-LogisticRegression/RandomForestClassifier       1.05
+KNeighborsClassifier/RandomForestClassifier     1
+LogisticRegression/RandomForestClassifier       1.02
 ===========================================  =======
 
 
