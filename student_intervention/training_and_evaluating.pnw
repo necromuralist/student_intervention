@@ -16,14 +16,17 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
 # this code
-from common import TrainTestData, print_image_directive, RANDOM_STATE, SCALE
+from common import (TrainTestData, print_image_directive,
+                    RANDOM_STATE, SCALE, STYLE)
 @
 <<name='unpickle', echo=False>>=
 with open('pickles/train_test_data.pkl', 'rb') as unpickler:
     data = pickle.load(unpickler)
 X_train, X_test, y_train, y_test = data
 @
-
+<<name='seaborn_setup', echo=False>>=
+seaborn.set_style(STYLE)
+@
 <<name='constants', echo=False>>=
 REPETITIONS = 100
 INTERESTING_SIZES = (100, 200, 300)
@@ -35,9 +38,9 @@ MIN_SIZE = 10
 Logistic Regression
 ~~~~~~~~~~~~~~~~~~~
 
-The first model I chose was `Logistic Regression <http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression>`_. Logistic regression is a linear classification model that is useful when the target variable is categorical and the feature variables are either numeric or categorical (Peng C., et al, 2002), although the categorical variables have to be converted to numeric values prior to use. Logistic Regression has the advantage of being computationally cheap, reasonable to implement, and is interpretable but has the disadvantage that it is prone to underfitting (Harrington, 2012).
+The first model I chose was `Logistic Regression <http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression>`_. Logistic regression is a linear classification model that is useful when the target variable is categorical and the feature variables are numeric (Peng C., et al, 2002). If the features are categorical then they have to be converted to discrete numeric values prior to use. Logistic Regression has the advantage of being computationally cheap, reasonable to implement, and is interpretable but has the disadvantage that it is prone to underfitting (Harrington, 2012).
 
-I chose this model for thre primary reasons:
+I chose this model for three primary reasons:
 
   * Its coefficients are interpretable so besides predicting whether a student is at risk, factors that are most influential in determining students who are at risk can be identified
   * It suports ridge regression, including lasso regression which might help reduce the number of variables in the data set, both to aid interpretation and improve performance

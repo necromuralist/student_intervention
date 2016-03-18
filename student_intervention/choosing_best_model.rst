@@ -5,15 +5,21 @@ Choosing the Best Model
 
 
 
+
+
 Based on the previous experiments I chose *Logistic Regression* as the classifier to use. Given the data available, all three models have comparable F1 scores (on the test data) but the Logistic Regression classifier is the fastest for both training and prediction when compared to *K-Nearest Neighbor* and *Random Forests*. In addition, the Logistic Regression classifier offers readily interpretable coefficients and L1 regression to sparsify the data, allowing us to see the most important of the variables when deciding who will pass their final exam.
 
-Logistic Regression works by estimating the probability that the target feature is 1 given the input features. It does this using the 'sigmoid' function which creates an S-shaped curve which goes to 0 at negative infinity and 1 at positive infinity:
+Logistic Regression works by estimating the probability that a student's attributes - such as their age, how often they go out, etc. -  predicts that they will pass. It does this using the *logistic function* which creates an S-shaped curve which goes to 0 at negative infinity and 1 at positive infinity:
+
+.. '
 
 .. math::
 
-   P(y=1|x) = \frac{1}{1+e^{-w^Tx}}\\
+   P(passed=yes|attributes) = \frac{1}{1+e^{-weights^T \times attributes}}\\
 
-Here *x* is a vector of feature data and *w* is the vector of weights that the Logistic Regression algorithm finds. The output of this function when there is one feature with a weight of 1 looks like this.
+Here *attributes* is a vector of student attributes and *weights* is the vector of weights that the Logistic Regression algorithm finds. To see what this function looks like I'll plot its output when there is a weight of one and a single attribute whose values are centered around 0, since this is a fictional attribute that I'm creating for plotting I'll call it *x*.
+
+.. '
 
 
 .. image:: figures/sigmoid_function.*
@@ -22,7 +28,13 @@ Here *x* is a vector of feature data and *w* is the vector of weights that the L
 
 
 
-When :math:`P(y=1|x)` is greater than 0.5, then the probability is greater than 0.5 that the output should be 1 so the output is classified as a 1, otherwise it is classified as 0.
+To clarify the previous equation, if we only had two attributes, *age* and *school* to predict if a student passed, then it could be written as:
+
+.. math::
+
+   \textit{probability student passed given age and school} = \frac{1}{1+e^{-(intercept + w_1 \times age + w_2 \times school)}}\\
+
+The goal of the Logistic Regression algorithm is to find the weights that most accurately predict whether a given student passes or not. In other words, it seeks to find the values for the weights so that the logistic function most accurately produces a probability greater than :math:`\frac{1}{2}` if the student passed and a probablity less than :math:`\frac{1}{2}` if the student did not pass.
 
 
 
@@ -89,7 +101,7 @@ failures    number of past class failures            -0.46    0.63
 
 
 
-These are the variables that remained in the best model after the regularization was applied, sorted by their coefficient-values. The coefficients are log-odds so calculating :math:`e^{coefficient}` gives you the increase in odds that the student will graduate for every unit-increase for that variable (Peng C. et al., 2002).
+These are the variables that remained in the best model after the regularization was applied, sorted by their coefficient-values. The coefficients are log-odds so calculating :math:`e^{coefficient}` gives you the increase in odds that the student will graduate (Peng C. et al., 2002). If the odds are greater than one, then increasing the attribute associated with the coefficient will increase the probability that the student passed and if the odds are less than one, then increasing the attribute associated with the coefficient will reduce the probability that the student passed.
 
 Positive Contributions
 ++++++++++++++++++++++
