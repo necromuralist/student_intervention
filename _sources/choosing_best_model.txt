@@ -9,32 +9,11 @@ Choosing the Best Model
 
 Based on the previous experiments I chose *Logistic Regression* as the classifier to use. Given the data available, all three models have comparable F1 scores (on the test data) but the Logistic Regression classifier is the fastest for both training and prediction when compared to *K-Nearest Neighbor* and *Random Forests*. In addition, the Logistic Regression classifier offers readily interpretable coefficients and L1 regression to sparsify the data, allowing us to see the most important of the variables when deciding who will pass their final exam.
 
-Logistic Regression works by estimating the probability that a student's attributes - such as their age, how often they go out, etc. -  predicts that they will pass. It does this using the *logistic function* which creates an S-shaped curve which goes to 0 at negative infinity and 1 at positive infinity:
+Logistic Regression works by using optimization methods to find the best parameters for a function that calculates the probability that a student's attributes (e.g. *age*, *school*, etc.) predicts that he or she will pass the final exam. When the Logistic Regression model is created, the parameters are adjusted to maximize the *f1 score*, a weighted average of the model's *precision* and *recall*.
+
+Once the model is created, it is used to predict whether a student will pass the exam by multiplying the student's attributes by the model's parameters and these products are summed and added to the intercept. The resulting sum is then converted to a probability - if the probability is greater than :math:`\frac{1}{2}` the prediction will be that the student passed (*passed='yes'*) otherwise it will be that the student did not pass (*passed='no'*).
 
 .. '
-
-.. math::
-
-   P(passed=yes|attributes) = \frac{1}{1+e^{-weights^T \times attributes}}\\
-
-Here *attributes* is a vector of student attributes and *weights* is the vector of weights that the Logistic Regression algorithm finds. To see what this function looks like I'll plot its output when there is a weight of one and a single attribute whose values are centered around 0, since this is a fictional attribute that I'm creating for plotting I'll call it *x*.
-
-.. '
-
-
-.. image:: figures/sigmoid_function.*
-   :align: center
-   :scale: 85%
-
-
-
-To clarify the previous equation, if we only had two attributes, *age* and *school* to predict if a student passed, then it could be written as:
-
-.. math::
-
-   \textit{probability student passed given age and school} = \frac{1}{1+e^{-(intercept + w_1 \times age + w_2 \times school)}}\\
-
-The goal of the Logistic Regression algorithm is to find the weights that most accurately predict whether a given student passes or not. In other words, it seeks to find the values for the weights so that the logistic function most accurately produces a probability greater than :math:`\frac{1}{2}` if the student passed and a probablity less than :math:`\frac{1}{2}` if the student did not pass.
 
 
 
