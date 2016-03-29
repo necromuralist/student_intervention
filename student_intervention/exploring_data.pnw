@@ -17,6 +17,7 @@ from common import student_data
 <<name='seaborn_settings', echo=False>>=
 seaborn.set_style(STYLE)
 @
+Here are some summary statistics describing the `data set <https://archive.ics.uci.edu/ml/datasets/Student+Performance>`_ of student data.
 
 .. csv-table:: Summary Statistics
    :header: Statistic, Value
@@ -40,7 +41,9 @@ print("   Graduation rate of the class, {:.2f}%".format(100 * grad_rate))
 Passed
 ~~~~~~
 
-The target variable is 'passed'.
+In the original data set, the target was a grade (ranging from 0 to 20) but has been re-cast here to a binary target (0 = didn't pass, 1 =passed ). The target variable is named 'passed'.
+
+.. '
 
 <<name='passed', echo=False, results='sphinx', include=False>>=
 passing_rates = student_data.passed.value_counts()/student_data.passed.count()
