@@ -41,7 +41,7 @@ print("   Graduation rate of the class, {:.2f}%".format(100 * grad_rate))
 Passed
 ~~~~~~
 
-In the original data set, the target was a grade (ranging from 0 to 20) but has been re-cast here to a binary target (0 = didn't pass, 1 =passed ). The target variable is named 'passed'.
+In the original data set, the target was a grade (ranging from 0 to 20) but has been re-cast here to a binary target (0 = *didn't pass*, 1 = *passed* ). The target variable is named 'passed'.
 
 .. '
 
@@ -51,6 +51,7 @@ filename = 'passing_count'
 figure = plot.figure()
 axe = figure.gca()
 axe.set_ylabel('proportion')
+axe.set_xlabel("Student Passed")
 axe.set_title("Proportion of Passing Students")
 grid = seaborn.barplot(x=passing_rates.index, y=passing_rates.values, ax=axe)
 print_image_directive(filename, figure)

@@ -7,6 +7,7 @@ Exploring the Data
 
 
 
+Here are some summary statistics describing the `data set <https://archive.ics.uci.edu/ml/datasets/Student+Performance>`_ of student data.
 
 .. csv-table:: Summary Statistics
    :header: Statistic, Value
@@ -22,7 +23,9 @@ Exploring the Data
 Passed
 ~~~~~~
 
-The target variable is 'passed'.
+In the original data set, the target was a grade (ranging from 0 to 20) but has been re-cast here to a binary target (0 = *didn't pass*, 1 = *passed* ). The target variable is named 'passed'.
+
+.. '
 
 
 .. image:: figures/passing_count.*
