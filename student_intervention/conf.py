@@ -36,7 +36,8 @@ extensions = ['sphinx.ext.autosummary',
               'sphinx.ext.inheritance_diagram',
               'sphinxcontrib.plantuml',
               'sphinx.ext.graphviz',
-              'sphinx.ext.todo']
+              'sphinx.ext.todo',
+              'bokeh.sphinxext.bokeh_plot']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

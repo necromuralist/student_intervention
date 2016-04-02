@@ -1,6 +1,4 @@
-Training and Evaluating Models
-------------------------------
-<<name='imports', echo=False>>=
+
 #python standard library
 import pickle
 import time
@@ -9,6 +7,8 @@ from collections import namedtuple
 # third party
 import matplotlib.pyplot as plot
 import numpy
+import plotly
+import plotly.tools as p_tools
 import seaborn
 from sklearn.metrics import f1_score
 from sklearn.linear_model import LogisticRegression
@@ -18,80 +18,19 @@ from sklearn.neighbors import KNeighborsClassifier
 # this code
 from common import (TrainTestData, print_image_directive,
                     RANDOM_STATE, SCALE, STYLE)
-@
-<<name='unpickle', echo=False>>=
+
 with open('pickles/train_test_data.pkl', 'rb') as unpickler:
     data = pickle.load(unpickler)
 X_train, X_test, y_train, y_test = data
-@
-<<name='seaborn_setup', echo=False>>=
+
 seaborn.set_style(STYLE)
-@
-<<name='constants', echo=False>>=
+
 REPETITIONS = 100
 INTERESTING_SIZES = (100, 200, 300)
 STEP_SIZE = 10
 MAX_SIZE = 300 + STEP_SIZE
 MIN_SIZE = 10
-@
 
-Logistic Regression
-~~~~~~~~~~~~~~~~~~~
-
-The first model I chose was `Logistic Regression <http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression>`_. Logistic regression is a linear classification model that is useful when the target variable is categorical and the feature variables are numeric (Peng C., et al, 2002). If the features are categorical then they have to be converted to discrete numeric values prior to use (as will be done here). Logistic Regression has the advantage of being computationally cheap, reasonable to implement, and is interpretable but has the disadvantage that it is prone to under-fitting (Harrington, 2012).
-
-I chose this model for three primary reasons:
-
-  * Its coefficients are interpretable so besides predicting whether a student is at risk, factors that are most influential in determining students who are at risk can be identified
-  * It supports ridge regression, including lasso regression which might help reduce the number of variables in the data set, both to aid interpretation and improve performance
-  * It is well understood/well studied
-
-Since it is a linear model it performs best when the data is linearly separable, which makes it a complement to Random Forests, the next model I chose.
-  
-Random Forests
-~~~~~~~~~~~~~~
-
-`Random Forests <http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier>`_ are ensemble learners that combine predictions from multiple decision trees.
-
-Decision Trees have several advantages including:
-
-   * they are interpretable
-   * they can sometimes fit complex data more easily than linear models
-   * they don't require dummy variables. 
-
-.. '
-   
-They are, however, generally not as accurate (James G. et al., 2013). Random Forests overcome the failings of the individual Decision Trees using two methods:
-
- *  training each tree on a separate data set that is created by re-sampling with replacement from the original training set ( *bagging*) which improves the accuracy of the forest over that of an individual tree. 
- *  each tree in the forest uses a random sub-set of the features when deciding on a split so that there is sufficient diversity in the forest to improve reliability 
-
-The predicted output for the features is created by taking an average of the predictions given by the trees.
-
-Random forests, like decision trees, can be used for either classification or regression, but the trade-off for their improved accuracy is that the ensemble is not as directly interpretable as the individual decision trees are. Decision Trees, and thus Random Forests, don't assume linear separability and can perform better than linear models when the data isn't linearly separable, but may not do as well in the cases where the linear model is appropriate (James G. et al., 2013), thus, given the number of variables I thought that it might be more effective on this data set in the event that Logistic Regression cannot model the data well.
-
-K-Nearest Neighbors
-~~~~~~~~~~~~~~~~~~~
-
-My final predictor used `K-Nearest Neighbors (KNN) <http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier>`_ classification. It is a fairly straight-forward method that doesn't build a model in the sense that the other two methods do. Instead KNN stores the training data and when asked to make a prediction finds the *k* number of points in the training data that are 'closest' to the input and calculates then
-probability of a classification (say *y=1*) as the fraction of the k-neighbors that are of that class. Thus if k=4 and three of the chosen neighbors are classified as *1* then the predicted class will be *1*, because the majority of the neighbors were 1.
-
-Because *KNN* doesn't build a model the way the other two classifiers do, it has the quickest training time but trades this for the longest prediction times.
-
-Unlike Logistic Regression, KNN doesn't require linear separability and unlike some other methods also makes no assumption about the distribution of the data (it is *non-parametric*). This makes KNN more flexible, but how accurate it is depends on the choice of *k*. If *k* is too small it will tend to over-fit the training data and if *k* is too large, it will become too rigid. Besides the difficulty in choosing *k*, because it is non-parametric it's not possible to inspect the model to decide which features are important and it needs more data to be accurate (James G., et al., 2013).
-
-I thought that KNN might be a good non-parametric alternative to Logistic Regression since the data comes from students attending two schools in Portugal which might make the instances more similar than dissimilar, the 'nearest neighbor' method was conceptually appropriate and it is different enough in approach that it might improve on the other two methods should the separation of the classes be unusually difficult.
-
-.. '
-
-Performance Comparisons
-~~~~~~~~~~~~~~~~~~~~~~~
-
-To compare the models each was fit using their default parameters on the same sub-sets of the data. The sub-sets were made of the first 100, 200, and 300 observations of the data. Times are in seconds and the 'best' scores are based on their F1 scores, the weighted average of their prediction and recall scores.
-
-Since the running times are based on my machine's performance as much as that of the classifiers' all times are the minimum value from 100 repetitions (following the advice in the python `timeit <https://docs.python.org/2/library/timeit.html>`_ documentation). The f1-scores are the median values for the 100 repetitions.
-
-<<name='classifier_performance', echo=False, wrap=False>>=
 class Classifier(object):
     """
     Trains, predicts, evaluates classifier using f1 score
@@ -231,9 +170,7 @@ class Classifier(object):
                                                                                    self.f1_training,
                                                                                    self.f1_test)])
         return self._table_row
-@
 
-<<name='train_and_predict', echo=False>>=
 def train_and_predict(model, delimiter=','):
     """
     :param:
@@ -257,11 +194,9 @@ def train_and_predict(model, delimiter=','):
         classifier.f1_test
         all_tests[size] = classifier
     return max(scores), all_tests
-@
-<<name='classifier_data', echo=False, wrap=False>>=
+
 ClassifierData = namedtuple('ClassifierData', 'score size name container'.split())
-@
-<<name='classify', echo=False, wrap=False, results='sphinx'>>=
+
 classifiers = [LogisticRegression(),
                RandomForestClassifier(),
                KNeighborsClassifier()]
@@ -284,36 +219,19 @@ for classifier in classifiers:
                           container=classifier_container)
     best_scores.append(data)
 print('')
-@
 
-Summation
-+++++++++
-
-<<name='summation_table', echo=False, results='sphinx', wrap=False>>=
 from tabulate import tabulate
 table = [[best.name, "{0:.2f}".format(best.score), best.size,
           '{0:.4f}'.format(best.container.training_time), '{0:.4f}'.format(best.container.prediction_time)]
          for index,best in enumerate(sorted(best_scores, reverse=True))]
 print(tabulate(table, headers='Classifier Score (f1 test) Training-Size Training-Time Prediction-Time'.split(), tablefmt='rst'))
-@
 
-It looks like all three did about equally well on the test-sets.
-
-As expected, KNN had the shortest training time and the longest prediction time. Since the values are so small, I'll look at the ratios of the times next instead of the absolute times.
-
-.. '
-
-<<name='setup_times', echo=False>>=
 SIZE = 300
 knn_300 = containers['KNeighborsClassifier'][SIZE]
 logistic_300 = containers['LogisticRegression'][SIZE]
 forests_300 = containers['RandomForestClassifier'][SIZE]
 decimals = '{0:.2f}'.format
 
-@
-Training Times
-``````````````
-<<name='training_ratios', echo=False, results='sphinx', wrap=False>>=
 table = [['LogisticRegression/KNeighborsClassifier', 
           decimals(logistic_300.training_time/knn_300.training_time)],
          ['RandomForestClassifier/KNeighborsClassifier',
@@ -321,13 +239,7 @@ table = [['LogisticRegression/KNeighborsClassifier',
          ['RandomForestClassifier/LogisticRegression',
           decimals(forests_300.training_time/logistic_300.training_time)]]
 print(tabulate(table, headers='Classifiers Ratio'.split(), tablefmt='rst'))
-@
 
-The Random Forest classifier was 5-10 times slower than the Logistic Regression classifier, which was itself about 5 times slower than the KNN classifier when training the models.
-
-Prediction Times
-````````````````
-<<name='ratios', echo=False, results='sphinx', wrap=False>>=
 table = [['KNeighborsClassifier/LogisticRegression', 
           decimals(knn_300.prediction_time/logistic_300.prediction_time)],
          ['KNeighborsClassifier/RandomForestClassifier',
@@ -335,13 +247,7 @@ table = [['KNeighborsClassifier/LogisticRegression',
          ['RandomForestClassifier/LogisticRegression',
           decimals(forests_300.prediction_time/logistic_300.prediction_time)]]
 print(tabulate(table, headers='Classifiers Ratio'.split(), tablefmt='rst'))
-@
 
-It looks like the Logistic Regression classifier was significantly faster than either the Random Forest classifier or the K-Nearest Neighbors classifier - about 20 times faster than KNN and 5-10 times faster than the Random Forest classifier.
-
-F1 Prediction Scores (Test Set)
-```````````````````````````````
-<<name='prediction_ratios', echo=False, results='sphinx', wrap=False>>=
 table = [['LogisticRegression/KNeighborsClassifier', 
           decimals(logistic_300.f1_test/knn_300.f1_test)],
          ['KNeighborsClassifier/RandomForestClassifier',
@@ -349,16 +255,7 @@ table = [['LogisticRegression/KNeighborsClassifier',
          ['LogisticRegression/RandomForestClassifier',
           decimals(logistic_300.f1_test/forests_300.f1_test)]]
 print(tabulate(table, headers='Classifiers Ratio'.split(), tablefmt='rst'))
-@
 
-The three models seem to have been comparable once the training data reached 300 instances.
-
-F1 Scores
-~~~~~~~~~
-
-Although I printed the tables for the F1 scores I will plot them here to take a closer look at them. The training-set sizes for the plots ranged from 10 to 300, increasing in steps of 10.
-
-<<name='plot_scores', echo=False, results='sphinx', wrap=False>>=
 def plot_scores(which_f1='test'):
     sizes = sorted(containers['LogisticRegression'].keys())
     figure = plot.figure()
@@ -375,29 +272,15 @@ def plot_scores(which_f1='test'):
     axe.set_ylabel('F1 Score')
     axe.set_ylim([0, 1.0])
     filename = 'f1_scores_{0}'.format(which_f1)
-    print_image_directive(filename, figure, scale=SCALE)
+    #print_image_directive(filename, figure, scale=SCALE)
+    plotly_fig = p_tools.mpl_to_plotly(figure)
+    plotly.offline(plotly_fig)
     return
-@
 
-Training Set
-++++++++++++
-
-<<name='plot_train_scores', echo=False, results='sphinx', wrap=False, include=False>>=
 plot_scores('training')
-@
 
-The Random Forest did well on the training set from the start, while the K-nearest Neighbor classifier  and the Logistic Regression classifier were erratic until just over 100 training instances. Neither K-Nearest Neighbors nor Logistic Regression was able to do as well on the training set as Random Forests did, suggesting that they are under-fitting the data.
-
-Test Set
-++++++++
-
-<<name='plot_test_scores', echo=False, results='sphinx', wrap=False, include=False>>=
 plot_scores()
-@
 
-All three classifiers did comparably once the training set was increased to 300 instances, but the Random Forest Classifier shows larger fluctuations in the F1 score than the other classifiers, while the Logistic Regression classifier seemed to be the most stable, and performed the best for most of the instance-counts.
-
-<<name='plot_test_train', echo=False, results='sphinx', wrap=False, include=False>>=
 def plot_test_train(model):
     sizes = sorted(containers['LogisticRegression'].keys())
     figure = plot.figure()
@@ -417,25 +300,9 @@ def plot_test_train(model):
     filename = 'f1_scores_{0}'.format(model)
     print_image_directive(filename, figure, scale=SCALE)
     return
-@
 
-Comparing Test vs Train Scores by Model
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-<<name='plot_logistic', echo=False, wrap=False, include=False, results='sphinx'>>=
 plot_test_train('LogisticRegression')
-@
 
-The training and testing sets for the Logistic Regression seem to be converging around 0.8, suggesting the model is under-fitting and may not be complex enough for the data. Oddly, the test score is better than  the training score after about 250 training instances. Looking at the table above, the differences are fractional and might just be that the larger training set has proportionally more difficult instances than the test-set.
-
-<<name='plot_knn', echo=False, wrap=False, include=False, results='sphinx'>>=
 plot_test_train('KNeighborsClassifier')
-@
 
-The K-Nearest Neighbors classifier seems to perform comparably to the Logistic Regression classifier, although the two curves haven't converged yet, suggesting that it might be improved with more data, although it will still under-fit the data.
-
-<<name='plot_forest', echo=False, wrap=False, include=False, results='sphinx'>>=
 plot_test_train('RandomForestClassifier')
-@
-
-The Random Forest classifier doesn't do better with the test data than the other two classifiers but is much better with the training data, suggesting that it is currently overfitting, and might be improved with more data.

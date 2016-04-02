@@ -1,6 +1,4 @@
-Preparing the Data
-------------------
-<<name='imports', echo=False>>=
+
 # python standard library
 import pickle
 
@@ -11,15 +9,7 @@ from sklearn.cross_validation import train_test_split
 # this code
 from common import (student_data, feature_map, TrainTestData,
                     train_test_path, RANDOM_STATE)
-@
-In this section, we will prepare the data for modeling, training and testing.
 
-Identify feature and target columns
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The target (as noted previously) is the 'passed' column. Here I'll list the feature columns to get an idea of what's there.
-
-<<name='feature_target_split', echo=False>>=
 # Extract feature (X) and target (y) columns
 feature_columns = list(student_data.columns[:-1])  # all columns but last are features
 target_column = student_data.columns[-1]  # last column is the target/label
@@ -27,11 +17,7 @@ X_all = student_data[feature_columns]  # feature values for all students
 y_all = student_data[target_column]  # corresponding targets/labels
 
 assert len(y_all) == 395, "Expected: 395 Actual: {1}".format(len(y_all))
-@
-.. csv-table:: Features
-   :header: Variable, Description, Data Values
-   :delim: ;
-<<name='print_features', echo=False, results='sphinx', wrap=False>>=
+
 for column_name in sorted(feature_columns):
     column = X_all[column_name] 
     dtype = column.dtype
@@ -42,14 +28,7 @@ for column_name in sorted(feature_columns):
     print('   {0};{1};{2}'.format(column_name,
                                       feature_map[column_name],
                                       examples))
-@
 
-Preprocess feature columns
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Some Machine Learning algorithms (e.g. Logistic Regression) require numeric data so the columns with string-data need to be transformed. The columns in this data-set that had 'yes' or 'no' values had the values converted to 1 and 0 respectively. Those columns that had other kinds of categorical data were transformed into dummy-variable columns.
-
-<<name='Preprocess feature columns', echo=False, wrap=False>>=
 def preprocess_features(X):
     """
     Converts categorical data to numeric
@@ -76,24 +55,13 @@ def preprocess_features(X):
 X_all = preprocess_features(X_all)
 y_all = y_all.replace(['yes', 'no'], [1, 0])
 assert len(y_all) == 395, "Expected: 395 Actual: {0}".format(len(y_all))
-@
 
-In addition, the target data was also changed so that instead of 'yes' and 'no' values it contained only '1' and '0' values.
-
-<<name='post_dummies', results='sphinx', echo=False>>=
 original_columns = len(feature_columns)
 with_dummies = len(X_all.columns)
 print("   * Original Feature Columns: {0}".format(original_columns))
 print("   * With Dummies: {0}".format(with_dummies))
 print("\nWith dummy variables there are now {0} more columns in the feature data.".format(with_dummies - original_columns))
-@
 
-Split data into training and test sets
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Next the data was shuffled and then split into training and testing sets.
-
-<<name='train_test_split', echo=False>>=
 # First, decide how many training vs test samples you want
 num_all = student_data.shape[0]  # same as len(student_data)
 assert num_all == 395, "Expected: 395 Actual: {0}".format(num_all)
@@ -106,19 +74,13 @@ X_train, X_test, y_train, y_test = train_test_split(X_all, y_all,
                                                     random_state=RANDOM_STATE)
 assert len(y_train) == 300
 assert len(y_test) == 95
-@
-<<name='pickle_data', echo=False>>=
+
 data = TrainTestData(X_train = X_train,
                      X_test = X_test,
                      y_train = y_train,
                      y_test = y_test)
 with open(train_test_path, 'wb') as pickler:
     pickle.dump(data, pickler)
-@
 
-.. csv-table:: Training and Testing Data
-   :header: Set, Count
-<<name='data_table', echo=False, wrap=False, results='sphinx'>>=
 print("   Training Instances,{0}".format(X_train.shape[0]))
 print("   Test Instances,{0}".format(X_test.shape[0]))
-@
