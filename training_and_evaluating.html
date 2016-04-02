@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Training and Evaluating Models &mdash; Student Intervention System 0.2 documentation</title>
+    <title>Training and Evaluating Models &mdash; Student Intervention System 0.3 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Student Intervention System 0.2 documentation" href="index.html" />
+    <link rel="top" title="Student Intervention System 0.3 documentation" href="index.html" />
     <link rel="next" title="Choosing the Best Model" href="choosing_best_model.html" />
     <link rel="prev" title="Preparing the Data" href="preparing_data.html" />
 <meta charset='utf-8'>
@@ -50,7 +50,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Student Intervention System</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -66,11 +66,11 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="classification_vs_regression.html">Classification vs Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exploring_data.html">Exploring the Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="preparing_data.html">Preparing the Data</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Training and Evaluating Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="choosing_best_model.html">Choosing the Best Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_best_model.html#conclusion">Conclusion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citations.html">Citations</a></li>
 </ul>
 </ul>
@@ -157,12 +157,12 @@
 <h1>Training and Evaluating Models<a class="headerlink" href="#training-and-evaluating-models" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="logistic-regression">
 <h2>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h2>
-<p>The first model I chose was <a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression">Logistic Regression</a>. Logistic regression is a linear classification model that is useful when the target variable is categorical and the feature variables are numeric (Peng C., et al, 2002). If the features are categorical then they have to be converted to discrete numeric values prior to use. Logistic Regression has the advantage of being computationally cheap, reasonable to implement, and is interpretable but has the disadvantage that it is prone to underfitting (Harrington, 2012).</p>
-<p>I chose this model for thre primary reasons:</p>
+<p>The first model I chose was <a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression">Logistic Regression</a>. Logistic regression is a linear classification model that is useful when the target variable is categorical and the feature variables are numeric (Peng C., et al, 2002). If the features are categorical then they have to be converted to discrete numeric values prior to use (as will be done here). Logistic Regression has the advantage of being computationally cheap, reasonable to implement, and is interpretable but has the disadvantage that it is prone to under-fitting (Harrington, 2012).</p>
+<p>I chose this model for three primary reasons:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Its coefficients are interpretable so besides predicting whether a student is at risk, factors that are most influential in determining students who are at risk can be identified</li>
-<li>It suports ridge regression, including lasso regression which might help reduce the number of variables in the data set, both to aid interpretation and improve performance</li>
+<li>It supports ridge regression, including lasso regression which might help reduce the number of variables in the data set, both to aid interpretation and improve performance</li>
 <li>It is well understood/well studied</li>
 </ul>
 </div></blockquote>
@@ -194,7 +194,7 @@
 <p>My final predictor used <a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier">K-Nearest Neighbors (KNN)</a> classification. It is a fairly straight-forward method that doesn&#8217;t build a model in the sense that the other two methods do. Instead KNN stores the training data and when asked to make a prediction finds the <em>k</em> number of points in the training data that are &#8216;closest&#8217; to the input and calculates then
 probability of a classification (say <em>y=1</em>) as the fraction of the k-neighbors that are of that class. Thus if k=4 and three of the chosen neighbors are classified as <em>1</em> then the predicted class will be <em>1</em>, because the majority of the neighbors were 1.</p>
 <p>Because <em>KNN</em> doesn&#8217;t build a model the way the other two classifiers do, it has the quickest training time but trades this for the longest prediction times.</p>
-<p>Unlike Logistic Regression, KNN doesn&#8217;t require linear separability and unlike some other methods also makes no assumption about the distribution of the data (it is <em>non-parametric</em>). This makes KNN more flexible, but how accurate it is depends on the choice of <em>k</em>. If <em>k</em> is too small it will tend to overfit the training data and if <em>k</em> is too large, it will become too rigid. Besides the difficulty in choosing <em>k</em>, because it is non-parametric it&#8217;s not possible to inspect the model to decide which features are important and it needs more data to be accurate (James G., et al., 2013).</p>
+<p>Unlike Logistic Regression, KNN doesn&#8217;t require linear separability and unlike some other methods also makes no assumption about the distribution of the data (it is <em>non-parametric</em>). This makes KNN more flexible, but how accurate it is depends on the choice of <em>k</em>. If <em>k</em> is too small it will tend to over-fit the training data and if <em>k</em> is too large, it will become too rigid. Besides the difficulty in choosing <em>k</em>, because it is non-parametric it&#8217;s not possible to inspect the model to decide which features are important and it needs more data to be accurate (James G., et al., 2013).</p>
 <p>I thought that KNN might be a good non-parametric alternative to Logistic Regression since the data comes from students attending two schools in Portugal which might make the instances more similar than dissimilar, the &#8216;nearest neighbor&#8217; method was conceptually appropriate and it is different enough in approach that it might improve on the other two methods should the separation of the classes be unusually difficult.</p>
 </div>
 <div class="section" id="performance-comparisons">
@@ -220,19 +220,19 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>100</td>
-<td>0.0011</td>
+<td>0.0014</td>
 <td>0.0001</td>
 <td>0.8702</td>
 <td>0.6720</td>
 </tr>
 <tr class="row-odd"><td>200</td>
-<td>0.0025</td>
+<td>0.0036</td>
 <td>0.0001</td>
 <td>0.8333</td>
 <td>0.7910</td>
 </tr>
 <tr class="row-even"><td>300</td>
-<td>0.0029</td>
+<td>0.0042</td>
 <td>0.0001</td>
 <td>0.8075</td>
 <td>0.8120</td>
@@ -266,29 +266,29 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>100</td>
-<td>0.0203</td>
-<td>0.0011</td>
-<td>0.9921</td>
-<td>0.7049</td>
+<td>0.0208</td>
+<td>0.0010</td>
+<td>0.9920</td>
+<td>0.6885</td>
 </tr>
 <tr class="row-odd"><td>200</td>
-<td>0.0217</td>
-<td>0.0012</td>
-<td>0.9923</td>
-<td>0.7302</td>
+<td>0.0219</td>
+<td>0.0010</td>
+<td>1.0000</td>
+<td>0.7111</td>
 </tr>
 <tr class="row-even"><td>300</td>
-<td>0.0224</td>
-<td>0.0012</td>
-<td>0.9949</td>
-<td>0.7937</td>
+<td>0.0231</td>
+<td>0.0011</td>
+<td>0.9873</td>
+<td>0.7969</td>
 </tr>
 </tbody>
 </table>
 <dl class="docutils">
 <dt>Best score and size of data-set that gave the best test score:</dt>
 <dd><ul class="first last simple">
-<li>best score: 0.79</li>
+<li>best score: 0.80</li>
 <li>best size: 300</li>
 </ul>
 </dd>
@@ -313,19 +313,19 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 <tbody valign="top">
 <tr class="row-even"><td>100</td>
 <td>0.0004</td>
-<td>0.0013</td>
+<td>0.0015</td>
 <td>0.8244</td>
 <td>0.7519</td>
 </tr>
 <tr class="row-odd"><td>200</td>
-<td>0.0005</td>
-<td>0.0019</td>
+<td>0.0006</td>
+<td>0.0023</td>
 <td>0.8099</td>
 <td>0.7536</td>
 </tr>
 <tr class="row-even"><td>300</td>
-<td>0.0007</td>
-<td>0.0027</td>
+<td>0.0008</td>
+<td>0.0034</td>
 <td>0.8491</td>
 <td>0.7945</td>
 </tr>
@@ -343,38 +343,38 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 <h3>Summation<a class="headerlink" href="#summation" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <colgroup>
-<col width="29%" />
+<col width="39%" />
+<col width="13%" />
 <col width="9%" />
-<col width="20%" />
-<col width="20%" />
-<col width="22%" />
+<col width="13%" />
+<col width="27%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Classifier</th>
 <th class="head">Score</th>
+<th class="head">(f1</th>
+<th class="head">test)</th>
 <th class="head">Training-Size</th>
-<th class="head">Training-Time</th>
-<th class="head">Prediction-Time</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>LogisticRegression</td>
 <td>0.81</td>
 <td>300</td>
-<td>0.0029</td>
+<td>0.0042</td>
 <td>0.0001</td>
 </tr>
-<tr class="row-odd"><td>KNeighborsClassifier</td>
-<td>0.79</td>
+<tr class="row-odd"><td>RandomForestClassifier</td>
+<td>0.8</td>
 <td>300</td>
-<td>0.0007</td>
-<td>0.0027</td>
+<td>0.0231</td>
+<td>0.0011</td>
 </tr>
-<tr class="row-even"><td>RandomForestClassifier</td>
+<tr class="row-even"><td>KNeighborsClassifier</td>
 <td>0.79</td>
 <td>300</td>
-<td>0.0224</td>
-<td>0.0012</td>
+<td>0.0008</td>
+<td>0.0034</td>
 </tr>
 </tbody>
 </table>
@@ -394,13 +394,13 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>LogisticRegression/KNeighborsClassifier</td>
-<td>4.44</td>
+<td>5.43</td>
 </tr>
 <tr class="row-odd"><td>RandomForestClassifier/KNeighborsClassifier</td>
-<td>34.35</td>
+<td>29.82</td>
 </tr>
 <tr class="row-even"><td>RandomForestClassifier/LogisticRegression</td>
-<td>7.74</td>
+<td>5.49</td>
 </tr>
 </tbody>
 </table>
@@ -420,13 +420,13 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>KNeighborsClassifier/LogisticRegression</td>
-<td>19.74</td>
+<td>28.46</td>
 </tr>
 <tr class="row-odd"><td>KNeighborsClassifier/RandomForestClassifier</td>
-<td>2.21</td>
+<td>3.14</td>
 </tr>
 <tr class="row-even"><td>RandomForestClassifier/LogisticRegression</td>
-<td>8.92</td>
+<td>9.07</td>
 </tr>
 </tbody>
 </table>
@@ -467,7 +467,7 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 <h3>Training Set<a class="headerlink" href="#training-set" title="Permalink to this headline">¶</a></h3>
 <a class="reference internal image-reference" href="_images/f1_scores_training.svg"><div align="center" class="align-center"><img src="_images/f1_scores_training.svg" /></div>
 </a>
-<p>The Random Forest did well on the training set from the start, while the K-nearest Neighbor classifier  and the Logistic Regression classifier were erratic until just over 100 training instances. Neither K-Nearest Neighbors nor Logistic Regression was able to do as well on the training set as Random Forests did, suggesting that they are underfitting the data.</p>
+<p>The Random Forest did well on the training set from the start, while the K-nearest Neighbor classifier  and the Logistic Regression classifier were erratic until just over 100 training instances. Neither K-Nearest Neighbors nor Logistic Regression was able to do as well on the training set as Random Forests did, suggesting that they are under-fitting the data.</p>
 </div>
 <div class="section" id="test-set">
 <h3>Test Set<a class="headerlink" href="#test-set" title="Permalink to this headline">¶</a></h3>
@@ -480,10 +480,10 @@ probability of a classification (say <em>y=1</em>) as the fraction of the k-neig
 <h2>Comparing Test vs Train Scores by Model<a class="headerlink" href="#comparing-test-vs-train-scores-by-model" title="Permalink to this headline">¶</a></h2>
 <a class="reference internal image-reference" href="_images/f1_scores_LogisticRegression.svg"><div align="center" class="align-center"><img src="_images/f1_scores_LogisticRegression.svg" /></div>
 </a>
-<p>The training and testing sets for the Logistic Regression seem to be converging around 0.8, suggesting the model is underfitting and may not be complex enough for the data. Oddly, the test score is better than  the training score after about 250 training instances. Looking at the table above, the differences are fractional and might just be that the larger training set has proportionally more difficult instances than the test-set.</p>
+<p>The training and testing sets for the Logistic Regression seem to be converging around 0.8, suggesting the model is under-fitting and may not be complex enough for the data. Oddly, the test score is better than  the training score after about 250 training instances. Looking at the table above, the differences are fractional and might just be that the larger training set has proportionally more difficult instances than the test-set.</p>
 <a class="reference internal image-reference" href="_images/f1_scores_KNeighborsClassifier.svg"><div align="center" class="align-center"><img src="_images/f1_scores_KNeighborsClassifier.svg" /></div>
 </a>
-<p>The K-Nearest Neighbors classifier seems to perform comparably to the Logistic Regression classifier, although the two curves haven&#8217;t converged yet, suggesting that it might be improved with more data, although it will still underfit the data.</p>
+<p>The K-Nearest Neighbors classifier seems to perform comparably to the Logistic Regression classifier, although the two curves haven&#8217;t converged yet, suggesting that it might be improved with more data, although it will still under-fit the data.</p>
 <a class="reference internal image-reference" href="_images/f1_scores_RandomForestClassifier.svg"><div align="center" class="align-center"><img src="_images/f1_scores_RandomForestClassifier.svg" /></div>
 </a>
 <p>The Random Forest classifier doesn&#8217;t do better with the test data than the other two classifiers but is much better with the training data, suggesting that it is currently overfitting, and might be improved with more data.</p>

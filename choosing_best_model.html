@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Choosing the Best Model &mdash; Student Intervention System 0.2 documentation</title>
+    <title>Choosing the Best Model &mdash; Student Intervention System 0.3 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Student Intervention System 0.2 documentation" href="index.html" />
+    <link rel="top" title="Student Intervention System 0.3 documentation" href="index.html" />
     <link rel="next" title="References" href="citations.html" />
     <link rel="prev" title="Training and Evaluating Models" href="training_and_evaluating.html" />
 <meta charset='utf-8'>
@@ -50,7 +50,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Student Intervention System</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -66,11 +66,11 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="classification_vs_regression.html">Classification vs Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exploring_data.html">Exploring the Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="preparing_data.html">Preparing the Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="training_and_evaluating.html">Training and Evaluating Models</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Choosing the Best Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#conclusion">Conclusion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citations.html">Citations</a></li>
 </ul>
 </ul>
@@ -89,6 +89,7 @@
 <li><a class="reference internal" href="#fitting-the-model">Fitting The Model</a><ul>
 <li><a class="reference internal" href="#parameters">Parameters</a></li>
 <li><a class="reference internal" href="#coefficients">Coefficients</a><ul>
+<li><a class="reference internal" href="#probability-plots">Probability Plots</a></li>
 <li><a class="reference internal" href="#positive-contributions">Positive Contributions</a><ul>
 <li><a class="reference internal" href="#medu">Medu</a></li>
 <li><a class="reference internal" href="#age">age</a></li>
@@ -109,6 +110,7 @@
 <li><a class="reference internal" href="#f1-score-test-set">F1 score (Test Set)</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
 </ul>
 </ul>
 </li>
@@ -249,6 +251,13 @@
 </tbody>
 </table>
 <p>These are the variables that remained in the best model after the regularization was applied, sorted by their coefficient-values. The coefficients are log-odds so calculating <img class="math" src="_images/math/2f7fc2d8310a27a9b113fcbfe3129e7cdd596a3d.png" alt="e^{coefficient}"/> gives you the increase in odds that the student will graduate (Peng C. et al., 2002). If the odds are greater than one, then increasing the attribute associated with the coefficient will increase the probability that the student passed and if the odds are less than one, then increasing the attribute associated with the coefficient will reduce the probability that the student passed.</p>
+<div class="section" id="probability-plots">
+<h4>Probability Plots<a class="headerlink" href="#probability-plots" title="Permalink to this headline">¶</a></h4>
+<p>This is a plot of the various model&#8217;s probabilities. The x-axis is the normalized unique values for each variable and the y-axis is the predicted probability if all the other variables other than the one used in the line are set to zero. The actual y-values aren&#8217;t meaningful, but the relative slopes for the lines makes it easier to see how each variable is affecting the predictions.</p>
+<a class="reference internal image-reference" href="_images/coefficient_probabilities.svg"><div align="center" class="align-center"><img src="_images/coefficient_probabilities.svg" /></div>
+</a>
+<p>The line slopes give a little more intuitive sense of what the coefficients in the previous table are telling us. The best predictor for failing was previous failures while the best predictor for passing was a mother&#8217;s education level.</p>
+</div>
 <div class="section" id="positive-contributions">
 <h4>Positive Contributions<a class="headerlink" href="#positive-contributions" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="medu">
@@ -289,7 +298,7 @@
 </div>
 <div class="section" id="age">
 <h5>age<a class="headerlink" href="#age" title="Permalink to this headline">¶</a></h5>
-<p>This is the age of the student. It wasn&#8217;t immediately obvious why this would be a factor, assuming that the students are all in the same grade, but a plot of the data showed that the ages range from 15 to 22, with the oldest students not passing the final exam, and the 15-17 year olds being more proportionally represented among those who passed than those who didin&#8217;t, possibly because the older students were held back and thus were lower-performers to begin with.</p>
+<p>This is the age of the student. It wasn&#8217;t immediately obvious why this would be a factor, assuming that the students are all in the same grade, but a plot of the data showed that the ages range from 15 to 22, with the oldest students not passing the final exam, and the 15-17 year olds being more proportionally represented among those who passed than those who didn&#8217;t, possibly because the older students were held back and thus were lower-performers to begin with.</p>
 <a class="reference internal image-reference" href="_images/student_age.svg"><div align="center" class="align-center"><img src="_images/student_age.svg" /></div>
 </a>
 </div>
@@ -315,7 +324,7 @@
 <p>This is a straightforward count of the number of absences there were.</p>
 <a class="reference internal image-reference" href="_images/absences.svg"><div align="center" class="align-center"><img src="_images/absences.svg" /></div>
 </a>
-<p>The differences are not large, but the distribution for those that didin&#8217;t pass has a greater spread and at around 10 absences the distributions seem to cross over with the non-passing line raised above the passing line (indicating a greater proportion of non-passing students).</p>
+<p>The differences are not large, but the distribution for those that didn&#8217;t pass has a greater spread and at around 10 absences the distributions seem to cross over with the non-passing line raised above the passing line (indicating a greater proportion of non-passing students).</p>
 </div>
 <div class="section" id="goout">
 <h5>goout<a class="headerlink" href="#goout" title="Permalink to this headline">¶</a></h5>
@@ -338,6 +347,10 @@
 <h2>F1 score (Test Set)<a class="headerlink" href="#f1-score-test-set" title="Permalink to this headline">¶</a></h2>
 <p>The best F1 score for the Logistic Regression classifier was 0.86, which is a slight improvement over the default Logistic Regression classifier used earlier which had an f1 of approximately 0.81 for the test set when trained with 300 training instances.</p>
 </div>
+</div>
+<div class="section" id="conclusion">
+<h1>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h1>
+<p>Using <cite>Logistic Regression</cite> I found created a model with seven variables that predicts whether a student will pass or fail their final exam. There are several ways that this could have been improved. The data-sets wasn&#8217;t balanced (there were more students who passed than that didn&#8217;t pass) which might have an affect on the model. The <code class="docutils literal"><span class="pre">train_test_split</span></code> function has a <code class="docutils literal"><span class="pre">stratify</span></code> parameter that could be used to see if this makes a difference. Additionally, the data set is quite small so it&#8217;s possible that the shuffling of the data before splitting the testing and training data might have an effect. Different random-seeds should be tried to test this. Finally, the other proposed algorithms should be fitted with grid-search as well (both with the full data-sets and with the reduced, seven variable data set) to see how well they perform once their parameters are tuned.</p>
 </div>
 
 

@@ -12,12 +12,12 @@ Training and Evaluating Models
 Logistic Regression
 ~~~~~~~~~~~~~~~~~~~
 
-The first model I chose was `Logistic Regression <http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression>`_. Logistic regression is a linear classification model that is useful when the target variable is categorical and the feature variables are numeric (Peng C., et al, 2002). If the features are categorical then they have to be converted to discrete numeric values prior to use. Logistic Regression has the advantage of being computationally cheap, reasonable to implement, and is interpretable but has the disadvantage that it is prone to underfitting (Harrington, 2012).
+The first model I chose was `Logistic Regression <http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression>`_. Logistic regression is a linear classification model that is useful when the target variable is categorical and the feature variables are numeric (Peng C., et al, 2002). If the features are categorical then they have to be converted to discrete numeric values prior to use (as will be done here). Logistic Regression has the advantage of being computationally cheap, reasonable to implement, and is interpretable but has the disadvantage that it is prone to under-fitting (Harrington, 2012).
 
-I chose this model for thre primary reasons:
+I chose this model for three primary reasons:
 
   * Its coefficients are interpretable so besides predicting whether a student is at risk, factors that are most influential in determining students who are at risk can be identified
-  * It suports ridge regression, including lasso regression which might help reduce the number of variables in the data set, both to aid interpretation and improve performance
+  * It supports ridge regression, including lasso regression which might help reduce the number of variables in the data set, both to aid interpretation and improve performance
   * It is well understood/well studied
 
 Since it is a linear model it performs best when the data is linearly separable, which makes it a complement to Random Forests, the next model I chose.
@@ -52,7 +52,7 @@ probability of a classification (say *y=1*) as the fraction of the k-neighbors t
 
 Because *KNN* doesn't build a model the way the other two classifiers do, it has the quickest training time but trades this for the longest prediction times.
 
-Unlike Logistic Regression, KNN doesn't require linear separability and unlike some other methods also makes no assumption about the distribution of the data (it is *non-parametric*). This makes KNN more flexible, but how accurate it is depends on the choice of *k*. If *k* is too small it will tend to overfit the training data and if *k* is too large, it will become too rigid. Besides the difficulty in choosing *k*, because it is non-parametric it's not possible to inspect the model to decide which features are important and it needs more data to be accurate (James G., et al., 2013).
+Unlike Logistic Regression, KNN doesn't require linear separability and unlike some other methods also makes no assumption about the distribution of the data (it is *non-parametric*). This makes KNN more flexible, but how accurate it is depends on the choice of *k*. If *k* is too small it will tend to over-fit the training data and if *k* is too large, it will become too rigid. Besides the difficulty in choosing *k*, because it is non-parametric it's not possible to inspect the model to decide which features are important and it needs more data to be accurate (James G., et al., 2013).
 
 I thought that KNN might be a good non-parametric alternative to Logistic Regression since the data comes from students attending two schools in Portugal which might make the instances more similar than dissimilar, the 'nearest neighbor' method was conceptually appropriate and it is different enough in approach that it might improve on the other two methods should the separation of the classes be unusually difficult.
 
@@ -77,9 +77,9 @@ Since the running times are based on my machine's performance as much as that of
 .. csv-table:: LogisticRegression
    :header: Size,Time (train),Time (predict),Train F1,Test F1
 
-   100,0.0011,0.0001,0.8702,0.6720
-   200,0.0025,0.0001,0.8333,0.7910
-   300,0.0029,0.0001,0.8075,0.8120
+   100,0.0014,0.0001,0.8702,0.6720
+   200,0.0036,0.0001,0.8333,0.7910
+   300,0.0042,0.0001,0.8075,0.8120
 Best score and size of data-set that gave the best test score:
  * best score: 0.81
  * best size: 300
@@ -87,19 +87,19 @@ Best score and size of data-set that gave the best test score:
 .. csv-table:: RandomForestClassifier
    :header: Size,Time (train),Time (predict),Train F1,Test F1
 
-   100,0.0203,0.0011,0.9921,0.7049
-   200,0.0217,0.0012,0.9923,0.7302
-   300,0.0224,0.0012,0.9949,0.7937
+   100,0.0208,0.0010,0.9920,0.6885
+   200,0.0219,0.0010,1.0000,0.7111
+   300,0.0231,0.0011,0.9873,0.7969
 Best score and size of data-set that gave the best test score:
- * best score: 0.79
+ * best score: 0.80
  * best size: 300
 
 .. csv-table:: KNeighborsClassifier
    :header: Size,Time (train),Time (predict),Train F1,Test F1
 
-   100,0.0004,0.0013,0.8244,0.7519
-   200,0.0005,0.0019,0.8099,0.7536
-   300,0.0007,0.0027,0.8491,0.7945
+   100,0.0004,0.0015,0.8244,0.7519
+   200,0.0006,0.0023,0.8099,0.7536
+   300,0.0008,0.0034,0.8491,0.7945
 Best score and size of data-set that gave the best test score:
  * best score: 0.79
  * best size: 300
@@ -110,13 +110,13 @@ Summation
 +++++++++
 
 
-======================  =======  ===============  ===============  =================
-Classifier                Score    Training-Size    Training-Time    Prediction-Time
-======================  =======  ===============  ===============  =================
-LogisticRegression         0.81              300           0.0029             0.0001
-KNeighborsClassifier       0.79              300           0.0007             0.0027
-RandomForestClassifier     0.79              300           0.0224             0.0012
-======================  =======  ===============  ===============  =================
+======================  =======  =====  =======  ===============
+Classifier                Score    (f1    test)    Training-Size
+======================  =======  =====  =======  ===============
+LogisticRegression         0.81    300   0.0042           0.0001
+RandomForestClassifier     0.8     300   0.0231           0.0011
+KNeighborsClassifier       0.79    300   0.0008           0.0034
+======================  =======  =====  =======  ===============
 
 
 It looks like all three did about equally well on the test-sets.
@@ -133,9 +133,9 @@ Training Times
 ===========================================  =======
 Classifiers                                    Ratio
 ===========================================  =======
-LogisticRegression/KNeighborsClassifier         4.44
-RandomForestClassifier/KNeighborsClassifier    34.35
-RandomForestClassifier/LogisticRegression       7.74
+LogisticRegression/KNeighborsClassifier         5.43
+RandomForestClassifier/KNeighborsClassifier    29.82
+RandomForestClassifier/LogisticRegression       5.49
 ===========================================  =======
 
 
@@ -147,9 +147,9 @@ Prediction Times
 ===========================================  =======
 Classifiers                                    Ratio
 ===========================================  =======
-KNeighborsClassifier/LogisticRegression        19.74
-KNeighborsClassifier/RandomForestClassifier     2.21
-RandomForestClassifier/LogisticRegression       8.92
+KNeighborsClassifier/LogisticRegression        28.46
+KNeighborsClassifier/RandomForestClassifier     3.14
+RandomForestClassifier/LogisticRegression       9.07
 ===========================================  =======
 
 
@@ -186,7 +186,7 @@ Training Set
    :scale: 85%
 
 
-The Random Forest did well on the training set from the start, while the K-nearest Neighbor classifier  and the Logistic Regression classifier were erratic until just over 100 training instances. Neither K-Nearest Neighbors nor Logistic Regression was able to do as well on the training set as Random Forests did, suggesting that they are underfitting the data.
+The Random Forest did well on the training set from the start, while the K-nearest Neighbor classifier  and the Logistic Regression classifier were erratic until just over 100 training instances. Neither K-Nearest Neighbors nor Logistic Regression was able to do as well on the training set as Random Forests did, suggesting that they are under-fitting the data.
 
 Test Set
 ++++++++
@@ -211,7 +211,7 @@ Comparing Test vs Train Scores by Model
    :scale: 85%
 
 
-The training and testing sets for the Logistic Regression seem to be converging around 0.8, suggesting the model is underfitting and may not be complex enough for the data. Oddly, the test score is better than  the training score after about 250 training instances. Looking at the table above, the differences are fractional and might just be that the larger training set has proportionally more difficult instances than the test-set.
+The training and testing sets for the Logistic Regression seem to be converging around 0.8, suggesting the model is under-fitting and may not be complex enough for the data. Oddly, the test score is better than  the training score after about 250 training instances. Looking at the table above, the differences are fractional and might just be that the larger training set has proportionally more difficult instances than the test-set.
 
 
 .. image:: figures/f1_scores_KNeighborsClassifier.*
@@ -219,7 +219,7 @@ The training and testing sets for the Logistic Regression seem to be converging 
    :scale: 85%
 
 
-The K-Nearest Neighbors classifier seems to perform comparably to the Logistic Regression classifier, although the two curves haven't converged yet, suggesting that it might be improved with more data, although it will still underfit the data.
+The K-Nearest Neighbors classifier seems to perform comparably to the Logistic Regression classifier, although the two curves haven't converged yet, suggesting that it might be improved with more data, although it will still under-fit the data.
 
 
 .. image:: figures/f1_scores_RandomForestClassifier.*

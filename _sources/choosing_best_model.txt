@@ -13,8 +13,6 @@ Logistic Regression works by using optimization methods to find the best paramet
 
 Once the model is created, it is used to predict whether a student will pass the exam by multiplying the student's attributes by the model's parameters and these products are summed and added to the intercept. The resulting sum is then converted to a probability - if the probability is greater than :math:`\frac{1}{2}` the prediction will be that the student passed (*passed='yes'*) otherwise it will be that the student did not pass (*passed='no'*).
 
-.. '
-
 
 
 
@@ -82,6 +80,27 @@ failures    number of past class failures            -0.46    0.63
 
 These are the variables that remained in the best model after the regularization was applied, sorted by their coefficient-values. The coefficients are log-odds so calculating :math:`e^{coefficient}` gives you the increase in odds that the student will graduate (Peng C. et al., 2002). If the odds are greater than one, then increasing the attribute associated with the coefficient will increase the probability that the student passed and if the odds are less than one, then increasing the attribute associated with the coefficient will reduce the probability that the student passed.
 
+
+
+
+Probability Plots
++++++++++++++++++
+
+This is a plot of the various model's probabilities. The x-axis is the normalized unique values for each variable and the y-axis is the predicted probability if all the other variables other than the one used in the line are set to zero. The actual y-values aren't meaningful, but the relative slopes for the lines makes it easier to see how each variable is affecting the predictions.
+
+    
+
+.. image:: figures/coefficient_probabilities.*
+   :align: center
+   :scale: 85%
+
+
+The line slopes give a little more intuitive sense of what the coefficients in the previous table are telling us. The best predictor for failing was previous failures while the best predictor for passing was a mother's education level.
+
+.. '
+
+
+
 Positive Contributions
 ++++++++++++++++++++++
 
@@ -118,7 +137,7 @@ Looking at a plot of all the data, as the mother's education-level goes up the p
 age
 ###
 
-This is the age of the student. It wasn't immediately obvious why this would be a factor, assuming that the students are all in the same grade, but a plot of the data showed that the ages range from 15 to 22, with the oldest students not passing the final exam, and the 15-17 year olds being more proportionally represented among those who passed than those who didin't, possibly because the older students were held back and thus were lower-performers to begin with.
+This is the age of the student. It wasn't immediately obvious why this would be a factor, assuming that the students are all in the same grade, but a plot of the data showed that the ages range from 15 to 22, with the oldest students not passing the final exam, and the 15-17 year olds being more proportionally represented among those who passed than those who didn't, possibly because the older students were held back and thus were lower-performers to begin with.
 
 
 .. image:: figures/student_age.*
@@ -170,7 +189,7 @@ This is a straightforward count of the number of absences there were.
 
 
 
-The differences are not large, but the distribution for those that didin't pass has a greater spread and at around 10 absences the distributions seem to cross over with the non-passing line raised above the passing line (indicating a greater proportion of non-passing students).
+The differences are not large, but the distribution for those that didn't pass has a greater spread and at around 10 absences the distributions seem to cross over with the non-passing line raised above the passing line (indicating a greater proportion of non-passing students).
 
 .. '
 
@@ -208,4 +227,9 @@ F1 score (Test Set)
 
 The best F1 score for the Logistic Regression classifier was 0.86, which is a slight improvement over the default Logistic Regression classifier used earlier which had an f1 of approximately 0.81 for the test set when trained with 300 training instances.
 
+
+Conclusion
+----------
+
+Using `Logistic Regression` I found created a model with seven variables that predicts whether a student will pass or fail their final exam. There are several ways that this could have been improved. The data-sets wasn't balanced (there were more students who passed than that didn't pass) which might have an affect on the model. The ``train_test_split`` function has a ``stratify`` parameter that could be used to see if this makes a difference. Additionally, the data set is quite small so it's possible that the shuffling of the data before splitting the testing and training data might have an effect. Different random-seeds should be tried to test this. Finally, the other proposed algorithms should be fitted with grid-search as well (both with the full data-sets and with the reduced, seven variable data set) to see how well they perform once their parameters are tuned.
 

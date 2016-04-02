@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Exploring the Data &mdash; Student Intervention System 0.2 documentation</title>
+    <title>Exploring the Data &mdash; Student Intervention System 0.3 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,9 +28,9 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Student Intervention System 0.2 documentation" href="index.html" />
+    <link rel="top" title="Student Intervention System 0.3 documentation" href="index.html" />
     <link rel="next" title="Preparing the Data" href="preparing_data.html" />
-    <link rel="prev" title="Classification vs Regression" href="classification_vs_regression.html" />
+    <link rel="prev" title="Project 2: Building a Student Intervention System" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -50,7 +50,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Student Intervention System</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -66,11 +66,11 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="classification_vs_regression.html">Classification vs Regression</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Exploring the Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="preparing_data.html">Preparing the Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="training_and_evaluating.html">Training and Evaluating Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="choosing_best_model.html">Choosing the Best Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_best_model.html#conclusion">Conclusion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citations.html">Citations</a></li>
 </ul>
 </ul>
@@ -98,7 +98,7 @@
               
                 
   <li>
-    <a href="classification_vs_regression.html" title="Previous Chapter: Classification vs Regression"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Classificatio...</span>
+    <a href="index.html" title="Previous Chapter: Project 2: Building a Student Intervention System"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Project 2: Bu...</span>
     </a>
   </li>
   <li>
@@ -138,6 +138,7 @@
       
   <div class="section" id="exploring-the-data">
 <h1>Exploring the Data<a class="headerlink" href="#exploring-the-data" title="Permalink to this headline">¶</a></h1>
+<p>Here are some summary statistics describing the <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Student+Performance">data set</a> of student data.</p>
 <table border="1" class="docutils" id="id1">
 <caption><span class="caption-text">Summary Statistics</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -169,7 +170,7 @@
 </table>
 <div class="section" id="passed">
 <h2>Passed<a class="headerlink" href="#passed" title="Permalink to this headline">¶</a></h2>
-<p>The target variable is &#8216;passed&#8217;.</p>
+<p>In the original data set, the target was a grade (ranging from 0 to 20) but has been re-cast here to a binary target (0 = <em>didn&#8217;t pass</em>, 1 = <em>passed</em> ). The target variable is named &#8216;passed&#8217;.</p>
 <a class="reference internal image-reference" href="_images/passing_count.svg"><div align="center" class="align-center"><img src="_images/passing_count.svg" /></div>
 </a>
 <p>As noted above, 67% of the students passed.</p>
