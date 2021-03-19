@@ -1,6 +1,6 @@
 -f /home/charon/.pip/wheels
 Babel==2.2.0
-Jinja2==2.10.1
+Jinja2==2.11.3
 MarkupSafe==0.23
 Pweave==0.24
 Pygments==2.1.3
