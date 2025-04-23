@@ -3,7 +3,7 @@ Babel==2.2.0
 Jinja2==2.11.3
 MarkupSafe==0.23
 Pweave==0.24
-Pygments==2.1.3
+Pygments==2.7.4
 Sphinx==1.3.6
 alabaster==0.7.7
 argparse==1.2.1
